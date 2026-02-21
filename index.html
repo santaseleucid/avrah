@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avrah Product Design Studio</title>
+  <meta name="description" content="From concept to production. We build the products you ship. Embedded systems, IoT, full-stack software, and hardware design.">
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0a;
+      --bg-card: #141414;
+      --bg-card-hover: #1a1a1a;
+      --border: #222;
+      --text: #e5e5e5;
+      --text-muted: #888;
+      --accent: #c9a55a;
+      --accent-dim: rgba(201, 165, 90, 0.12);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+      --max-w: 1080px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout ── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-of-type { border-bottom: none; }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+
+    .nav-logo:hover { text-decoration: none; color: var(--text); }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    .nav-toggle { display: none; background: none; border: none; color: var(--text); cursor: pointer; }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 180px 0 120px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-headline {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .hero-static {
+      display: block;
+      color: var(--text);
+    }
+
+    .hero-cycle-wrapper {
+      display: block;
+      height: 1.15em;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-cycle {
+      display: flex;
+      flex-direction: column;
+      animation: cycleUp 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    .hero-phrase {
+      display: block;
+      height: 1.15em;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    @keyframes cycleUp {
+      0%, 28%    { transform: translateY(0); }
+      33%, 61%   { transform: translateY(-1.15em); }
+      66%, 94%   { transform: translateY(-2.30em); }
+      100%       { transform: translateY(0); }
+    }
+
+    .hero .subtitle {
+      font-size: clamp(18px, 2.5vw, 22px);
+      color: var(--text-muted);
+      max-width: 640px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 600;
+      font-size: 15px;
+      border-radius: 6px;
+      transition: opacity 0.2s;
+    }
+
+    .hero-cta:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Section Headers ── */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 17px;
+      max-width: 560px;
+      margin-bottom: 56px;
+    }
+
+    /* ── Capabilities Grid ── */
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .cap-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 32px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .cap-card:hover {
+      background: var(--bg-card-hover);
+      border-color: #333;
+    }
+
+    .cap-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .cap-card p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .cap-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .cap-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── Work / Case Studies ── */
+    .work-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .work-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 40px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .work-card:hover {
+      background: var(--bg-card-hover);
+      border-color: #333;
+    }
+
+    .work-card .work-meta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .work-card h3 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .work-card .work-desc {
+      color: var(--text-muted);
+      font-size: 15px;
+      margin-bottom: 20px;
+      max-width: 720px;
+    }
+
+    .work-card ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 8px;
+    }
+
+    .work-card li {
+      color: var(--text-muted);
+      font-size: 14px;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .work-card li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 5px;
+      height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .work-award {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 6px 14px;
+      border-radius: 5px;
+    }
+
+    /* ── Process ── */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .process-step {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 32px;
+    }
+
+    .process-num {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .process-step h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .process-step p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── Why Section ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .why-card {
+      padding: 32px;
+      border-left: 2px solid var(--accent);
+    }
+
+    .why-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .why-card p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── Engagement Models ── */
+    .engage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .engage-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px;
+    }
+
+    .engage-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .engage-card .engage-for {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .engage-card .engage-duration {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    /* ── Contact ── */
+    .contact-section {
+      text-align: center;
+      padding: 120px 0;
+    }
+
+    .contact-section .section-title {
+      margin-bottom: 16px;
+    }
+
+    .contact-section .section-desc {
+      margin: 0 auto 40px;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      color: var(--text-muted);
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+
+    .contact-link:hover { color: var(--accent); }
+
+    /* ── About ── */
+    .about-content {
+      max-width: 640px;
+    }
+
+    .about-content .about-name {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--accent);
+      font-style: italic;
+      letter-spacing: 0.02em;
+    }
+
+    .about-content .about-origin {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .about-content p {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .about-content p:last-child { margin-bottom: 0; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      section { padding: 64px 0; }
+      .hero { padding: 120px 0 80px; }
+
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(12px);
+        padding: 24px;
+        gap: 20px;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-toggle { display: block; font-size: 24px; }
+
+      .work-card ul { grid-template-columns: 1fr; }
+      .contact-links { flex-direction: column; align-items: center; gap: 16px; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <a href="#" class="nav-logo">AVRAH.STUDIO</a>
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="#capabilities">Capabilities</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-headline">
+        <span class="hero-static">We take you from</span>
+        <span class="hero-cycle-wrapper">
+          <span class="hero-cycle">
+            <span class="hero-phrase">concept to prototype.</span>
+            <span class="hero-phrase">prototype to production.</span>
+            <span class="hero-phrase">production to scale.</span>
+          </span>
+        </span>
+      </h1>
+      <p class="subtitle">Avrah is a product design studio. We build connected hardware, firmware, cloud infrastructure, and the software around it. Then we hand you something that works.</p>
+      <a href="#contact" class="hero-cta">Start a conversation</a>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
+  <section id="capabilities">
+    <div class="container">
+      <p class="section-label">Capabilities</p>
+      <h2 class="section-title">The whole product, one team</h2>
+      <p class="section-desc">Firmware, cloud, web, data, hardware. One architecture, one team responsible for all of it.</p>
+
+      <div class="capabilities-grid">
+
+        <div class="cap-card">
+          <h3>Embedded Systems & Firmware</h3>
+          <p>Production firmware for connected devices. Real-time systems that ship, not prototypes that need to be rewritten.</p>
+          <div class="cap-tags">
+            <span class="cap-tag">FreeRTOS</span>
+            <span class="cap-tag">ESP-IDF</span>
+            <span class="cap-tag">nRF Connect</span>
+            <span class="cap-tag">ARM Cortex-M</span>
+            <span class="cap-tag">C/C++</span>
+          </div>
+        </div>
+
+        <div class="cap-card">
+          <h3>Wireless & Connectivity</h3>
+          <p>BLE protocol stacks, LTE/CAT-1, Wi-Fi, 5G, LoRa. Everything that gets your device talking to the outside world.</p>
+          <div class="cap-tags">
+            <span class="cap-tag">BLE</span>
+            <span class="cap-tag">LTE</span>
+            <span class="cap-tag">MQTT</span>
+            <span class="cap-tag">LwM2M</span>
+            <span class="cap-tag">CoAP</span>
+          </div>
+        </div>
+
+        <div class="cap-card">
+          <h3>IoT & Cloud</h3>
+          <p>Provisioning, fleet management, OTA updates, telemetry, data pipelines. The cloud side of connected hardware.</p>
+          <div class="cap-tags">
+            <span class="cap-tag">AWS IoT</span>
+            <span class="cap-tag">MQTT</span>
+            <span class="cap-tag">OTA</span>
+            <span class="cap-tag">TLS</span>
+          </div>
+        </div>
+
+        <div class="cap-card">
+          <h3>Security</h3>
+          <p>Secure boot, flash encryption, hardware root of trust, end-to-end encryption. Built to pass penetration testing.</p>
+          <div class="cap-tags">
+            <span class="cap-tag">Secure Boot</span>
+            <span class="cap-tag">AES + RSA</span>
+            <span class="cap-tag">E2E Encryption</span>
+            <span class="cap-tag">Pen Testing</span>
+          </div>
+        </div>
+
+        <div class="cap-card">
+          <h3>Full-Stack Software</h3>
+          <p>Dashboards, APIs, analytics platforms, companion apps. The software your users actually interact with.</p>
+          <div class="cap-tags">
+            <span class="cap-tag">React</span>
+            <span class="cap-tag">TypeScript</span>
+            <span class="cap-tag">Node.js</span>
+            <span class="cap-tag">Django</span>
+            <span class="cap-tag">PostgreSQL</span>
+          </div>
+        </div>
+
+        <div class="cap-card">
+          <h3>Hardware & Manufacturing</h3>
+          <p>PCB design, mechanical engineering, DFM review, prototyping, and manufacturing tooling through our specialist network.</p>
+          <div class="cap-tags">
+            <span class="cap-tag">PCB Design</span>
+            <span class="cap-tag">DFM</span>
+            <span class="cap-tag">Prototyping</span>
+            <span class="cap-tag">Enclosures</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Selected Work -->
+  <section id="work">
+    <div class="container">
+      <p class="section-label">Selected Work</p>
+      <h2 class="section-title">Products we've shipped</h2>
+      <p class="section-desc">Not mockups. Not demos. Products running in the field.</p>
+
+      <div class="work-grid">
+
+        <div class="work-card">
+          <p class="work-meta">Healthcare IoT</p>
+          <h3>Connected Healthcare Gateway</h3>
+          <p>Cellular-connected hub that pairs with medical devices over Bluetooth and sends patient data to the cloud. We built the firmware, the security layer, and the manufacturing tooling. Zero vulnerabilities in pen testing.</p>
+          <ul>
+            <li>65,000+ units deployed and growing</li>
+            <li>10+ medical device types integrated</li>
+            <li>30x faster factory floor production with custom automation tooling</li>
+          </ul>
+        </div>
+
+        <div class="work-card">
+          <p class="work-meta">Transit Analytics</p>
+          <h3>Rail Condition Analytics Platform</h3>
+          <p>Web platform that processes sensor data from rail networks and turns it into maintenance insights. Used by some of the largest transit agencies in North America.</p>
+          <ul>
+            <li>10+ agencies, 5+ years in continuous operation</li>
+            <li>Cut analysis turnaround from weeks to minutes</li>
+          </ul>
+        </div>
+
+        <div class="work-card">
+          <p class="work-meta">Predictive Maintenance</p>
+          <h3>RailSense</h3>
+          <p>Custom IoT hardware deployed across multiple transit agencies. Captures ride vibration data in real time and flags track conditions before they become problems.</p>
+          <ul>
+            <li>Custom sensor hardware, deployed on live rail</li>
+            <li>Real-time data capture during regular passenger service</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section id="process">
+    <div class="container">
+      <p class="section-label">Process</p>
+      <h2 class="section-title">How we work</h2>
+      <p class="section-desc">You get something that works, not a prototype that needs to be rewritten.</p>
+
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <h3>Discovery</h3>
+          <p>Understand the problem first. Define requirements, identify risks, figure out the architecture. Then a fixed-scope proposal with clear milestones.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <h3>Architecture</h3>
+          <p>Hard technical decisions up front. Platform, protocols, security model, cloud architecture. Get these right and the build goes fast.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">03</div>
+          <h3>Build</h3>
+          <p>Focused sprints with regular check-ins. Working hardware and software throughout. TDD and automated testing from day one.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">04</div>
+          <h3>Deliver</h3>
+          <p>Production firmware with OTA. Manufacturing tooling. Test frameworks. Documentation. Knowledge transfer. Maintenance agreements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Avrah -->
+  <section>
+    <div class="container">
+      <p class="section-label">Why Avrah</p>
+      <h2 class="section-title">Why us</h2>
+      <div class="why-grid">
+        <div class="why-card">
+          <h3>We've shipped at scale</h3>
+          <p>65,000+ units in the field. We know the difference between "works on the bench" and "works in production."</p>
+        </div>
+        <div class="why-card">
+          <h3>We own the full stack</h3>
+          <p>Firmware, cloud, web, data. We architect and build the complete system, not just one layer.</p>
+        </div>
+        <div class="why-card">
+          <h3>Production, not demos</h3>
+          <p>Security, OTA, automated testing, manufacturing tooling. The boring stuff that actually matters.</p>
+        </div>
+        <div class="why-card">
+          <h3>Small on purpose</h3>
+          <p>You talk to the engineers who do the work. When we need specialist depth, we bring in people we've worked with before.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Engagement Models -->
+  <section>
+    <div class="container">
+      <p class="section-label">Engagement</p>
+      <h2 class="section-title">How to work with us</h2>
+      <p class="section-desc">Different ways in, depending on where you are.</p>
+
+      <div class="engage-grid">
+        <div class="engage-card">
+          <h3>Fixed-Scope Project</h3>
+          <p class="engage-for">You know what you want built. We scope it, price it, build it.</p>
+          <span class="engage-duration">3 &ndash; 12 months</span>
+        </div>
+        <div class="engage-card">
+          <h3>Discovery & Architecture</h3>
+          <p class="engage-for">You have an idea but need technical direction before committing to a full build.</p>
+          <span class="engage-duration">2 &ndash; 6 weeks</span>
+        </div>
+        <div class="engage-card">
+          <h3>Embedded Team</h3>
+          <p class="engage-for">You have a team but need senior embedded and IoT expertise alongside them.</p>
+          <span class="engage-duration">Ongoing</span>
+        </div>
+        <div class="engage-card">
+          <h3>Retainer</h3>
+          <p class="engage-for">Product's shipped but you need someone to keep it running and evolving.</p>
+          <span class="engage-duration">Monthly</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <p class="section-label">About</p>
+      <h2 class="section-title">The name</h2>
+      <div class="about-content">
+        <p class="about-name">Avrah</p>
+        <p class="about-origin">Aramaic &middot; to create, to build</p>
+        <p>In ancient Aramaic, <em>avra k'davra</em> means "I create as I speak." It's where the word <em>abracadabra</em> comes from. The idea that saying something can make it real.</p>
+        <p>We took the first word. We don't just talk about products. We create them. A conversation becomes a concept, a concept becomes a device in the field. That's the magic.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <p class="section-label">Contact</p>
+      <h2 class="section-title">Ready to build something?</h2>
+      <p class="section-desc">Tell us about your project. We'll be straight with you about whether we're the right fit.</p>
+      <div class="contact-links">
+        <a href="mailto:sanjay.alex@gmail.com" class="contact-link">sanjay.alex@gmail.com</a>
+        <a href="https://linkedin.com/in/sanjay-abraham" target="_blank" rel="noopener" class="contact-link">LinkedIn</a>
+        <a href="https://github.com/santaseleucid" target="_blank" rel="noopener" class="contact-link">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 AVRAH.STUDIO &mdash; Winnipeg, Canada</p>
+    </div>
+  </footer>
+
+</body>
+</html>
