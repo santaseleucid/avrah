@@ -1,0 +1,34 @@
+<svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!--
+    AVRAH Lockup — Stacked (Spark Mark above Wordmark)
+    Gold on transparent.
+  -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&family=JetBrains+Mono:wght@400');
+  </style>
+
+  <!-- Mark (centered) -->
+  <path d="M100 16Q108.25 32.85 126 40Q108.25 47.15 100 64Q91.75 47.15 74 40Q91.75 32.85 100 16Z" fill="#c9a55a"/>
+
+  <!-- Wordmark -->
+  <text
+    x="100" y="108"
+    text-anchor="middle"
+    font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    font-size="36"
+    font-weight="700"
+    letter-spacing="0.14em"
+    fill="#c9a55a"
+  >AVRAH</text>
+
+  <!-- Descriptor -->
+  <text
+    x="100" y="130"
+    text-anchor="middle"
+    font-family="'JetBrains Mono', 'SF Mono', monospace"
+    font-size="9"
+    font-weight="400"
+    letter-spacing="0.2em"
+    fill="#888888"
+  >PRODUCT DESIGN STUDIO</text>
+</svg>

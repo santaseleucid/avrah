@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenSpot — Pitch Deck | Avrah Product Design Studio</title>
+  <meta name="description" content="OpenSpot: Parking, Made Easy. A pitch deck by Avrah Product Design Studio.">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #f3f2ef;
+      --text: #000;
+      --text-muted: #999;
+      --border: #e5e5e5;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: var(--font);
+      background: #111;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: 56px;
+      background: rgba(17, 17, 17, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .topbar-logo {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #e5e5e5;
+      text-decoration: none;
+    }
+
+    .topbar-logo:hover { color: #fff; }
+
+    .topbar-sep {
+      color: #333;
+      font-size: 18px;
+      font-weight: 300;
+    }
+
+    .topbar-project {
+      font-size: 14px;
+      font-weight: 500;
+      color: #888;
+    }
+
+    .topbar-counter {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #666;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Slide viewer ── */
+    .viewer {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+      user-select: none;
+    }
+
+    .slide-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 24px;
+    }
+
+    canvas {
+      max-width: 100%;
+      max-height: 100%;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+    }
+
+    /* ── Navigation arrows ── */
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: #ccc;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s;
+      z-index: 10;
+    }
+
+    .nav-arrow:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .nav-arrow:disabled {
+      opacity: 0.2;
+      cursor: default;
+    }
+
+    .nav-arrow:disabled:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ccc;
+    }
+
+    .nav-prev { left: 24px; }
+    .nav-next { right: 24px; }
+
+    /* ── Bottom controls ── */
+    .controls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 48px;
+      background: rgba(17, 17, 17, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 100;
+    }
+
+    .slide-dots {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .slide-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #333;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .slide-dot:hover {
+      background: #555;
+    }
+
+    .slide-dot.active {
+      background: #e5e5e5;
+      transform: scale(1.3);
+    }
+
+    /* ── Loading ── */
+    .loading {
+      color: #666;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+      }
+
+      .nav-prev { left: 8px; }
+      .nav-next { right: 8px; }
+
+      .slide-container { padding: 16px; }
+
+      .slide-dots { gap: 4px; }
+      .slide-dot { width: 6px; height: 6px; }
+
+      .topbar-project { display: none; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <a href="/" class="topbar-logo">AVRAH.STUDIO</a>
+      <span class="topbar-sep">/</span>
+      <span class="topbar-project">OpenSpot</span>
+    </div>
+    <span class="topbar-counter" id="counter"></span>
+  </div>
+
+  <!-- Slide viewer -->
+  <div class="viewer">
+    <div class="slide-container" id="slideContainer">
+      <p class="loading" id="loading">Loading deck&hellip;</p>
+      <canvas id="slideCanvas"></canvas>
+      <button class="nav-arrow nav-prev" id="prevBtn" aria-label="Previous slide">&#8592;</button>
+      <button class="nav-arrow nav-next" id="nextBtn" aria-label="Next slide">&#8594;</button>
+    </div>
+  </div>
+
+  <!-- Bottom dots -->
+  <div class="controls">
+    <div class="slide-dots" id="dots"></div>
+  </div>
+
+  <script type="module">
+    import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.mjs';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.mjs';
+
+    const canvas = document.getElementById('slideCanvas');
+    const ctx = canvas.getContext('2d');
+    const counter = document.getElementById('counter');
+    const dots = document.getElementById('dots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const loading = document.getElementById('loading');
+
+    let pdfDoc = null;
+    let currentPage = 1;
+    let totalPages = 0;
+    let rendering = false;
+
+    async function renderPage(num) {
+      if (rendering) return;
+      rendering = true;
+
+      const page = await pdfDoc.getPage(num);
+
+      // Calculate scale to fit the available space
+      const container = document.getElementById('slideContainer');
+      const maxW = container.clientWidth - 120; // account for arrows + padding
+      const maxH = container.clientHeight - 16;
+
+      const viewport = page.getViewport({ scale: 1 });
+      const scale = Math.min(maxW / viewport.width, maxH / viewport.height);
+      const scaledViewport = page.getViewport({ scale: scale * window.devicePixelRatio });
+
+      canvas.width = scaledViewport.width;
+      canvas.height = scaledViewport.height;
+      canvas.style.width = (scaledViewport.width / window.devicePixelRatio) + 'px';
+      canvas.style.height = (scaledViewport.height / window.devicePixelRatio) + 'px';
+
+      await page.render({ canvasContext: ctx, viewport: scaledViewport }).promise;
+
+      counter.textContent = `${num} / ${totalPages}`;
+      prevBtn.disabled = num <= 1;
+      nextBtn.disabled = num >= totalPages;
+
+      // Update dots
+      document.querySelectorAll('.slide-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i + 1 === num);
+      });
+
+      rendering = false;
+    }
+
+    function goTo(num) {
+      if (num < 1 || num > totalPages) return;
+      currentPage = num;
+      renderPage(num);
+    }
+
+    // Load PDF
+    const pdf = await pdfjsLib.getDocument('OpenSpot.pdf').promise;
+    pdfDoc = pdf;
+    totalPages = pdf.numPages;
+    loading.style.display = 'none';
+    canvas.style.display = 'block';
+
+    // Build dots
+    for (let i = 1; i <= totalPages; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'slide-dot';
+      dot.setAttribute('aria-label', `Go to slide ${i}`);
+      dot.addEventListener('click', () => goTo(i));
+      dots.appendChild(dot);
+    }
+
+    renderPage(1);
+
+    // Navigation
+    prevBtn.addEventListener('click', () => goTo(currentPage - 1));
+    nextBtn.addEventListener('click', () => goTo(currentPage + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goTo(currentPage - 1); }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); goTo(currentPage + 1); }
+    });
+
+    // Touch swipe
+    let touchStartX = 0;
+    canvas.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+    canvas.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        diff > 0 ? goTo(currentPage + 1) : goTo(currentPage - 1);
+      }
+    });
+
+    // Resize
+    window.addEventListener('resize', () => renderPage(currentPage));
+  </script>
+
+</body>
+</html>

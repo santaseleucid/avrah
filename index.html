@@ -10,14 +10,14 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #0a0a0a;
-      --bg-card: #141414;
-      --bg-card-hover: #1a1a1a;
-      --border: #222;
-      --text: #e5e5e5;
-      --text-muted: #888;
-      --accent: #c9a55a;
-      --accent-dim: rgba(201, 165, 90, 0.12);
+      --bg: #f3f2ef;
+      --bg-card: transparent;
+      --bg-card-hover: transparent;
+      --border: #e5e5e5;
+      --text: #000;
+      --text-muted: #999;
+      --accent: #ff3b00;
+      --accent-dim: rgba(0, 0, 0, 0.04);
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
       --max-w: 1080px;
@@ -34,7 +34,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    a { color: var(--accent); text-decoration: none; }
+    a { color: var(--text); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
     /* ── Layout ── */
@@ -58,7 +58,7 @@
       left: 0;
       right: 0;
       z-index: 100;
-      background: rgba(10, 10, 10, 0.85);
+      background: rgba(243, 242, 239, 0.9);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
@@ -150,11 +150,11 @@
     .hero-cta {
       display: inline-block;
       padding: 14px 32px;
-      background: var(--accent);
+      background: var(--text);
       color: var(--bg);
       font-weight: 600;
       font-size: 15px;
-      border-radius: 6px;
+      border-radius: 2px;
       transition: opacity 0.2s;
     }
 
@@ -163,10 +163,10 @@
     /* ── Section Headers ── */
     .section-label {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.15em;
-      color: var(--accent);
+      color: var(--text-muted);
       margin-bottom: 16px;
     }
 
@@ -194,14 +194,13 @@
     .cap-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 0;
       padding: 32px;
-      transition: background 0.2s, border-color 0.2s;
+      transition: border-color 0.2s;
     }
 
     .cap-card:hover {
-      background: var(--bg-card-hover);
-      border-color: #333;
+      border-color: var(--text);
     }
 
     .cap-card h3 {
@@ -226,10 +225,11 @@
     .cap-tag {
       font-family: var(--font-mono);
       font-size: 11px;
-      color: var(--accent);
-      background: var(--accent-dim);
-      padding: 4px 10px;
-      border-radius: 4px;
+      color: var(--text-muted);
+      background: none;
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 0;
     }
 
     /* ── Work / Case Studies ── */
@@ -241,20 +241,19 @@
     .work-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 0;
       padding: 40px;
-      transition: background 0.2s, border-color 0.2s;
+      transition: border-color 0.2s;
     }
 
     .work-card:hover {
-      background: var(--bg-card-hover);
-      border-color: #333;
+      border-color: var(--text);
     }
 
     .work-card .work-meta {
       font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--accent);
+      font-size: 11px;
+      color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-bottom: 12px;
@@ -291,22 +290,24 @@
       content: '';
       position: absolute;
       left: 0;
-      top: 8px;
-      width: 5px;
-      height: 5px;
-      background: var(--accent);
-      border-radius: 50%;
+      top: 9px;
+      width: 4px;
+      height: 4px;
+      background: var(--text);
+      border-radius: 0;
     }
 
     .work-award {
       display: inline-block;
       margin-top: 16px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--accent);
-      background: var(--accent-dim);
-      padding: 6px 14px;
-      border-radius: 5px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text);
+      background: none;
+      border: 1px solid var(--text);
+      padding: 4px 10px;
+      border-radius: 0;
     }
 
     /* ── Process ── */
@@ -319,7 +320,7 @@
     .process-step {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 0;
       padding: 32px;
     }
 
@@ -327,7 +328,7 @@
       font-family: var(--font-mono);
       font-size: 32px;
       font-weight: 700;
-      color: var(--accent);
+      color: var(--text);
       margin-bottom: 16px;
     }
 
@@ -352,7 +353,7 @@
 
     .why-card {
       padding: 32px;
-      border-left: 2px solid var(--accent);
+      border-left: 1px solid var(--text);
     }
 
     .why-card h3 {
@@ -377,7 +378,7 @@
     .engage-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 0;
       padding: 28px;
     }
 
@@ -396,8 +397,8 @@
 
     .engage-card .engage-duration {
       font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--accent);
+      font-size: 11px;
+      color: var(--text-muted);
     }
 
     /* ── Contact ── */
@@ -427,7 +428,7 @@
       transition: color 0.2s;
     }
 
-    .contact-link:hover { color: var(--accent); }
+    .contact-link:hover { color: var(--text); }
 
     /* ── About ── */
     .about-content {
@@ -438,7 +439,7 @@
       font-size: 28px;
       font-weight: 700;
       margin-bottom: 4px;
-      color: var(--accent);
+      color: var(--text);
       font-style: italic;
       letter-spacing: 0.02em;
     }
@@ -481,7 +482,7 @@
         top: 64px;
         left: 0;
         right: 0;
-        background: rgba(10, 10, 10, 0.95);
+        background: rgba(243, 242, 239, 0.97);
         backdrop-filter: blur(12px);
         padding: 24px;
         gap: 20px;
