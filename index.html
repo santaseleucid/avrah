@@ -3,41 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Avrah Product Design Studio</title>
-  <meta name="description" content="From concept to production. We build the products you ship. Embedded systems, IoT, full-stack software, and hardware design.">
+  <title>Avrah — Studio</title>
+  <meta name="description" content="A small studio in Winnipeg. Contract work in hardware and software. Original ideas we develop ourselves. A community of people who like making things together.">
   <style>
-    /* ── Reset & Base ── */
+    /* ══ Reset ══ */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #f3f2ef;
-      --bg-card: transparent;
-      --bg-card-hover: transparent;
-      --border: #e5e5e5;
-      --text: #000;
-      --text-muted: #999;
-      --accent: #ff3b00;
-      --accent-dim: rgba(0, 0, 0, 0.04);
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --canvas: #efe9dd;
+      --desk: #c8c2b8;
+      --ink: #1c1917;
+      --graphite: #635d58;
+      --clay: #c23838;
+      --red-ink: #c23838;
+      --blue-ink: #2b5ea7;
+      --highlight: #fde68a;
+      --sage: #4a6741;
+      --rule: #d6cfc3;
       --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
-      --max-w: 1080px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-hand: 'Caveat', cursive;
+      --max-w: 920px;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      font-size: 16px;
+      font-family: var(--font-mono);
+      background: var(--desk);
+      color: var(--ink);
+      line-height: 24px;
+      font-size: 15px;
       -webkit-font-smoothing: antialiased;
     }
 
-    a { color: var(--text); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    /* ══ Notebook Page ══ */
+    .page {
+      max-width: 1040px;
+      margin: 0 auto;
+      background-color: var(--canvas);
+      background-image:
+        linear-gradient(to right, var(--canvas) 48px, transparent 48px),
+        radial-gradient(circle, rgba(28, 25, 23, 0.28) 1.1px, transparent 1.1px);
+      background-size: 100% 100%, 24px 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.05);
+      position: relative;
+      min-height: calc(100vh - 44px);
+    }
 
-    /* ── Layout ── */
+    /* Left margin rule */
+    .page::after {
+      content: '';
+      position: absolute;
+      left: 48px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(194, 56, 56, 0.22);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* Binding shadow on left edge */
+    .page::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 24px;
+      background: linear-gradient(to right, rgba(0,0,0,0.04), transparent);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    a { color: var(--ink); text-decoration: none; }
+    a:hover { color: var(--blue-ink); }
+
+    ::selection { background: var(--blue-ink); color: #fff; }
+
+    /* ══ Registration Marks ══ */
+    .reg-mark {
+      position: fixed;
+      z-index: 200;
+      width: 12px;
+      height: 12px;
+      pointer-events: none;
+      opacity: 0.25;
+    }
+    .reg-mark::before,
+    .reg-mark::after {
+      content: '';
+      position: absolute;
+      background: var(--red-ink);
+    }
+    .reg-mark::before { width: 12px; height: 1px; top: 5.5px; left: 0; }
+    .reg-mark::after { width: 1px; height: 12px; left: 5.5px; top: 0; }
+    .reg-mark.tl { top: 12px; left: 12px; }
+    .reg-mark.tr { top: 12px; right: 12px; }
+    .reg-mark.bl { bottom: 12px; left: 12px; }
+    .reg-mark.br { bottom: 12px; right: 12px; }
+
+    /* ══ Layout ══ */
     .container {
       max-width: var(--max-w);
       margin: 0 auto;
@@ -45,744 +112,3013 @@
     }
 
     section {
-      padding: 96px 0;
-      border-bottom: 1px solid var(--border);
+      padding: 72px 0;
+      border-bottom: 1px solid var(--rule);
     }
 
     section:last-of-type { border-bottom: none; }
 
-    /* ── Navigation ── */
+    /* ══ Trim Line ══ */
+    .trim-line {
+      height: 2px;
+      background: var(--red-ink);
+    }
+
+    /* ══ Navigation ══ */
     nav {
-      position: fixed;
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
       z-index: 100;
-      background: rgba(243, 242, 239, 0.9);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(239, 233, 221, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1.5px solid var(--rule);
     }
 
     nav .container {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      height: 64px;
+      align-items: stretch;
+      min-height: 44px;
     }
 
     .nav-logo {
-      font-size: 18px;
+      font-family: var(--font-mono);
+      font-size: 14px;
       font-weight: 700;
-      letter-spacing: 0.06em;
-      color: var(--text);
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
     }
 
-    .nav-logo:hover { text-decoration: none; color: var(--text); }
+    .nav-logo:hover { color: var(--ink); }
 
-    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links { display: flex; gap: 2px; list-style: none; align-items: flex-end; }
 
     .nav-links a {
-      color: var(--text-muted);
-      font-size: 14px;
+      display: block;
+      font-family: var(--font-mono);
+      color: var(--graphite);
+      font-size: 11px;
       font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--text); text-decoration: none; }
-
-    .nav-toggle { display: none; background: none; border: none; color: var(--text); cursor: pointer; }
-
-    /* ── Hero ── */
-    .hero {
-      padding: 180px 0 120px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .hero-headline {
-      font-size: clamp(40px, 6vw, 72px);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin-bottom: 24px;
-    }
-
-    .hero-static {
-      display: block;
-      color: var(--text);
-    }
-
-    .hero-cycle-wrapper {
-      display: block;
-      height: 1.15em;
-      overflow: hidden;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 6px 14px 7px;
+      background: rgba(200, 194, 184, 0.35);
+      border: 1px solid var(--rule);
+      border-bottom: none;
+      border-radius: 4px 4px 0 0;
+      margin-bottom: -1.5px;
       position: relative;
+      transition: background 0.15s, color 0.15s;
     }
 
-    .hero-cycle {
-      display: flex;
-      flex-direction: column;
-      animation: cycleUp 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    .nav-links a:hover {
+      background: rgba(239, 233, 221, 0.7);
+      color: var(--ink);
     }
 
-    .hero-phrase {
-      display: block;
-      height: 1.15em;
-      color: var(--accent);
-      flex-shrink: 0;
+    .nav-links a.active-tab {
+      background: var(--canvas);
+      color: var(--ink);
+      font-weight: 700;
+      border-bottom: 1.5px solid var(--canvas);
+      border-top-width: 4px;
+      z-index: 1;
+      padding-top: 7px;
+      padding-bottom: 8px;
     }
 
-    @keyframes cycleUp {
-      0%, 28%    { transform: translateY(0); }
-      33%, 61%   { transform: translateY(-1.15em); }
-      66%, 94%   { transform: translateY(-2.30em); }
-      100%       { transform: translateY(0); }
-    }
+    /* Colored tab tops */
+    .nav-links li:nth-child(1) a { border-top: 2.5px solid var(--blue-ink); }
+    .nav-links li:nth-child(2) a { border-top: 2.5px solid var(--red-ink); }
+    .nav-links li:nth-child(3) a { border-top: 2.5px solid var(--sage); }
+    .nav-links li:nth-child(4) a { border-top: 2.5px solid var(--highlight); }
+    .nav-links li:nth-child(5) a { border-top: 2.5px solid var(--graphite); }
+    .nav-links li:nth-child(6) a { border-top: 2.5px solid var(--blue-ink); }
 
-    .hero .subtitle {
-      font-size: clamp(18px, 2.5vw, 22px);
-      color: var(--text-muted);
-      max-width: 640px;
-      line-height: 1.6;
-      margin-bottom: 40px;
-    }
+    .nav-toggle { display: none; background: none; border: none; color: var(--ink); cursor: pointer; font-size: 18px; font-family: var(--font-mono); }
 
-    .hero-cta {
-      display: inline-block;
-      padding: 14px 32px;
-      background: var(--text);
-      color: var(--bg);
-      font-weight: 600;
-      font-size: 15px;
-      border-radius: 2px;
-      transition: opacity 0.2s;
-    }
-
-    .hero-cta:hover { opacity: 0.85; text-decoration: none; }
-
-    /* ── Section Headers ── */
-    .section-label {
+    /* ══ Section Headers ══ */
+    .section-num {
       font-family: var(--font-mono);
       font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--text-muted);
-      margin-bottom: 16px;
+      color: var(--blue-ink);
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
     }
 
     .section-title {
-      font-size: clamp(28px, 4vw, 40px);
+      font-family: var(--font-mono);
+      font-size: clamp(18px, 2.5vw, 24px);
       font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .section-rule {
+      width: 100%;
+      height: 1.5px;
+      background: var(--ink);
+      margin-bottom: 12px;
     }
 
     .section-desc {
-      color: var(--text-muted);
-      font-size: 17px;
+      color: var(--graphite);
+      font-family: var(--font-sans);
+      font-size: 16px;
       max-width: 560px;
-      margin-bottom: 56px;
+      line-height: 24px;
+      margin-bottom: 48px;
     }
 
-    /* ── Capabilities Grid ── */
-    .capabilities-grid {
+    /* ══ Title Block (Hero) ══ */
+    .title-block {
+      padding: 72px 0 0;
+      border-bottom: none;
+    }
+
+    .title-block-inner {
+      /* border removed — now uses taped-insert styling */
+    }
+
+    .title-block-inner.taped-insert {
+      display: block;
+      padding: 0;
+      min-height: auto;
+      align-items: stretch;
+    }
+
+    .title-block-body {
+      padding: 48px;
+    }
+
+    .title-block-body .studio-name {
+      font-family: var(--font-mono);
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .title-block-body .studio-type {
+      font-family: var(--font-mono);
+      font-size: clamp(14px, 2vw, 18px);
+      font-weight: 400;
+      color: var(--graphite);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 24px;
+    }
+
+    .title-block-body .studio-desc {
+      font-family: var(--font-sans);
+      font-size: 17px;
+      line-height: 24px;
+      max-width: 540px;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .title-block-body .studio-cta {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--blue-ink);
+      margin-top: 24px;
+      display: inline-block;
+    }
+
+    .title-block-body .studio-cta:hover { text-decoration: underline; }
+
+    .title-block-meta {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: 1fr 1fr 1fr 2fr;
+      border-top: 1.5px solid var(--ink);
     }
 
-    .cap-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 0;
-      padding: 32px;
-      transition: border-color 0.2s;
+    .title-block-meta .meta-cell {
+      padding: 12px 24px;
+      border-right: 1px solid var(--rule);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 24px;
     }
 
-    .cap-card:hover {
-      border-color: var(--text);
+    .title-block-meta .meta-cell:last-child { border-right: none; }
+
+    .meta-label {
+      color: var(--graphite);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 2px;
     }
 
-    .cap-card h3 {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 12px;
+    .meta-value {
+      color: var(--ink);
+      font-weight: 500;
     }
 
-    .cap-card p {
-      color: var(--text-muted);
+    /* ══ Schematic Figure ══ */
+    .schematic-section {
+      padding: 48px 0 72px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .schematic-svg {
+      width: 100%;
+      height: auto;
+      max-width: 780px;
+      display: block;
+    }
+
+    .fig-caption {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--graphite);
+      margin-top: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .fig-caption em {
+      font-style: normal;
+      color: var(--red-ink);
+    }
+
+    /* ══ Capabilities (Almanac) ══ */
+    .cap-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .cap-entry {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .cap-entry:nth-child(odd) {
+      padding-right: 24px;
+      border-right: 1px solid var(--rule);
+    }
+
+    .cap-entry:nth-child(even) {
+      padding-left: 24px;
+    }
+
+    .cap-entry:nth-last-child(1),
+    .cap-entry:nth-last-child(2) {
+      border-bottom: none;
+    }
+
+    .cap-entry h3 {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+
+    .cap-entry p {
+      font-family: var(--font-sans);
+      color: var(--graphite);
       font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 16px;
+      line-height: 24px;
+      margin-bottom: 12px;
     }
 
     .cap-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .cap-tag {
       font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-muted);
-      background: none;
-      border: 1px solid var(--border);
-      padding: 3px 8px;
-      border-radius: 0;
+      font-size: 12px;
+      color: var(--graphite);
     }
 
-    /* ── Work / Case Studies ── */
-    .work-grid {
-      display: grid;
-      gap: 20px;
+    .cap-tags span::after {
+      content: ' · ';
+      color: var(--rule);
     }
 
-    .work-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 0;
-      padding: 40px;
-      transition: border-color 0.2s;
-    }
-
-    .work-card:hover {
-      border-color: var(--text);
-    }
-
-    .work-card .work-meta {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 12px;
-    }
-
-    .work-card h3 {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-
-    .work-card .work-desc {
-      color: var(--text-muted);
-      font-size: 15px;
-      margin-bottom: 20px;
-      max-width: 720px;
-    }
-
-    .work-card ul {
-      list-style: none;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 8px;
-    }
-
-    .work-card li {
-      color: var(--text-muted);
-      font-size: 14px;
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .work-card li::before {
+    .cap-tags span:last-child::after {
       content: '';
-      position: absolute;
-      left: 0;
-      top: 9px;
-      width: 4px;
-      height: 4px;
-      background: var(--text);
-      border-radius: 0;
     }
 
-    .work-award {
-      display: inline-block;
-      margin-top: 16px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 400;
-      color: var(--text);
-      background: none;
-      border: 1px solid var(--text);
-      padding: 4px 10px;
-      border-radius: 0;
+    /* ══ Work (Field Notes) ══ */
+    .work-entries {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
     }
 
-    /* ── Process ── */
-    .process-grid {
+    .work-entry {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
+      grid-template-columns: 80px 1fr 220px;
+      gap: 0;
+      padding: 48px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .work-entry:last-child { border-bottom: none; }
+
+    .work-num {
+      font-family: var(--font-mono);
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--rule);
+      line-height: 1;
+      padding-top: 4px;
+    }
+
+    .work-body h3 {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+    }
+
+    .work-body .work-type {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--red-ink);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    .work-body .work-desc {
+      font-family: var(--font-sans);
+      color: var(--graphite);
+      font-size: 15px;
+      line-height: 24px;
+    }
+
+    .work-margin {
+      border-left: 1px solid var(--rule);
+      padding-left: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .work-margin .margin-note {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 24px;
+    }
+
+    .margin-note .note-value {
+      display: block;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--ink);
+      background: var(--highlight);
+      width: fit-content;
+      padding: 0 4px;
+      margin-left: -4px;
+    }
+
+    .margin-note .note-label {
+      color: var(--graphite);
+    }
+
+    /* ══ Process ══ */
+    .process-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--rule);
     }
 
     .process-step {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 0;
-      padding: 32px;
+      padding: 24px;
+      border-right: 1px solid var(--rule);
+      position: relative;
     }
 
-    .process-num {
+    .process-step:last-child { border-right: none; }
+
+    .process-step .step-num {
       font-family: var(--font-mono);
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 700;
-      color: var(--text);
-      margin-bottom: 16px;
+      color: var(--rule);
+      margin-bottom: 12px;
+      line-height: 1;
     }
 
     .process-step h3 {
-      font-size: 17px;
-      font-weight: 600;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
       margin-bottom: 10px;
     }
 
     .process-step p {
-      color: var(--text-muted);
+      font-family: var(--font-sans);
+      color: var(--graphite);
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 24px;
     }
 
-    /* ── Why Section ── */
-    .why-grid {
+    /* Arrow between steps */
+    .process-step:not(:last-child)::after {
+      content: '\2192';
+      position: absolute;
+      right: -8px;
+      top: 24px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--blue-ink);
+      background: var(--canvas);
+      padding: 2px 0;
+      z-index: 1;
+    }
+
+    /* ══ Why + Engagement (Dense) ══ */
+    .split-section {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
     }
 
-    .why-card {
-      padding: 32px;
-      border-left: 1px solid var(--text);
+    .split-left {
+      padding-right: 48px;
+      border-right: 1px solid var(--rule);
     }
 
-    .why-card h3 {
-      font-size: 17px;
+    .split-right {
+      padding-left: 48px;
+    }
+
+    .split-heading {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .split-rule {
+      width: 100%;
+      height: 1px;
+      background: var(--ink);
+      margin-bottom: 24px;
+    }
+
+    .why-list {
+      list-style: none;
+    }
+
+    .why-list li {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .why-list li:last-child { border-bottom: none; }
+
+    .why-list li strong {
+      font-family: var(--font-mono);
+      font-size: 14px;
       font-weight: 600;
-      margin-bottom: 10px;
+      display: block;
+      margin-bottom: 4px;
     }
 
-    .why-card p {
-      color: var(--text-muted);
+    .why-list li span {
+      font-family: var(--font-sans);
+      color: var(--graphite);
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    .engage-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .engage-table tr { border-bottom: 1px solid var(--rule); }
+    .engage-table tr:last-child { border-bottom: none; }
+
+    .engage-table td {
+      padding: 14px 0;
+      vertical-align: top;
+    }
+
+    .engage-table .engage-name {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      padding-right: 16px;
+    }
+
+    .engage-table .engage-desc {
+      font-family: var(--font-sans);
+      color: var(--graphite);
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    .engage-table .engage-dur {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--graphite);
+      text-align: right;
+      white-space: nowrap;
+      padding-left: 16px;
+    }
+
+    /* ══ About ══ */
+    .about-content {
+      display: grid;
+      grid-template-columns: 192px 1fr;
+      gap: 48px;
+    }
+
+    .about-etymology .about-word {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 700;
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+
+    .about-etymology .about-origin {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--graphite);
+      line-height: 24px;
+    }
+
+    .about-text p {
+      font-family: var(--font-sans);
+      color: var(--graphite);
       font-size: 15px;
-      line-height: 1.6;
+      line-height: 24px;
+      margin-bottom: 12px;
     }
 
-    /* ── Engagement Models ── */
-    .engage-grid {
+    .about-text p:last-child { margin-bottom: 0; }
+
+    /* ══ Contact ══ */
+    .contact-section {
+      padding: 72px 0;
+    }
+
+    .contact-inner {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: start;
     }
 
-    .engage-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 0;
-      padding: 28px;
-    }
-
-    .engage-card h3 {
-      font-size: 16px;
-      font-weight: 600;
+    .contact-text .section-title {
       margin-bottom: 8px;
     }
 
-    .engage-card .engage-for {
-      color: var(--text-muted);
-      font-size: 14px;
-      margin-bottom: 12px;
-      line-height: 1.5;
-    }
-
-    .engage-card .engage-duration {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* ── Contact ── */
-    .contact-section {
-      text-align: center;
-      padding: 120px 0;
-    }
-
-    .contact-section .section-title {
-      margin-bottom: 16px;
-    }
-
-    .contact-section .section-desc {
-      margin: 0 auto 40px;
+    .contact-text p {
+      font-family: var(--font-sans);
+      color: var(--graphite);
+      font-size: 15px;
+      line-height: 24px;
+      max-width: 420px;
     }
 
     .contact-links {
       display: flex;
-      justify-content: center;
-      gap: 32px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 8px;
+      text-align: right;
     }
 
     .contact-link {
-      color: var(--text-muted);
-      font-size: 15px;
-      transition: color 0.2s;
-    }
-
-    .contact-link:hover { color: var(--text); }
-
-    /* ── About ── */
-    .about-content {
-      max-width: 640px;
-    }
-
-    .about-content .about-name {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: var(--text);
-      font-style: italic;
-      letter-spacing: 0.02em;
-    }
-
-    .about-content .about-origin {
       font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--text-muted);
+      font-size: 14px;
+      color: var(--ink);
+      transition: color 0.15s;
+    }
+
+    .contact-link:hover { color: var(--blue-ink); }
+
+    .contact-link .link-label {
+      color: var(--graphite);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 1px;
+    }
+
+    /* ══ Index / Table of Contents ══ */
+    .toc-section {
+      padding: 48px 0;
+      background: var(--canvas);
+    }
+
+    .toc-heading {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+
+    .toc-rule {
+      width: 100%;
+      height: 1px;
+      background: var(--ink);
       margin-bottom: 24px;
     }
 
-    .about-content p {
-      color: var(--text-muted);
-      font-size: 16px;
-      line-height: 1.7;
+    .toc-key {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--graphite);
+      margin-bottom: 24px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .toc-key span {
+      white-space: nowrap;
+    }
+
+    .toc-key .key-sym {
+      color: var(--blue-ink);
+      margin-right: 4px;
+    }
+
+    .toc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .toc-entry {
+      display: flex;
+      align-items: baseline;
+      padding: 6px 0;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .toc-entry:hover {
+      color: var(--blue-ink);
+    }
+
+    .toc-entry:hover .toc-dots {
+      border-color: var(--blue-ink);
+    }
+
+    .toc-title {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .toc-dots {
+      flex: 1;
+      border-bottom: 1px dotted var(--rule);
+      margin: 0 12px;
+      min-width: 24px;
+      position: relative;
+      top: -3px;
+      transition: border-color 0.15s;
+    }
+
+    .toc-page {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--blue-ink);
+      white-space: nowrap;
+    }
+
+    /* ══ Page Numbers ══ */
+    section[data-page] {
+      position: relative;
+    }
+
+    section[data-page]::before {
+      content: 'p.' attr(data-page);
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--blue-ink);
+      opacity: 0.5;
+      letter-spacing: 0.04em;
+    }
+
+    /* ══ Title Page Illustration ══ */
+    .leaf-illustration {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .leaf-illustration svg {
+      width: 100%;
+      height: auto;
+      max-width: 420px;
+    }
+
+    /* ══ Currently Working On ══ */
+    .currently-label {
+      font-family: var(--font-hand);
+      font-size: 24px;
+      color: var(--graphite);
+      margin-top: 28px;
+      margin-bottom: 14px;
+    }
+
+    .currently-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+
+    .currently-card {
+      text-decoration: none;
+      color: var(--ink);
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .currently-card:hover {
+      transform: translateY(-3px);
+      color: var(--ink);
+    }
+
+    .currently-illus {
+      padding: 12px;
+      margin-bottom: 8px;
+      min-height: auto;
+    }
+
+    .currently-illus .insert-sketch {
+      max-width: 100%;
+      opacity: 0.6;
+    }
+
+    .currently-card:hover .insert-sketch {
+      opacity: 1;
+    }
+
+    .currently-name {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .currently-desc {
+      font-family: var(--font-hand);
+      font-size: 19px;
+      color: var(--graphite);
+    }
+
+    /* ══ Rubber Stamps ══ */
+    .stamp {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border: 2px solid currentColor;
+      border-radius: 2px;
+      opacity: 0.9;
+      pointer-events: none;
+      vertical-align: middle;
+      margin-left: 12px;
+      position: relative;
+      top: -2px;
+    }
+
+    .stamp-project { color: var(--blue-ink); }
+    .stamp-idea { color: var(--red-ink); }
+
+    /* ══ Footer ══ */
+    footer {
+      border-top: 1.5px solid var(--ink);
+      padding: 24px 0;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer .footer-left,
+    footer .footer-right {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--graphite);
+      letter-spacing: 0.04em;
+    }
+
+    /* ══ Terminal ══ */
+    .term-window {
+      border: 1.5px solid var(--ink);
+      border-radius: 6px;
+      overflow: hidden;
+      background: #0d1117;
+    }
+
+    .term-chrome {
+      background: #161b22;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border-bottom: 1px solid #30363d;
+    }
+
+    .term-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .term-dot.r { background: #ff5f56; }
+    .term-dot.y { background: #ffbd2e; }
+    .term-dot.g { background: #27c93f; }
+
+    .term-title {
+      margin-left: 8px;
+      color: #484f58;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .term-body {
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.6;
+      color: #c9d1d9;
+      max-height: 440px;
+      overflow-y: auto;
+      cursor: text;
+    }
+
+    .term-body::-webkit-scrollbar { width: 6px; }
+    .term-body::-webkit-scrollbar-track { background: #0d1117; }
+    .term-body::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+
+    #terminal-output div { white-space: pre-wrap; word-wrap: break-word; }
+
+    .term-input-line { display: flex; align-items: center; }
+
+    .term-prompt, .term-prompt-echo { color: #3fb950; white-space: nowrap; }
+
+    .term-input {
+      background: transparent;
+      border: none;
+      color: #c9d1d9;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.6;
+      outline: none;
+      flex: 1;
+      width: 100%;
+      caret-color: #3fb950;
+      padding: 0;
+    }
+
+    .t-red { color: #f85149; }
+    .t-green { color: #3fb950; }
+    .t-blue { color: #58a6ff; }
+    .t-yellow { color: #d29922; }
+    .t-gray { color: #484f58; }
+    .t-bold { font-weight: 700; }
+
+    .term-ref h3 {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
       margin-bottom: 16px;
     }
 
-    .about-content p:last-child { margin-bottom: 0; }
+    .term-ref-list { list-style: none; }
 
-    /* ── Footer ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 0;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 13px;
+    .term-ref-list li {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      gap: 12px;
     }
 
-    /* ── Responsive ── */
+    .term-ref-list li:last-child { border-bottom: none; }
+
+    .term-ref-cmd { color: var(--blue-ink); min-width: 80px; font-weight: 500; }
+    .term-ref-desc { color: var(--graphite); }
+
+    #snake-canvas {
+      display: block;
+      margin: 8px 0;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      border: 1px solid #30363d;
+      max-width: 100%;
+      height: auto;
+    }
+
+
+    /* ══ Taped Inserts ══ */
+    .page-illustration {
+      display: block;
+      margin-bottom: 32px;
+      padding: 12px 0;
+    }
+
+    .taped-insert {
+      position: relative;
+      background: #faf8f3;
+      padding: 28px 24px 16px;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 1px 2px rgba(0,0,0,0.05),
+        1px 3px 10px rgba(0,0,0,0.04);
+    }
+
+    .taped-insert.graph-paper {
+      background-image:
+        linear-gradient(rgba(160, 185, 210, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(160, 185, 210, 0.12) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+
+    .taped-insert.tilt-1 { transform: rotate(-0.7deg); }
+    .taped-insert.tilt-2 { transform: rotate(0.5deg); }
+    .taped-insert.tilt-3 { transform: rotate(-0.4deg); }
+    .taped-insert.tilt-4 { transform: rotate(0.8deg); }
+    .taped-insert.tilt-5 { transform: rotate(-1.1deg); }
+    .taped-insert.tilt-6 { transform: rotate(0.3deg); }
+
+    .tape {
+      position: absolute;
+      height: 22px;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Paper-fiber sheen across all washi */
+    .tape::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        108deg,
+        rgba(255,255,255,0.0) 0%,
+        rgba(255,255,255,0.14) 38%,
+        rgba(255,255,255,0.0) 56%,
+        rgba(255,255,255,0.06) 100%
+      );
+    }
+
+    /* Golden diagonal stripes */
+    .washi-gold {
+      background: repeating-linear-gradient(
+        -52deg,
+        rgba(200, 162, 55, 0.5) 0px,
+        rgba(200, 162, 55, 0.5) 3px,
+        rgba(228, 198, 105, 0.32) 3px,
+        rgba(228, 198, 105, 0.32) 6px
+      );
+    }
+
+    /* Dusty rose polka dots */
+    .washi-rose {
+      background:
+        radial-gradient(circle, rgba(165, 82, 88, 0.42) 1.6px, transparent 1.6px);
+      background-color: rgba(212, 152, 155, 0.32);
+      background-size: 8px 8px;
+      background-position: 2px 2px;
+    }
+
+    /* Sage green diagonal stripes (opposite direction) */
+    .washi-sage {
+      background: repeating-linear-gradient(
+        50deg,
+        rgba(74, 103, 65, 0.42) 0px,
+        rgba(74, 103, 65, 0.42) 2.5px,
+        rgba(130, 158, 110, 0.24) 2.5px,
+        rgba(130, 158, 110, 0.24) 5.5px
+      );
+    }
+
+    /* Muted blue grid */
+    .washi-blue {
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(43, 94, 167, 0.22) 0px,
+          rgba(43, 94, 167, 0.22) 1px,
+          transparent 1px,
+          transparent 5.5px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          rgba(43, 94, 167, 0.22) 0px,
+          rgba(43, 94, 167, 0.22) 1px,
+          transparent 1px,
+          transparent 5.5px
+        );
+      background-color: rgba(145, 178, 218, 0.28);
+    }
+
+    /* Terra cotta crosshatch */
+    .washi-clay {
+      background:
+        repeating-linear-gradient(
+          48deg,
+          rgba(175, 85, 45, 0.22) 0px,
+          rgba(175, 85, 45, 0.22) 1px,
+          transparent 1px,
+          transparent 4.5px
+        ),
+        repeating-linear-gradient(
+          -48deg,
+          rgba(175, 85, 45, 0.22) 0px,
+          rgba(175, 85, 45, 0.22) 1px,
+          transparent 1px,
+          transparent 4.5px
+        );
+      background-color: rgba(210, 142, 100, 0.3);
+    }
+
+    .insert-sketch {
+      width: 100%;
+      max-width: 260px;
+      height: auto;
+    }
+
+    .insert-sketch line,
+    .insert-sketch polyline,
+    .insert-sketch path,
+    .insert-sketch rect,
+    .insert-sketch circle {
+      stroke: #8a817a;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .insert-sketch .sk-fill {
+      fill: #8a817a;
+      stroke: none;
+    }
+
+    .sketch-caption {
+      font-family: var(--font-hand);
+      font-size: 16px;
+      color: #8a817a;
+      margin-top: 10px;
+    }
+
+    .page-illustration .taped-insert::before {
+      content: 'illustrations coming soon';
+      position: absolute;
+      top: 8px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: var(--font-hand);
+      font-size: 13px;
+      color: rgba(138, 129, 122, 0.5);
+      letter-spacing: 0.04em;
+      z-index: 2;
+    }
+
+    .page-writeup h4 {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--blue-ink);
+      margin-bottom: 8px;
+    }
+
+    .page-writeup p {
+      font-family: var(--font-sans);
+      color: var(--graphite);
+      font-size: 15px;
+      line-height: 24px;
+      margin-bottom: 24px;
+    }
+
+    .page-writeup p:last-child { margin-bottom: 0; }
+
+    /* ══ About Sub-sections ══ */
+    .about-sub h3 {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    .about-sub p {
+      font-family: var(--font-sans);
+      color: var(--graphite);
+      font-size: 15px;
+      line-height: 24px;
+      margin-bottom: 16px;
+    }
+
+    .about-sub p:last-child { margin-bottom: 0; }
+
+    /* ══ TOC Groups ══ */
+    .toc-group { margin-top: 12px; }
+    .toc-group:first-child { margin-top: 0; }
+
+    .toc-group-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      padding: 4px 0;
+    }
+
+    .toc-entry.toc-sub { padding-left: 24px; }
+    .toc-entry.toc-sub .toc-title { font-size: 12px; }
+
+    /* ══ Newsletter ══ */
+    .newsletter-invite {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 280px;
+    }
+
+    .newsletter-invite h3 {
+      font-family: var(--font-mono);
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .newsletter-invite p {
+      font-family: var(--font-sans);
+      color: var(--graphite);
+      font-size: 16px;
+      line-height: 24px;
+      max-width: 420px;
+      margin-bottom: 32px;
+    }
+
+    .newsletter-invite a {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--blue-ink);
+    }
+
+    .newsletter-invite a:hover { text-decoration: underline; }
+
+    /* ══ View Mode Toggle ══ */
+    .nav-actions {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+    }
+
+    .mode-toggle {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(200, 194, 184, 0.35);
+      border: 1px solid var(--rule);
+      border-bottom: none;
+      border-radius: 4px 4px 0 0;
+      color: var(--graphite);
+      padding: 4px 10px 7px;
+      cursor: pointer;
+      transition: all 0.2s;
+      line-height: 1.4;
+      margin-bottom: -1.5px;
+    }
+
+    .mode-toggle:hover {
+      background: rgba(239, 233, 221, 0.7);
+      color: var(--ink);
+    }
+
+    .mode-single { display: none; }
+    body.single-page .mode-spread { display: none; }
+    body.single-page .mode-single { display: inline; }
+
+    body.single-page .mode-toggle {
+      background: var(--ink);
+      color: var(--canvas);
+      border-color: var(--ink);
+    }
+
+    /* ══ Single-Page Mode ══ */
+    body.single-page .page {
+      max-width: 840px;
+    }
+
+    body.single-page .container {
+      padding-left: 72px;
+    }
+
+    body.single-page .spread {
+      display: block;
+    }
+
+    body.single-page .spread > section {
+      min-height: calc(100vh - 44px);
+      border-bottom: none;
+      position: relative;
+    }
+
+    /* Page break between sections */
+    body.single-page .spread > section::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.06), transparent 2px),
+        linear-gradient(to top, rgba(0,0,0,0.04), transparent 2px);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    body.single-page .spread > section:last-child::after {
+      display: none;
+    }
+
+    @media (min-width: 1400px) {
+      body.single-page .spread {
+        min-height: auto;
+        scroll-snap-align: none;
+      }
+
+      body.single-page .spread::before,
+      body.single-page .spread::after {
+        display: none;
+      }
+
+      body.single-page .spread > section {
+        box-shadow: none !important;
+      }
+
+      body.single-page .spread > section .container {
+        max-width: var(--max-w);
+        padding: 0 24px 0 72px;
+        margin: 0 auto;
+      }
+
+      body.single-page .page::after {
+        display: block;
+        left: 48px;
+      }
+    }
+
+    /* ══ Responsive ══ */
     @media (max-width: 768px) {
-      section { padding: 64px 0; }
-      .hero { padding: 120px 0 80px; }
+      section { padding: 48px 0; }
+
+      nav .container { align-items: center; min-height: 48px; }
 
       .nav-links { display: none; }
       .nav-links.open {
         display: flex;
         flex-direction: column;
         position: absolute;
-        top: 64px;
+        top: 48px;
         left: 0;
         right: 0;
-        background: rgba(243, 242, 239, 0.97);
-        backdrop-filter: blur(12px);
+        background: rgba(239, 233, 221, 0.98);
+        backdrop-filter: blur(10px);
         padding: 24px;
-        gap: 20px;
-        border-bottom: 1px solid var(--border);
+        gap: 16px;
+        border-bottom: 1px solid var(--rule);
       }
-      .nav-toggle { display: block; font-size: 24px; }
+      .nav-links.open a {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        margin-bottom: 0;
+        padding: 4px 0;
+        font-size: 13px;
+        text-transform: none;
+        letter-spacing: 0.02em;
+        font-weight: 400;
+      }
+      .nav-links.open a.active-tab {
+        font-weight: 700;
+        border-bottom: none;
+        background: transparent;
+      }
+      .nav-toggle { display: block; }
+      .mode-toggle {
+        background: transparent;
+        border: 1px solid var(--rule);
+        border-radius: 2px;
+        margin-bottom: 0;
+        padding: 3px 10px;
+      }
 
-      .work-card ul { grid-template-columns: 1fr; }
-      .contact-links { flex-direction: column; align-items: center; gap: 16px; }
+      .title-block { padding: 48px 0 0; }
+      .title-block-body { padding: 24px; }
+      .title-block-body .studio-name { font-size: 28px; }
+      .title-block-meta {
+        grid-template-columns: 1fr 1fr;
+      }
+      .title-block-meta .meta-cell {
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .cap-grid {
+        grid-template-columns: 1fr;
+      }
+      .cap-entry:nth-child(odd) {
+        padding-right: 0;
+        border-right: none;
+      }
+      .cap-entry:nth-child(even) {
+        padding-left: 0;
+      }
+      .cap-entry:nth-last-child(2) { border-bottom: 1px solid var(--rule); }
+
+      .work-entry {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .work-num { font-size: 28px; }
+      .work-margin {
+        border-left: none;
+        border-top: 1px solid var(--rule);
+        padding-left: 0;
+        padding-top: 24px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 24px;
+      }
+
+      .process-flow {
+        grid-template-columns: 1fr 1fr;
+      }
+      .process-step:nth-child(2) { border-right: none; }
+      .process-step:nth-child(1),
+      .process-step:nth-child(2) { border-bottom: 1px solid var(--rule); }
+      .process-step:not(:last-child)::after { display: none; }
+
+      .split-section {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .split-left {
+        padding-right: 0;
+        border-right: none;
+        padding-bottom: 48px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .split-right { padding-left: 0; }
+
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .contact-links {
+        text-align: left;
+      }
+
+      footer .container { flex-direction: column; gap: 4px; text-align: center; }
+
+      .reg-mark { display: none; }
+
+      .page {
+        box-shadow: none;
+      }
+      .page::after { left: 24px; }
+      .page::before { display: none; }
+
+      .toc-key { gap: 12px; }
+
+      .leaf-illustration {
+        padding: 0 24px 48px;
+      }
+      .leaf-illustration svg {
+        max-width: 320px;
+      }
+      section[data-page]::before { display: none; }
+
+      /* Single-page mode: reduce left padding on mobile */
+      body.single-page .container {
+        padding-left: 40px;
+      }
+
+      /* Don't force page height on mobile — let content flow */
+      body.single-page .spread > section {
+        min-height: auto;
+      }
+
+      /* Currently working on grid: stack on narrow screens */
+      .currently-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      /* Title block meta: smaller on mobile */
+      .title-block-meta {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      /* Stamps: smaller on mobile */
+      .stamp {
+        font-size: 9px;
+        padding: 1px 6px;
+        margin-left: 8px;
+      }
+
+      /* Taped inserts: prevent overflow */
+      .taped-insert {
+        max-width: 100%;
+      }
+
+      /* Washi tape: scale down on small screens */
+      .tape {
+        height: 18px;
+      }
     }
+
+    @media (max-width: 480px) {
+      .process-flow { grid-template-columns: 1fr; }
+      .process-step { border-right: none !important; border-bottom: 1px solid var(--rule); }
+      .process-step:last-child { border-bottom: none; }
+
+      body.single-page .container {
+        padding-left: 32px;
+      }
+
+      .title-block-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .mood-board {
+        flex-direction: column;
+      }
+      .mood-board .mood-card {
+        width: 100% !important;
+      }
+
+      .split-section {
+        gap: 32px;
+      }
+      .split-left {
+        padding-bottom: 32px;
+      }
+    }
+
+    /* ══ Notebook Spread (Wide Screens) ══ */
+    @media (min-width: 1400px) {
+      html {
+        scroll-snap-type: y proximity;
+      }
+
+      .page {
+        max-width: 1680px;
+      }
+
+      .page::after,
+      .page::before {
+        display: none;
+      }
+
+      /* Spread */
+      .spread {
+        display: flex;
+        min-height: calc(100vh - 44px);
+        scroll-snap-align: start;
+        position: relative;
+        align-items: stretch;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .spread:last-of-type {
+        border-bottom: none;
+      }
+
+      /* Flip animation (activated by JS) */
+      .spread.spread-observed {
+        transition: transform 0.45s ease, opacity 0.45s ease;
+        transform-origin: bottom center;
+      }
+
+      .spread.spread-observed:not(.in-view) {
+        transform: perspective(3000px) rotateX(1.2deg);
+        opacity: 0.5;
+      }
+
+      .spread.in-view {
+        transform: none;
+        opacity: 1;
+      }
+
+      /* Spine */
+      .spread::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 8px;
+        transform: translateX(-50%);
+        background: linear-gradient(to right,
+          transparent,
+          rgba(0,0,0,0.04) 20%,
+          rgba(0,0,0,0.09) 50%,
+          rgba(0,0,0,0.04) 80%,
+          transparent
+        );
+        z-index: 5;
+      }
+
+      /* Dual margin lines */
+      .spread::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        pointer-events: none;
+        z-index: 4;
+        background:
+          linear-gradient(to right, transparent 47px, rgba(194,56,56,0.18) 47px, rgba(194,56,56,0.18) 48px, transparent 48px),
+          linear-gradient(to right, transparent calc(50% + 47px), rgba(194,56,56,0.18) calc(50% + 47px), rgba(194,56,56,0.18) calc(50% + 48px), transparent calc(50% + 48px));
+      }
+
+      /* Pages */
+      .spread > section {
+        flex: 1;
+        min-width: 0;
+        border-bottom: none !important;
+        position: relative;
+      }
+
+      .spread > section .container {
+        max-width: 100%;
+        padding: 0 48px 0 72px;
+      }
+
+      /* Gutter shadows */
+      .spread > section:first-child {
+        box-shadow: inset -24px 0 24px -24px rgba(0,0,0,0.03);
+      }
+
+      .spread > section:last-child {
+        box-shadow: inset 24px 0 24px -24px rgba(0,0,0,0.03);
+      }
+
+      /* Cover spread */
+      .spread-cover {
+        align-items: stretch;
+      }
+
+      .spread-cover > .leaf-illustration {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px;
+        box-shadow: inset 24px 0 24px -24px rgba(0,0,0,0.03);
+      }
+
+      /* Page numbers: left page → outer left, right page → outer right */
+      .spread > section:first-child:not(:only-child)[data-page]::before {
+        right: auto;
+        left: 72px;
+      }
+
+      /* Stack the split layout on half-pages */
+      .spread .split-section {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .spread .split-left {
+        padding-right: 0;
+        border-right: none;
+        border-bottom: 1px solid var(--rule);
+        padding-bottom: 48px;
+      }
+      .spread .split-right {
+        padding-left: 0;
+      }
+
+      /* Nav spans full spread width */
+      nav .container {
+        max-width: 1600px;
+      }
+    }
+
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="single-page">
+
+  <!-- Registration Marks -->
+  <span class="reg-mark tl" aria-hidden="true"></span>
+  <span class="reg-mark tr" aria-hidden="true"></span>
+  <span class="reg-mark bl" aria-hidden="true"></span>
+  <span class="reg-mark br" aria-hidden="true"></span>
+
+  <main class="page">
+
+  <!-- Trim Line -->
+  <div class="trim-line" aria-hidden="true"></div>
 
   <!-- Navigation -->
   <nav>
     <div class="container">
-      <a href="#" class="nav-logo">AVRAH.STUDIO</a>
-      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
-      <ul class="nav-links">
-        <li><a href="#capabilities">Capabilities</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#process">Process</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+      <a href="#" class="nav-logo">AVRAH</a>
+      <div class="nav-actions">
+        <button class="mode-toggle" onclick="toggleViewMode()"><span class="mode-spread">spread</span><span class="mode-single">single</span></button>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
+        <ul class="nav-links">
+          <li><a href="#about">about</a></li>
+          <li><a href="#railview">projects</a></li>
+          <li><a href="#cyberdeck">ideas</a></li>
+          <li><a href="#work-with-us">work with us</a></li>
+          <li><a href="#terminal-section">terminal</a></li>
+          <li><a href="#blog">blog</a></li>
+        </ul>
+      </div>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero">
+  <div class="spread spread-cover">
+  <!-- Title Block (Hero) -->
+  <section class="title-block">
     <div class="container">
-      <h1 class="hero-headline">
-        <span class="hero-static">We take you from</span>
-        <span class="hero-cycle-wrapper">
-          <span class="hero-cycle">
-            <span class="hero-phrase">concept to prototype.</span>
-            <span class="hero-phrase">prototype to production.</span>
-            <span class="hero-phrase">production to scale.</span>
-          </span>
-        </span>
-      </h1>
-      <p class="subtitle">Avrah is a product design studio. We build connected hardware, firmware, cloud infrastructure, and the software around it. Then we hand you something that works.</p>
-      <a href="#contact" class="hero-cta">Start a conversation</a>
+      <div class="title-block-inner taped-insert tilt-2">
+        <span class="tape washi-gold" style="width:110px; top:-10px; left:20px; transform:rotate(-3.5deg);"></span>
+        <span class="tape washi-sage" style="width:90px; top:-9px; right:28px; transform:rotate(4deg);"></span>
+        <span class="tape washi-rose" style="width:80px; bottom:-10px; right:44px; transform:rotate(-2deg);"></span>
+        <div class="title-block-body">
+          <h1>
+            <span class="studio-name">Avrah</span>
+            <span class="studio-type">Studio</span>
+          </h1>
+          <p class="studio-desc">A community of people who love <a href="#about" style="background:var(--highlight);padding:0 4px;color:var(--ink)">bringing ideas to life</a>.</p>
+          <p class="studio-desc" style="margin-top:12px;margin-bottom:0;">Hardware, software, brand. If you have something worth building, <a href="#work-with-us" style="color:var(--blue-ink)">let&rsquo;s build it together</a>.</p>
+        </div>
+        <div class="title-block-meta">
+          <div class="meta-cell">
+            <span class="meta-label">Location</span>
+            <span class="meta-value">Winnipeg, MB</span>
+          </div>
+          <div class="meta-cell">
+            <span class="meta-label">Coordinates</span>
+            <span class="meta-value">49.89&deg;N 97.14&deg;W</span>
+          </div>
+          <div class="meta-cell">
+            <span class="meta-label">Rev</span>
+            <span class="meta-value">A</span>
+          </div>
+          <div class="meta-cell">
+            <span class="meta-label">Domain</span>
+            <span class="meta-value">avrah.studio</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Currently working on -->
+      <p class="currently-label">Currently working on</p>
+      <div class="currently-grid">
+        <a href="#railsense" class="currently-card">
+          <div class="currently-illus taped-insert tilt-1">
+            <span class="tape washi-gold" style="width:60px; top:-8px; left:10px; transform:rotate(-4deg);"></span>
+            <svg class="insert-sketch" viewBox="0 0 240 120">
+              <line x1="25" y1="82" x2="215" y2="82"/>
+              <line x1="25" y1="88" x2="215" y2="88"/>
+              <rect x="105" y="68" width="30" height="14" rx="2"/>
+              <path d="M108,62 Q120,52 132,62"/>
+              <path d="M100,54 Q120,40 140,54"/>
+              <path d="M92,46 Q120,28 148,46"/>
+            </svg>
+          </div>
+          <p class="currently-name">RailSense</p>
+          <p class="currently-desc">hardware rev B</p>
+        </a>
+        <a href="#openspot" class="currently-card">
+          <div class="currently-illus taped-insert tilt-4">
+            <span class="tape washi-sage" style="width:55px; top:-8px; right:12px; transform:rotate(3deg);"></span>
+            <svg class="insert-sketch" viewBox="0 0 240 120">
+              <line x1="30" y1="58" x2="210" y2="58"/>
+              <rect x="38" y="16" width="28" height="38"/>
+              <rect x="72" y="16" width="28" height="38"/>
+              <rect x="106" y="16" width="28" height="38"/>
+              <rect x="140" y="16" width="28" height="38"/>
+              <rect x="38" y="62" width="28" height="38"/>
+              <rect x="72" y="62" width="28" height="38"/>
+              <rect x="106" y="62" width="28" height="38"/>
+              <rect x="140" y="62" width="28" height="38"/>
+              <line x1="42" y1="20" x2="62" y2="50"/>
+              <line x1="62" y1="20" x2="42" y2="50"/>
+              <circle cx="121" cy="81" r="16" stroke-dasharray="4,3"/>
+            </svg>
+          </div>
+          <p class="currently-name">OpenSpot</p>
+          <p class="currently-desc">pilot program</p>
+        </a>
+        <a href="#cyberdeck" class="currently-card">
+          <div class="currently-illus taped-insert tilt-6">
+            <span class="tape washi-blue" style="width:58px; top:-8px; left:14px; transform:rotate(-3deg);"></span>
+            <svg class="insert-sketch" viewBox="0 0 240 120">
+              <rect x="55" y="8" width="130" height="104" rx="6"/>
+              <rect x="66" y="16" width="108" height="50" rx="2"/>
+              <line x1="76" y1="33" x2="132" y2="33"/>
+              <line x1="76" y1="42" x2="118" y2="42"/>
+              <line x1="66" y1="72" x2="174" y2="72"/>
+              <rect x="73" y="78" width="10" height="7" rx="1"/>
+              <rect x="87" y="78" width="10" height="7" rx="1"/>
+              <rect x="101" y="78" width="10" height="7" rx="1"/>
+              <rect x="115" y="78" width="10" height="7" rx="1"/>
+              <rect x="129" y="78" width="10" height="7" rx="1"/>
+              <rect x="143" y="78" width="10" height="7" rx="1"/>
+              <rect x="157" y="78" width="10" height="7" rx="1"/>
+              <rect x="80" y="90" width="10" height="7" rx="1"/>
+              <rect x="94" y="90" width="10" height="7" rx="1"/>
+              <rect x="108" y="90" width="10" height="7" rx="1"/>
+              <rect x="122" y="90" width="10" height="7" rx="1"/>
+              <rect x="136" y="90" width="10" height="7" rx="1"/>
+              <rect x="150" y="90" width="10" height="7" rx="1"/>
+            </svg>
+          </div>
+          <p class="currently-name">Cyberdeck</p>
+          <p class="currently-desc">v0.1 prototype</p>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Index (hidden for now) -->
+  <section class="toc-section" style="display:none;">
+    <div class="container">
+      <h2 class="toc-heading">Index</h2>
+      <div class="toc-rule"></div>
+      <p class="toc-key">
+        <span><span class="key-sym">&sect;</span> section</span>
+        <span><span class="key-sym">p.</span> page</span>
+      </p>
+      <nav class="toc-list" aria-label="Table of contents">
+        <div class="toc-group">
+          <p class="toc-group-label">About</p>
+          <a href="#about" class="toc-entry toc-sub">
+            <span class="toc-title">About Avrah</span>
+            <span class="toc-dots"></span>
+            <span class="toc-page">p.01</span>
+          </a>
+          <a href="#partner-model" class="toc-entry toc-sub">
+            <span class="toc-title">Co-Founder Model</span>
+            <span class="toc-dots"></span>
+            <span class="toc-page">p.03</span>
+          </a>
+          <a href="#contract-model" class="toc-entry toc-sub">
+            <span class="toc-title">Contract Model</span>
+            <span class="toc-dots"></span>
+            <span class="toc-page">p.04</span>
+          </a>
+          <a href="#capabilities" class="toc-entry toc-sub">
+            <span class="toc-title">Capabilities</span>
+            <span class="toc-dots"></span>
+            <span class="toc-page">p.02</span>
+          </a>
+        </div>
+        <div class="toc-group">
+          <p class="toc-group-label">Projects</p>
+          <a href="#railview" class="toc-entry toc-sub">
+            <span class="toc-title">RailView</span>
+            <span class="toc-dots"></span>
+            <span class="toc-page">p.05</span>
+          </a>
+          <a href="#railsense" class="toc-entry toc-sub">
+            <span class="toc-title">RailSense</span>
+            <span class="toc-dots"></span>
+            <span class="toc-page">p.06</span>
+          </a>
+          <a href="#openspot" class="toc-entry toc-sub">
+            <span class="toc-title">OpenSpot</span>
+            <span class="toc-dots"></span>
+            <span class="toc-page">p.07</span>
+          </a>
+        </div>
+        <div class="toc-group">
+          <p class="toc-group-label">Ideas</p>
+          <a href="#cyberdeck" class="toc-entry toc-sub">
+            <span class="toc-title">Cyberdeck</span>
+            <span class="toc-dots"></span>
+            <span class="toc-page">p.08</span>
+          </a>
+          <a href="#community-lora" class="toc-entry toc-sub">
+            <span class="toc-title">Community LoRa</span>
+            <span class="toc-dots"></span>
+            <span class="toc-page">p.09</span>
+          </a>
+          <a href="#findables" class="toc-entry toc-sub">
+            <span class="toc-title">Findables</span>
+            <span class="toc-dots"></span>
+            <span class="toc-page">p.10</span>
+          </a>
+        </div>
+        <div class="toc-group">
+          <a href="#work-with-us" class="toc-entry">
+            <span class="toc-title">Work With Us</span>
+            <span class="toc-dots"></span>
+            <span class="toc-page">p.11</span>
+          </a>
+          <a href="#terminal-section" class="toc-entry">
+            <span class="toc-title">Terminal</span>
+            <span class="toc-dots"></span>
+            <span class="toc-page">p.??</span>
+          </a>
+          <a href="#blog" class="toc-entry">
+            <span class="toc-title">Blog</span>
+            <span class="toc-dots"></span>
+            <span class="toc-page">p.12</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </section>
+
+  </div>
+
+  <div class="spread">
+  <!-- About -->
+  <section id="about" data-page="01">
+    <div class="container">
+      <p class="section-num">&sect;01</p>
+      <h2 class="section-title">About</h2>
+      <div class="section-rule"></div>
+
+      <div class="about-content">
+        <div class="about-etymology">
+          <p class="about-word">Avrah</p>
+          <p class="about-origin">Aramaic<br>v. to create, to build</p>
+        </div>
+        <div class="about-text">
+          <p>In ancient Aramaic, <em>avra k&rsquo;davra</em> means &ldquo;I create as I speak.&rdquo; It&rsquo;s where <em>abracadabra</em> comes from. The idea that saying something can make it real.</p>
+          <p>We took the first word. Avrah runs on two tracks: <span style="color:var(--blue-ink)">contract work</span> that pays the bills and <span style="color:var(--red-ink)">original ideas</span> we develop into real products. Some become spin-offs. Some stay sketches. The point is to keep making things and see what sticks.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:48px;">
+        <h3 class="section-title" style="font-size:clamp(16px,2vw,20px);margin-bottom:8px;">Team</h3>
+        <div class="section-rule"></div>
+        <p class="section-desc">Small on purpose.</p>
+        <div class="about-sub">
+          <p>A small core of people who make things. <span style="color:var(--red-ink)">Engineers, illustrators, builders.</span> When a project needs specialist depth, we bring in people we&rsquo;ve worked with before.</p>
+          <p><span style="color:var(--blue-ink)">No account managers, no layers between you and the work.</span></p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Capabilities -->
-  <section id="capabilities">
+  <section id="capabilities" data-page="02">
     <div class="container">
-      <p class="section-label">Capabilities</p>
-      <h2 class="section-title">The whole product, one team</h2>
-      <p class="section-desc">Firmware, cloud, web, data, hardware. One architecture, one team responsible for all of it.</p>
+      <p class="section-num">&sect;01.1</p>
+      <h2 class="section-title">Capabilities</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc">What we know how to do, and what we bring to <span style="color:var(--blue-ink)">contract work</span> and <span style="color:var(--red-ink)">our own projects</span>.</p>
 
-      <div class="capabilities-grid">
-
-        <div class="cap-card">
-          <h3>Embedded Systems & Firmware</h3>
-          <p>Production firmware for connected devices. Real-time systems that ship, not prototypes that need to be rewritten.</p>
-          <div class="cap-tags">
-            <span class="cap-tag">FreeRTOS</span>
-            <span class="cap-tag">ESP-IDF</span>
-            <span class="cap-tag">nRF Connect</span>
-            <span class="cap-tag">ARM Cortex-M</span>
-            <span class="cap-tag">C/C++</span>
-          </div>
+      <div class="cap-grid">
+        <div class="cap-entry">
+          <h3>Hardware &amp; Firmware</h3>
+          <p>PCB design, embedded firmware, sensor systems, wireless connectivity. From schematic to production-ready device.</p>
+          <div class="cap-tags"><span>ARM Cortex-M</span><span>FreeRTOS</span><span>nRF Connect</span><span>ESP-IDF</span><span>PCB Design</span></div>
         </div>
-
-        <div class="cap-card">
-          <h3>Wireless & Connectivity</h3>
-          <p>BLE protocol stacks, LTE/CAT-1, Wi-Fi, 5G, LoRa. Everything that gets your device talking to the outside world.</p>
-          <div class="cap-tags">
-            <span class="cap-tag">BLE</span>
-            <span class="cap-tag">LTE</span>
-            <span class="cap-tag">MQTT</span>
-            <span class="cap-tag">LwM2M</span>
-            <span class="cap-tag">CoAP</span>
-          </div>
+        <div class="cap-entry">
+          <h3>Software &amp; Cloud</h3>
+          <p>Full-stack web platforms, APIs, dashboards, IoT backends, fleet management, OTA, telemetry. Everything from the interface people touch to the infrastructure underneath.</p>
+          <div class="cap-tags"><span>React</span><span>Node.js</span><span>Django</span><span>AWS IoT</span><span>MQTT</span><span>PostgreSQL</span></div>
         </div>
-
-        <div class="cap-card">
-          <h3>IoT & Cloud</h3>
-          <p>Provisioning, fleet management, OTA updates, telemetry, data pipelines. The cloud side of connected hardware.</p>
-          <div class="cap-tags">
-            <span class="cap-tag">AWS IoT</span>
-            <span class="cap-tag">MQTT</span>
-            <span class="cap-tag">OTA</span>
-            <span class="cap-tag">TLS</span>
-          </div>
+        <div class="cap-entry">
+          <h3>Brand &amp; Creative</h3>
+          <p>Visual identity, illustration, creative direction, e-commerce growth. We build brands alongside the products.</p>
+          <div class="cap-tags"><span>Illustration</span><span>Brand Systems</span><span>Etsy</span><span>SEO</span><span>Art Direction</span></div>
         </div>
-
-        <div class="cap-card">
-          <h3>Security</h3>
-          <p>Secure boot, flash encryption, hardware root of trust, end-to-end encryption. Built to pass penetration testing.</p>
-          <div class="cap-tags">
-            <span class="cap-tag">Secure Boot</span>
-            <span class="cap-tag">AES + RSA</span>
-            <span class="cap-tag">E2E Encryption</span>
-            <span class="cap-tag">Pen Testing</span>
-          </div>
-        </div>
-
-        <div class="cap-card">
-          <h3>Full-Stack Software</h3>
-          <p>Dashboards, APIs, analytics platforms, companion apps. The software your users actually interact with.</p>
-          <div class="cap-tags">
-            <span class="cap-tag">React</span>
-            <span class="cap-tag">TypeScript</span>
-            <span class="cap-tag">Node.js</span>
-            <span class="cap-tag">Django</span>
-            <span class="cap-tag">PostgreSQL</span>
-          </div>
-        </div>
-
-        <div class="cap-card">
-          <h3>Hardware & Manufacturing</h3>
-          <p>PCB design, mechanical engineering, DFM review, prototyping, and manufacturing tooling through our specialist network.</p>
-          <div class="cap-tags">
-            <span class="cap-tag">PCB Design</span>
-            <span class="cap-tag">DFM</span>
-            <span class="cap-tag">Prototyping</span>
-            <span class="cap-tag">Enclosures</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Selected Work -->
-  <section id="work">
-    <div class="container">
-      <p class="section-label">Selected Work</p>
-      <h2 class="section-title">Products we've shipped</h2>
-      <p class="section-desc">Not mockups. Not demos. Products running in the field.</p>
-
-      <div class="work-grid">
-
-        <div class="work-card">
-          <p class="work-meta">Healthcare IoT</p>
-          <h3>Connected Healthcare Gateway</h3>
-          <p>Cellular-connected hub that pairs with medical devices over Bluetooth and sends patient data to the cloud. We built the firmware, the security layer, and the manufacturing tooling. Zero vulnerabilities in pen testing.</p>
-          <ul>
-            <li>65,000+ units deployed and growing</li>
-            <li>10+ medical device types integrated</li>
-            <li>30x faster factory floor production with custom automation tooling</li>
-          </ul>
-        </div>
-
-        <div class="work-card">
-          <p class="work-meta">Transit Analytics</p>
-          <h3>Rail Condition Analytics Platform</h3>
-          <p>Web platform that processes sensor data from rail networks and turns it into maintenance insights. Used by some of the largest transit agencies in North America.</p>
-          <ul>
-            <li>10+ agencies, 5+ years in continuous operation</li>
-            <li>Cut analysis turnaround from weeks to minutes</li>
-          </ul>
-        </div>
-
-        <div class="work-card">
-          <p class="work-meta">Predictive Maintenance</p>
-          <h3>RailSense</h3>
-          <p>Custom IoT hardware deployed across multiple transit agencies. Captures ride vibration data in real time and flags track conditions before they become problems.</p>
-          <ul>
-            <li>Custom sensor hardware, deployed on live rail</li>
-            <li>Real-time data capture during regular passenger service</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Process -->
-  <section id="process">
-    <div class="container">
-      <p class="section-label">Process</p>
-      <h2 class="section-title">How we work</h2>
-      <p class="section-desc">You get something that works, not a prototype that needs to be rewritten.</p>
-
-      <div class="process-grid">
-        <div class="process-step">
-          <div class="process-num">01</div>
-          <h3>Discovery</h3>
-          <p>Understand the problem first. Define requirements, identify risks, figure out the architecture. Then a fixed-scope proposal with clear milestones.</p>
-        </div>
-        <div class="process-step">
-          <div class="process-num">02</div>
-          <h3>Architecture</h3>
-          <p>Hard technical decisions up front. Platform, protocols, security model, cloud architecture. Get these right and the build goes fast.</p>
-        </div>
-        <div class="process-step">
-          <div class="process-num">03</div>
-          <h3>Build</h3>
-          <p>Focused sprints with regular check-ins. Working hardware and software throughout. TDD and automated testing from day one.</p>
-        </div>
-        <div class="process-step">
-          <div class="process-num">04</div>
-          <h3>Deliver</h3>
-          <p>Production firmware with OTA. Manufacturing tooling. Test frameworks. Documentation. Knowledge transfer. Maintenance agreements.</p>
+        <div class="cap-entry">
+          <h3>Strategy &amp; Growth</h3>
+          <p>Market validation, business modeling, audience building, go-to-market. Turning ideas into things that sustain themselves.</p>
+          <div class="cap-tags"><span>Growth Strategy</span><span>Business Modeling</span><span>Market Research</span><span>Analytics</span></div>
         </div>
       </div>
     </div>
   </section>
+  </div>
 
-  <!-- Why Avrah -->
-  <section>
+  <!-- How We Work section removed — merged into Work With Us -->
+
+  <div class="spread">
+  <!-- RailView -->
+  <section id="railview" data-page="05">
     <div class="container">
-      <p class="section-label">Why Avrah</p>
-      <h2 class="section-title">Why us</h2>
-      <div class="why-grid">
-        <div class="why-card">
-          <h3>We've shipped at scale</h3>
-          <p>65,000+ units in the field. We know the difference between "works on the bench" and "works in production."</p>
+      <p class="section-num">&sect;02.1</p>
+      <h2 class="section-title">RailView <span class="stamp stamp-project">project</span></h2>
+      <div class="section-rule"></div>
+      <p class="section-desc"><em>&ldquo;See your rail network clearly.&rdquo;</em></p>
+
+      <div class="page-illustration">
+        <div class="taped-insert graph-paper tilt-1">
+          <span class="tape washi-gold" style="width:82px; top:-9px; left:18px; transform:rotate(-4deg);"></span>
+          <span class="tape washi-sage" style="width:68px; top:-7px; right:24px; transform:rotate(3.5deg);"></span>
+          <svg class="insert-sketch" viewBox="0 0 240 120">
+            <rect x="45" y="8" width="150" height="88" rx="3"/>
+            <polyline points="60,62 82,48 104,56 126,38 148,50 170,35"/>
+            <circle class="sk-fill" cx="82" cy="48" r="2.5"/>
+            <circle class="sk-fill" cx="126" cy="38" r="2.5"/>
+            <circle class="sk-fill" cx="170" cy="35" r="2.5"/>
+            <line x1="60" y1="74" x2="108" y2="74"/>
+            <line x1="60" y1="82" x2="90" y2="82"/>
+            <line x1="120" y1="96" x2="120" y2="110"/>
+            <line x1="100" y1="110" x2="140" y2="110"/>
+          </svg>
+          <p class="sketch-caption">fig. 1 — dashboard overview</p>
         </div>
-        <div class="why-card">
-          <h3>We own the full stack</h3>
-          <p>Firmware, cloud, web, data. We architect and build the complete system, not just one layer.</p>
+      </div>
+
+      <div class="page-writeup">
+        <h4>What</h4>
+        <p>Data management dashboard and <span style="color:var(--red-ink)">grinding-program visualization</span> for railway maintenance. Built under contract with <span style="background:var(--highlight);padding:0 4px">Global Rail Group</span>. Map-based views, trend analysis, and reporting for transit agencies across North America.</p>
+        <h4>Why</h4>
+        <p>Rail networks generate enormous amounts of condition data. RailView gives maintenance teams the tools to actually use it &mdash; prioritize work, visualize grinding programs, and catch problems before they become failures.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RailSense -->
+  <section id="railsense" data-page="06">
+    <div class="container">
+      <p class="section-num">&sect;02.2</p>
+      <h2 class="section-title">RailSense <span class="stamp stamp-project">project</span></h2>
+      <div class="section-rule"></div>
+      <p class="section-desc"><em>&ldquo;Feel every vibration.&rdquo;</em></p>
+
+      <div class="page-illustration">
+        <div class="taped-insert tilt-2">
+          <span class="tape washi-rose" style="width:76px; top:-8px; left:22px; transform:rotate(-2deg);"></span>
+          <span class="tape washi-blue" style="width:72px; bottom:-8px; right:18px; transform:rotate(4deg);"></span>
+          <svg class="insert-sketch" viewBox="0 0 240 120">
+            <line x1="25" y1="82" x2="215" y2="82"/>
+            <line x1="25" y1="88" x2="215" y2="88"/>
+            <line x1="50" y1="88" x2="50" y2="97"/>
+            <line x1="90" y1="88" x2="90" y2="97"/>
+            <line x1="130" y1="88" x2="130" y2="97"/>
+            <line x1="170" y1="88" x2="170" y2="97"/>
+            <rect x="105" y="68" width="30" height="14" rx="2"/>
+            <path d="M108,62 Q120,52 132,62"/>
+            <path d="M100,54 Q120,40 140,54"/>
+            <path d="M92,46 Q120,28 148,46"/>
+            <line x1="178" y1="35" x2="148" y2="56" stroke-dasharray="4,3"/>
+            <circle class="sk-fill" cx="148" cy="56" r="2"/>
+          </svg>
+          <p class="sketch-caption">fig. 2 — undercar sensor, side view</p>
         </div>
-        <div class="why-card">
-          <h3>Production, not demos</h3>
-          <p>Security, OTA, automated testing, manufacturing tooling. The boring stuff that actually matters.</p>
+      </div>
+
+      <div class="page-writeup">
+        <h4>What</h4>
+        <p>Undercar <span style="color:var(--red-ink)">noise and vibration sensors</span> for transit railways. Custom hardware, <span style="color:var(--blue-ink)">AI-assisted maintenance prioritization</span>. Every revenue service vehicle becomes a continuous track inspector.</p>
+        <h4>Why</h4>
+        <p>Dedicated inspection vehicles are expensive and run on schedules. RailSense monitors track condition during normal passenger service &mdash; continuous data, no operational disruption, problems caught earlier.</p>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <div class="spread">
+  <!-- OpenSpot -->
+  <section id="openspot" data-page="07">
+    <div class="container">
+      <p class="section-num">&sect;02.3</p>
+      <h2 class="section-title">OpenSpot <span class="stamp stamp-project">project</span></h2>
+      <div class="section-rule"></div>
+      <p class="section-desc"><em>&ldquo;Know what&rsquo;s available.&rdquo;</em></p>
+
+      <div class="page-illustration">
+        <div class="taped-insert graph-paper tilt-3">
+          <span class="tape washi-gold" style="width:88px; top:-10px; left:30px; transform:rotate(-6deg);"></span>
+          <span class="tape washi-clay" style="width:64px; top:-7px; right:35px; transform:rotate(2.5deg);"></span>
+          <span class="tape washi-sage" style="width:70px; bottom:-9px; right:22px; transform:rotate(-3deg);"></span>
+          <svg class="insert-sketch" viewBox="0 0 240 120">
+            <line x1="30" y1="58" x2="210" y2="58"/>
+            <rect x="38" y="16" width="28" height="38"/>
+            <rect x="72" y="16" width="28" height="38"/>
+            <rect x="106" y="16" width="28" height="38"/>
+            <rect x="140" y="16" width="28" height="38"/>
+            <rect x="174" y="16" width="28" height="38"/>
+            <rect x="38" y="62" width="28" height="38"/>
+            <rect x="72" y="62" width="28" height="38"/>
+            <rect x="106" y="62" width="28" height="38"/>
+            <rect x="140" y="62" width="28" height="38"/>
+            <rect x="174" y="62" width="28" height="38"/>
+            <line x1="42" y1="20" x2="62" y2="50"/>
+            <line x1="62" y1="20" x2="42" y2="50"/>
+            <line x1="110" y1="20" x2="130" y2="50"/>
+            <line x1="130" y1="20" x2="110" y2="50"/>
+            <line x1="178" y1="66" x2="198" y2="96"/>
+            <line x1="198" y1="66" x2="178" y2="96"/>
+            <circle cx="154" cy="81" r="18" stroke-dasharray="4,3"/>
+          </svg>
+          <p class="sketch-caption">fig. 3 — spot detection, bird's eye</p>
         </div>
-        <div class="why-card">
-          <h3>Small on purpose</h3>
-          <p>You talk to the engineers who do the work. When we need specialist depth, we bring in people we've worked with before.</p>
+      </div>
+
+      <div class="page-writeup">
+        <h4>What</h4>
+        <p>Two-sided smart parking. <span style="color:var(--blue-ink)">Real-time occupancy</span> for lot operators, <span style="color:var(--blue-ink)">spot-finding and reservations</span> for drivers. Magnetometer or camera-based sensing, a dashboard for operators, and an app for everyone else.</p>
+        <h4>Why</h4>
+        <p>Parking is an infrastructure problem dressed up as a convenience problem. The wedge is <span style="background:var(--highlight);padding:0 4px">municipal, hospital, and private lots</span> &mdash; places where better data means real money saved and fewer cars circling blocks.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cyberdeck -->
+  <section id="cyberdeck" data-page="08">
+    <div class="container">
+      <p class="section-num">&sect;03.1</p>
+      <h2 class="section-title">Cyberdeck <span class="stamp stamp-idea">idea</span></h2>
+      <div class="section-rule"></div>
+      <p class="section-desc"><em>&ldquo;A computer that feels like it belongs to you.&rdquo;</em></p>
+
+      <div class="page-illustration">
+        <div class="taped-insert tilt-4">
+          <span class="tape washi-blue" style="width:90px; top:-7px; left:15px; transform:rotate(-8deg);"></span>
+          <span class="tape washi-rose" style="width:74px; bottom:-9px; left:28px; transform:rotate(5deg);"></span>
+          <svg class="insert-sketch" viewBox="0 0 240 120">
+            <rect x="55" y="8" width="130" height="104" rx="6"/>
+            <rect x="66" y="16" width="108" height="50" rx="2"/>
+            <line x1="76" y1="33" x2="132" y2="33"/>
+            <line x1="76" y1="42" x2="118" y2="42"/>
+            <line x1="76" y1="51" x2="148" y2="51"/>
+            <line x1="66" y1="72" x2="174" y2="72"/>
+            <rect x="73" y="78" width="10" height="7" rx="1"/>
+            <rect x="87" y="78" width="10" height="7" rx="1"/>
+            <rect x="101" y="78" width="10" height="7" rx="1"/>
+            <rect x="115" y="78" width="10" height="7" rx="1"/>
+            <rect x="129" y="78" width="10" height="7" rx="1"/>
+            <rect x="143" y="78" width="10" height="7" rx="1"/>
+            <rect x="157" y="78" width="10" height="7" rx="1"/>
+            <rect x="80" y="90" width="10" height="7" rx="1"/>
+            <rect x="94" y="90" width="10" height="7" rx="1"/>
+            <rect x="108" y="90" width="10" height="7" rx="1"/>
+            <rect x="122" y="90" width="10" height="7" rx="1"/>
+            <rect x="136" y="90" width="10" height="7" rx="1"/>
+            <rect x="150" y="90" width="10" height="7" rx="1"/>
+            <line x1="180" y1="14" x2="193" y2="4"/>
+            <circle class="sk-fill" cx="193" cy="4" r="2"/>
+          </svg>
+          <p class="sketch-caption">fig. 4 — form factor concept</p>
+        </div>
+      </div>
+
+      <div class="page-writeup">
+        <h4>What</h4>
+        <p>A handheld computing device as <span style="color:var(--red-ink)">aesthetic statement</span>. Real keys, <span style="color:var(--blue-ink)">local AI</span>, off-grid friendly. <span style="background:var(--highlight);padding:0 4px">Open hardware</span>, retro-futurist design, beautiful and useful in equal measure. Something you want to pick up.</p>
+        <h4>Why</h4>
+        <p>Consumer electronics are disposable black rectangles. A cyberdeck is the opposite &mdash; <span style="color:var(--red-ink)">personal, repairable, opinionated</span>. It&rsquo;s a brand object that embodies everything Avrah believes about technology and craft.</p>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <div class="spread">
+  <!-- Community LoRA -->
+  <section id="community-lora" data-page="09">
+    <div class="container">
+      <p class="section-num">&sect;03.2</p>
+      <h2 class="section-title">Community LoRa <span class="stamp stamp-idea">idea</span></h2>
+      <div class="section-rule"></div>
+      <p class="section-desc"><em>&ldquo;Off-grid, open, no subscription.&rdquo;</em></p>
+
+      <div class="page-illustration">
+        <div class="taped-insert graph-paper tilt-5">
+          <span class="tape washi-clay" style="width:78px; top:-8px; right:20px; transform:rotate(6deg);"></span>
+          <span class="tape washi-gold" style="width:84px; bottom:-10px; left:25px; transform:rotate(-2.5deg);"></span>
+          <svg class="insert-sketch" viewBox="0 0 240 120">
+            <line x1="120" y1="95" x2="120" y2="28"/>
+            <line x1="108" y1="95" x2="132" y2="95"/>
+            <line x1="112" y1="86" x2="128" y2="86"/>
+            <path d="M130,34 Q148,20 143,50"/>
+            <path d="M138,28 Q162,10 155,52"/>
+            <path d="M110,34 Q92,20 97,50"/>
+            <path d="M102,28 Q78,10 85,52"/>
+            <circle cx="42" cy="78" r="7"/>
+            <circle cx="82" cy="106" r="7"/>
+            <circle cx="198" cy="72" r="7"/>
+            <circle cx="168" cy="102" r="7"/>
+            <line x1="49" y1="76" x2="112" y2="86" stroke-dasharray="4,4"/>
+            <line x1="88" y1="102" x2="114" y2="93" stroke-dasharray="4,4"/>
+            <line x1="191" y1="74" x2="128" y2="86" stroke-dasharray="4,4"/>
+            <line x1="163" y1="98" x2="132" y2="93" stroke-dasharray="4,4"/>
+          </svg>
+          <p class="sketch-caption">fig. 5 — mesh topology</p>
+        </div>
+      </div>
+
+      <div class="page-writeup">
+        <h4>What</h4>
+        <p>Community-forward <span style="background:var(--highlight);padding:0 4px">open-source LoRa</span> and mesh networking. Small, useful devices &mdash; a <span style="color:var(--blue-ink)">dog tracker</span>, a <span style="color:var(--blue-ink)">weather station</span>, a <span style="color:var(--blue-ink)">backcountry beacon</span>. Built on Meshcore, designed to be shared and modified.</p>
+        <h4>Why</h4>
+        <p>Long-range radio is too useful to be locked behind subscriptions and proprietary ecosystems. Community LoRa puts mesh networking in people&rsquo;s hands with open firmware, open hardware, and <span style="color:var(--red-ink)">no monthly fee</span>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Findables -->
+  <section id="findables" data-page="10">
+    <div class="container">
+      <p class="section-num">&sect;03.3</p>
+      <h2 class="section-title">Findables <span class="stamp stamp-idea">idea</span></h2>
+      <div class="section-rule"></div>
+      <p class="section-desc"><em>&ldquo;Where did I put that?&rdquo;</em></p>
+
+      <div class="page-illustration">
+        <div class="taped-insert tilt-6">
+          <span class="tape washi-sage" style="width:96px; top:-9px; left:50%; margin-left:-48px; transform:rotate(-1.5deg);"></span>
+          <svg class="insert-sketch" viewBox="0 0 240 120">
+            <rect x="93" y="35" width="54" height="54" rx="9"/>
+            <circle class="sk-fill" cx="120" cy="62" r="3.5"/>
+            <circle cx="120" cy="30" r="4.5"/>
+            <path d="M152,47 Q168,40 164,70"/>
+            <path d="M160,42 Q180,32 175,75"/>
+            <path d="M168,37 Q192,24 186,80"/>
+            <line x1="38" y1="28" x2="88" y2="48" stroke-dasharray="4,3"/>
+            <polyline points="82,44 88,48 84,55"/>
+            <line x1="45" y1="102" x2="90" y2="80" stroke-dasharray="4,3"/>
+            <polyline points="84,84 90,80 87,73"/>
+          </svg>
+          <p class="sketch-caption">fig. 6 — tag + localization</p>
+        </div>
+      </div>
+
+      <div class="page-writeup">
+        <h4>What</h4>
+        <p>Cheap BLE tags with <span style="color:var(--blue-ink)">room-level indoor localization</span> for your home and workshop. Open firmware, <span style="color:var(--blue-ink)">Home Assistant integration</span>, no subscription. A 10-tag starter kit for <span style="background:var(--highlight);padding:0 4px">under $130</span>.</p>
+        <h4>Why</h4>
+        <p>AirTags are great for keys. But <span style="color:var(--red-ink)">makers, hobbyists</span>, and anyone with a workshop full of tools need something different &mdash; cheap enough to tag everything, open enough to plug into the systems you already run.</p>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <div class="spread">
+  <!-- Work With Us -->
+  <section id="work-with-us" data-page="11">
+    <div class="container">
+      <p class="section-num">&sect;04</p>
+      <h2 class="section-title">Work With Us</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc" id="partner-model">Two ways in. Pick the one that fits.</p>
+
+      <div class="split-section" id="contract-model">
+        <div class="split-left">
+          <p class="split-heading">Co-Founder Model</p>
+          <div class="split-rule"></div>
+          <p style="font-family:var(--font-sans);color:var(--graphite);font-size:14px;line-height:24px;">Pitch an idea at our <span style="color:var(--red-ink)">monthly pitch nights</span>. We validate, sketch, and build it together. Shared ownership, shared risk.</p>
+        </div>
+        <div class="split-right">
+          <p class="split-heading">Contract Model</p>
+          <div class="split-rule"></div>
+          <p style="font-family:var(--font-sans);color:var(--graphite);font-size:14px;line-height:24px;">Defined scope, clear milestones, clean handoff. Typical engagements run <span style="background:var(--highlight);padding:0 4px">3&ndash;12 months</span>.</p>
+        </div>
+      </div>
+
+      <p style="margin-top:36px;"><a href="#contact" class="studio-cta" style="background:var(--highlight);padding:2px 6px;">Get in touch &rarr;</a></p>
+    </div>
+  </section>
+  </div>
+
+  <div class="spread">
+  <!-- Terminal / Scratchpad -->
+  <section id="terminal-section" data-page="??">
+    <div class="container">
+      <p class="section-num">//</p>
+      <h2 class="section-title">Scratchpad</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc">A terminal. Poke around. Try <span style="color:var(--blue-ink)">help</span>.</p>
+
+      <div class="term-window">
+        <div class="term-chrome">
+          <span class="term-dot r"></span>
+          <span class="term-dot y"></span>
+          <span class="term-dot g"></span>
+          <span class="term-title">visitor@avrah ~</span>
+        </div>
+        <div class="term-body" id="terminal-body">
+          <div id="terminal-output"></div>
+          <div class="term-input-line" id="term-input-line">
+            <span class="term-prompt">visitor@avrah:~$&nbsp;</span>
+            <input type="text" id="terminal-input" class="term-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Engagement Models -->
-  <section>
+  <!-- Command Reference -->
+  <section data-page="??">
     <div class="container">
-      <p class="section-label">Engagement</p>
-      <h2 class="section-title">How to work with us</h2>
-      <p class="section-desc">Different ways in, depending on where you are.</p>
+      <p class="section-num">//</p>
+      <h2 class="section-title">Commands</h2>
+      <div class="section-rule"></div>
 
-      <div class="engage-grid">
-        <div class="engage-card">
-          <h3>Fixed-Scope Project</h3>
-          <p class="engage-for">You know what you want built. We scope it, price it, build it.</p>
-          <span class="engage-duration">3 &ndash; 12 months</span>
-        </div>
-        <div class="engage-card">
-          <h3>Discovery & Architecture</h3>
-          <p class="engage-for">You have an idea but need technical direction before committing to a full build.</p>
-          <span class="engage-duration">2 &ndash; 6 weeks</span>
-        </div>
-        <div class="engage-card">
-          <h3>Embedded Team</h3>
-          <p class="engage-for">You have a team but need senior embedded and IoT expertise alongside them.</p>
-          <span class="engage-duration">Ongoing</span>
-        </div>
-        <div class="engage-card">
-          <h3>Retainer</h3>
-          <p class="engage-for">Product's shipped but you need someone to keep it running and evolving.</p>
-          <span class="engage-duration">Monthly</span>
-        </div>
+      <div class="term-ref">
+        <h3>Quick Reference</h3>
+        <ul class="term-ref-list">
+          <li><span class="term-ref-cmd">help</span><span class="term-ref-desc">list all commands</span></li>
+          <li><span class="term-ref-cmd">ls</span><span class="term-ref-desc">list files</span></li>
+          <li><span class="term-ref-cmd">cat &lt;file&gt;</span><span class="term-ref-desc">read a file</span></li>
+          <li><span class="term-ref-cmd">neofetch</span><span class="term-ref-desc">system info</span></li>
+          <li><span class="term-ref-cmd">make</span><span class="term-ref-desc">build something</span></li>
+          <li><span class="term-ref-cmd">snake</span><span class="term-ref-desc">play a game</span></li>
+          <li><span class="term-ref-cmd">fortune</span><span class="term-ref-desc">words of wisdom</span></li>
+          <li><span class="term-ref-cmd">cowsay &lt;msg&gt;</span><span class="term-ref-desc">moo</span></li>
+          <li><span class="term-ref-cmd">matrix</span><span class="term-ref-desc">???</span></li>
+          <li><span class="term-ref-cmd">clear</span><span class="term-ref-desc">clear terminal</span></li>
+        </ul>
+
+        <h3 style="margin-top:32px">Snake Controls</h3>
+        <ul class="term-ref-list">
+          <li><span class="term-ref-cmd">Arrow keys</span><span class="term-ref-desc">move</span></li>
+          <li><span class="term-ref-cmd">WASD</span><span class="term-ref-desc">also move</span></li>
+          <li><span class="term-ref-cmd">q / ESC</span><span class="term-ref-desc">quit game</span></li>
+        </ul>
+
+        <p style="margin-top:32px; font-family:var(--font-mono); font-size:11px; color:var(--graphite); line-height:1.6;">There are more commands than listed here. Some are hidden. Explore.</p>
       </div>
     </div>
   </section>
+  </div>
 
-  <!-- About -->
-  <section id="about">
+  <div class="spread">
+  <!-- Blog -->
+  <section id="blog" data-page="12">
     <div class="container">
-      <p class="section-label">About</p>
-      <h2 class="section-title">The name</h2>
-      <div class="about-content">
-        <p class="about-name">Avrah</p>
-        <p class="about-origin">Aramaic &middot; to create, to build</p>
-        <p>In ancient Aramaic, <em>avra k'davra</em> means "I create as I speak." It's where the word <em>abracadabra</em> comes from. The idea that saying something can make it real.</p>
-        <p>We took the first word. We don't just talk about products. We create them. A conversation becomes a concept, a concept becomes a device in the field. That's the magic.</p>
+      <p class="section-num">&sect;05</p>
+      <h2 class="section-title">Blog</h2>
+      <div class="section-rule"></div>
+
+      <div style="display:flex;justify-content:center;align-items:center;min-height:200px;">
+        <div class="taped-insert tilt-3" style="max-width:320px;padding:28px 32px;text-align:center;">
+          <span class="tape washi-gold" style="width:85px;top:-9px;left:50%;margin-left:-42px;transform:rotate(-2deg);"></span>
+          <p style="font-family:var(--font-hand);font-size:24px;color:var(--ink);margin-bottom:4px;">Blog + newsletter</p>
+          <p style="font-family:var(--font-hand);font-size:22px;color:var(--graphite);">coming soon!</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="contact-section">
+  <section id="contact" class="contact-section" data-page="13">
     <div class="container">
-      <p class="section-label">Contact</p>
-      <h2 class="section-title">Ready to build something?</h2>
-      <p class="section-desc">Tell us about your project. We'll be straight with you about whether we're the right fit.</p>
-      <div class="contact-links">
-        <a href="mailto:sanjay.alex@gmail.com" class="contact-link">sanjay.alex@gmail.com</a>
-        <a href="https://linkedin.com/in/sanjay-abraham" target="_blank" rel="noopener" class="contact-link">LinkedIn</a>
-        <a href="https://github.com/santaseleucid" target="_blank" rel="noopener" class="contact-link">GitHub</a>
+      <p class="section-num">&sect;06</p>
+      <h2 class="section-title">Contact</h2>
+      <div class="section-rule"></div>
+
+      <div class="contact-inner">
+        <div class="contact-text">
+          <p>Tell us about your project. We&rsquo;ll be straight with you about whether we&rsquo;re the right fit.</p>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:sanjay.alex@gmail.com" class="contact-link">
+            <span class="link-label">Email</span>
+            sanjay.alex@gmail.com
+          </a>
+          <a href="https://linkedin.com/in/sanjay-abraham" target="_blank" rel="noopener" class="contact-link">
+            <span class="link-label">LinkedIn</span>
+            sanjay-abraham
+          </a>
+          <a href="https://github.com/santaseleucid" target="_blank" rel="noopener" class="contact-link">
+            <span class="link-label">GitHub</span>
+            santaseleucid
+          </a>
+        </div>
       </div>
     </div>
   </section>
+  </div>
 
   <!-- Footer -->
   <footer>
     <div class="container">
-      <p>&copy; 2026 AVRAH.STUDIO &mdash; Winnipeg, Canada</p>
+      <span class="footer-left">&copy; 2026 AVRAH.STUDIO</span>
+      <span class="footer-right">49.8954&deg;N &ensp; 97.1385&deg;W</span>
     </div>
   </footer>
+
+  </main>
+
+  <script>
+    // Notebook page-flip animation (wide screens only)
+    if (window.matchMedia('(min-width: 1400px)').matches) {
+      const spreads = document.querySelectorAll('.spread');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          entry.target.classList.toggle('in-view', entry.intersectionRatio > 0.3);
+        });
+      }, { threshold: [0, 0.1, 0.3, 0.5, 0.7, 1] });
+
+      spreads.forEach(s => {
+        s.classList.add('spread-observed');
+        observer.observe(s);
+      });
+    }
+  </script>
+
+  <script>
+  (function() {
+    'use strict';
+    var output = document.getElementById('terminal-output');
+    var input = document.getElementById('terminal-input');
+    var termBody = document.getElementById('terminal-body');
+    var inputLine = document.getElementById('term-input-line');
+    if (!output || !input) return;
+
+    var history = [], historyIdx = -1, gameActive = false;
+
+    var fs = {
+      'about.txt':
+        'AVRAH — Product Design Studio\nWinnipeg, MB, Canada\n\nFrom the Aramaic "avra" — to create, to build.\n"Avra k\'davra" means "I create as I speak."\nThat\'s where "abracadabra" comes from.\n\nWe took the first word. We don\'t just talk\nabout products. We create them.',
+      'stack.txt':
+        'FIRMWARE    FreeRTOS, Zephyr, ESP-IDF, nRF Connect\nHARDWARE    ARM Cortex-M, nRF52, ESP32, Custom PCB\nWIRELESS    BLE 5.3, LTE CAT-1, Wi-Fi, LoRa\nCLOUD       AWS IoT Core, MQTT, TLS, OTA\nSOFTWARE    React, TypeScript, Node.js, Django\nSECURITY    Secure Boot, E2E Encryption, Pen Testing',
+      'contact.txt':
+        'EMAIL    sanjay.alex@gmail.com\nGITHUB   github.com/santaseleucid\nLINKEDIN linkedin.com/in/sanjay-abraham\nWEB      avrah.studio',
+      'projects.txt':
+        '01  Connected Healthcare Gateway    65,000+ units\n02  Rail Condition Analytics         10+ agencies\n03  RailSense IoT Hardware          Custom HW, live rail',
+      '.secret':
+        '\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\n\u2588                                \u2588\n\u2588  You found the secret file.    \u2588\n\u2588                                \u2588\n\u2588  Try: sudo make me a sandwich  \u2588\n\u2588  Try: avra kadavra             \u2588\n\u2588  Try: rm -rf /                 \u2588\n\u2588                                \u2588\n\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588',
+      '.bashrc':
+        '# ~/.bashrc\nexport PS1="visitor@avrah:~$ "\nalias ll="ls -la"\nalias cls="clear"\n# TODO: fix the coffee machine firmware\n# TODO: stop playing snake during standups'
+    };
+
+    var fortunes = [
+      '"Any sufficiently advanced technology is indistinguishable from magic." \u2014 Arthur C. Clarke',
+      '"Hardware eventually fails. Software eventually works." \u2014 Michael Hartung',
+      '"The best time to fix a bug is before you ship. The second best time is now."',
+      '"In theory, there is no difference between theory and practice. In practice, there is."',
+      '"It works on my machine." \u2014 Every firmware engineer, ever.',
+      '"The IoT: where your fridge has more uptime than your startup."',
+      '"Premature optimization is the root of all evil." \u2014 Donald Knuth',
+      '"First, solve the problem. Then, write the code." \u2014 John Johnson',
+      '"There are only two hard things: cache invalidation, naming things, and off-by-one errors."',
+      '"A good solder joint is like a good handshake \u2014 firm, shiny, and inspires confidence."',
+      '"Sleep is just your body\'s OTA update process."',
+    ];
+
+    function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function print(text, cls) {
+      var d = document.createElement('div');
+      if (cls) d.className = cls;
+      d.textContent = text;
+      output.appendChild(d);
+      termBody.scrollTop = termBody.scrollHeight;
+    }
+
+    function printH(html) {
+      var d = document.createElement('div');
+      d.innerHTML = html;
+      output.appendChild(d);
+      termBody.scrollTop = termBody.scrollHeight;
+    }
+
+    function printDelayed(lines, delay, cb) {
+      inputLine.style.display = 'none';
+      var i = 0;
+      function next() {
+        if (i < lines.length) {
+          if (typeof lines[i] === 'string') print(lines[i]);
+          else printH(lines[i].h);
+          i++;
+          setTimeout(next, delay);
+        } else {
+          inputLine.style.display = 'flex';
+          input.focus();
+          if (cb) cb();
+        }
+      }
+      next();
+    }
+
+    // Welcome
+    printH('<span class="t-green t-bold">Avrah Studio Terminal v1.0</span>');
+    print("Type 'help' for available commands.", 't-gray');
+    print('');
+
+    termBody.addEventListener('click', function() { if (!gameActive) input.focus(); });
+
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        var cmd = input.value; input.value = '';
+        handleCommand(cmd);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (history.length > 0) {
+          if (historyIdx === -1) historyIdx = history.length;
+          if (historyIdx > 0) { historyIdx--; input.value = history[historyIdx]; }
+        }
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (historyIdx >= 0 && historyIdx < history.length - 1) {
+          historyIdx++; input.value = history[historyIdx];
+        } else { historyIdx = -1; input.value = ''; }
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        tabComplete();
+      } else if (e.key === 'l' && e.ctrlKey) {
+        e.preventDefault();
+        output.innerHTML = '';
+      }
+    });
+
+    function tabComplete() {
+      var val = input.value, parts = val.split(/\s+/);
+      var cmds = ['help','ls','cat','pwd','whoami','echo','clear','date','uptime','ping','make','neofetch','cowsay','fortune','snake','matrix','history','sudo','rm','vim','nano','exit','cd','curl','grep','git','coffee','sl'];
+      if (parts.length <= 1) {
+        var m = cmds.filter(function(c) { return c.indexOf(parts[0]) === 0; });
+        if (m.length === 1) input.value = m[0] + ' ';
+      } else if (parts[0] === 'cat') {
+        var fnames = Object.keys(fs);
+        var partial = parts[parts.length - 1];
+        var fm = fnames.filter(function(f) { return f.indexOf(partial) === 0; });
+        if (fm.length === 1) { parts[parts.length - 1] = fm[0]; input.value = parts.join(' '); }
+      }
+    }
+
+    function handleCommand(cmd) {
+      var trimmed = cmd.trim();
+      if (!trimmed) { printH('<span class="t-green">visitor@avrah:~$</span> '); return; }
+
+      history.push(trimmed);
+      historyIdx = -1;
+      printH('<span class="t-green">visitor@avrah:~$</span> ' + esc(trimmed));
+
+      var parts = trimmed.split(/\s+/);
+      var c = parts[0].toLowerCase();
+      var args = parts.slice(1);
+      var full = trimmed.toLowerCase();
+
+      // Easter egg phrases
+      if (full === 'sudo make me a sandwich') { cmdSandwich(); print(''); return; }
+      if (full === 'avra kadavra' || full === 'avra kedavra' || full === 'avracadabra') { cmdMagic(); return; }
+      if (full.match(/^rm\s+(-rf?\s+)?\//) ) { cmdRmRf(); return; }
+
+      switch(c) {
+        case 'help': cmdHelp(); break;
+        case 'ls': cmdLs(args); break;
+        case 'cat': cmdCat(args); break;
+        case 'pwd': print('/home/avrah/studio'); break;
+        case 'whoami': print('visitor (with good taste)'); break;
+        case 'echo': print(args.join(' ')); break;
+        case 'clear': output.innerHTML = ''; break;
+        case 'date': print(new Date().toString()); break;
+        case 'uptime': cmdUptime(); break;
+        case 'ping': cmdPing(args); break;
+        case 'make': cmdMake(args); break;
+        case 'neofetch': case 'fastfetch': cmdNeofetch(); break;
+        case 'cowsay': cmdCowsay(args.join(' ') || 'moo'); break;
+        case 'fortune': cmdFortune(); break;
+        case 'snake': cmdSnake(); break;
+        case 'matrix': cmdMatrix(); break;
+        case 'history': cmdHistory(); break;
+        case 'sudo': printH('<span class="t-red">Permission denied. Nice try though.</span>'); break;
+        case 'rm': printH('<span class="t-red">rm: permission denied (read-only terminal, friend)</span>'); break;
+        case 'vim': case 'vi': printH('<span class="t-yellow">You\'d be here forever. Try cat instead.</span>'); break;
+        case 'nano': printH('<span class="t-yellow">nano: command not found (we\'re vim people here)</span>'); break;
+        case 'emacs': printH('<span class="t-yellow">This terminal isn\'t big enough for Emacs.</span>'); break;
+        case 'exit': case 'quit': case 'logout': printH('<span class="t-yellow">There is no escape. Type \'help\' to embrace it.</span>'); break;
+        case 'cd': printH('<span class="t-yellow">There\'s nowhere else to go. You\'re already home.</span>'); break;
+        case 'curl': cmdCurl(); break;
+        case 'grep': print('grep: try looking with your eyes', 't-gray'); break;
+        case 'man': print('No manual entry. We learn by doing here.', 't-gray'); break;
+        case 'top': case 'htop': printH('<span class="t-green">PID 1: avrah-studio (running, no issues, vibes nominal)</span>'); break;
+        case 'git': cmdGit(args); break;
+        case 'npm': case 'yarn': case 'pnpm': printH('<span class="t-yellow">node_modules: the heaviest object in the known universe</span>'); break;
+        case 'python': case 'python3': case 'node': print("This isn't that kind of terminal. Try 'snake' for fun.", 't-gray'); break;
+        case 'ssh': printH('<span class="t-red">Connection refused. This is a one-way terminal.</span>'); break;
+        case 'sl': cmdSl(); break;
+        case 'hello': case 'hi': case 'hey': printH('<span class="t-green">Hey! Type \'help\' to see what you can do.</span>'); break;
+        case 'coffee': printH('<span class="t-yellow">Brewing... done. Here you go. \u2615</span>'); break;
+        case 'please': printH('<span class="t-green">Since you asked nicely... type \'help\' for commands.</span>'); break;
+        case 'xkcd': print('There\'s always a relevant xkcd.', 't-gray'); break;
+        default:
+          printH('<span class="t-red">' + esc(c) + ': command not found. Try \'help\'.</span>');
+      }
+      print('');
+    }
+
+    function cmdHelp() {
+      printH('<span class="t-green t-bold">Available commands:</span>');
+      print('');
+      var cmds = [
+        ['ls [-la]','list files'], ['cat <file>','read a file'], ['pwd','working directory'],
+        ['whoami','who are you?'], ['echo <text>','echo text'], ['date','current date/time'],
+        ['uptime','system uptime'], ['ping <host>','ping a host'], ['make','build a product'],
+        ['neofetch','system info'], ['cowsay <msg>','a cow says things'], ['fortune','words of wisdom'],
+        ['snake','play snake'], ['matrix','take the red pill'], ['history','command history'],
+        ['clear','clear screen']
+      ];
+      cmds.forEach(function(pair) {
+        var pad = pair[0]; while (pad.length < 16) pad += ' ';
+        printH('  <span class="t-blue">' + pad + '</span><span class="t-gray">' + pair[1] + '</span>');
+      });
+      print('');
+      printH('<span class="t-gray">Hint: there are hidden commands. Explore.</span>');
+    }
+
+    function cmdLs(args) {
+      var showA = args.some(function(a) { return a.indexOf('a') !== -1; });
+      var showL = args.some(function(a) { return a.indexOf('l') !== -1; });
+      var names = Object.keys(fs);
+      var vis = showA ? names : names.filter(function(f) { return f[0] !== '.'; });
+      if (showL) {
+        printH('<span class="t-gray">total ' + vis.length + '</span>');
+        vis.forEach(function(f) {
+          var sz = ('     ' + fs[f].length).slice(-5);
+          printH('<span class="t-gray">-rw-r--r--  1 avrah  staff  ' + sz + '  Jan  1 00:00  </span>' + (f[0]==='.'?'<span class="t-gray">'+f+'</span>':f));
+        });
+      } else {
+        printH(vis.map(function(f) { return f[0]==='.'?'<span class="t-gray">'+f+'</span>':f; }).join('  '));
+      }
+    }
+
+    function cmdCat(args) {
+      if (!args.length) { printH('<span class="t-red">cat: missing file operand</span>'); return; }
+      var f = args[0];
+      if (fs[f]) { fs[f].split('\n').forEach(function(l) { print(l); }); }
+      else {
+        printH('<span class="t-red">cat: ' + esc(f) + ': No such file or directory</span>');
+        if (f === 'secret' || f === 'secret.txt') printH('<span class="t-gray">Hint: try ls -la</span>');
+      }
+    }
+
+    function cmdUptime() {
+      var days = Math.floor((new Date() - new Date('2024-01-01')) / 86400000);
+      print('up ' + days + ' days, shipping products since 2024');
+    }
+
+    function cmdPing(args) {
+      var host = args[0] || 'avrah.studio';
+      var lines = ['PING ' + host + ' (49.89.97.14): 56 data bytes'];
+      for (var i = 0; i < 4; i++) {
+        lines.push('64 bytes from 49.89.97.14: icmp_seq=' + i + ' ttl=64 time=' + (Math.random()*20+5).toFixed(1) + ' ms');
+      }
+      lines.push('');
+      lines.push('--- ' + host + ' ping statistics ---');
+      lines.push('4 packets transmitted, 4 received, 0% packet loss');
+      printDelayed(lines, 300);
+    }
+
+    function cmdMake(args) {
+      if (args.join(' ').toLowerCase() === 'me a sandwich') {
+        printH('<span class="t-yellow">What? Make it yourself.</span>'); return;
+      }
+      var lines = [
+        {h:'<span class="t-gray">[  0%] Scanning requirements...</span>'},
+        {h:'<span class="t-gray">[ 12%] Compiling firmware...</span>'},
+        {h:'<span class="t-gray">[ 25%] Linking bootloader...</span>'},
+        {h:'<span class="t-gray">[ 37%] Flashing secure boot keys...</span>'},
+        {h:'<span class="t-yellow">[ 50%] Building cloud infrastructure...</span>'},
+        {h:'<span class="t-yellow">[ 62%] Deploying MQTT broker...</span>'},
+        {h:'<span class="t-yellow">[ 75%] Provisioning fleet...</span>'},
+        {h:'<span class="t-blue">[ 87%] Running integration tests...</span>'},
+        {h:'<span class="t-blue">[ 94%] Generating manufacturing tooling...</span>'},
+        {h:'<span class="t-green t-bold">[100%] \u2713 Product ready for production.</span>'},
+        '',
+        {h:'<span class="t-green">Build complete. Ship it.</span>'}
+      ];
+      printDelayed(lines, 350);
+    }
+
+    function cmdNeofetch() {
+      var art = [
+        '       _   _   ______  _   _ ',
+        '      / \\ | | / / _  \\| | | |',
+        '     / _ \\| |/ / |_| || |_| |',
+        '    / ___ |   /|  _  ||  _  |',
+        '   /_/   \\_\\_/ |_| |_||_| |_|'
+      ];
+      var info = [
+        '<span class="t-green t-bold">visitor</span><span class="t-gray">@</span><span class="t-green t-bold">avrah</span>',
+        '<span class="t-gray">\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500</span>',
+        '<span class="t-blue">OS:</span> AvrahOS 1.0 (notebook ed.)',
+        '<span class="t-blue">Host:</span> avrah.studio',
+        '<span class="t-blue">Kernel:</span> FreeRTOS 10.5.1',
+        '<span class="t-blue">Shell:</span> avrah-sh 1.0',
+        '<span class="t-blue">CPU:</span> ARM Cortex-M4F @ 168MHz',
+        '<span class="t-blue">Memory:</span> 42KB / 256KB',
+        '<span class="t-blue">Uptime:</span> shipping since 2024',
+        '<span class="t-blue">Location:</span> 49.89\u00b0N 97.14\u00b0W'
+      ];
+      var maxLines = Math.max(art.length, info.length);
+      for (var i = 0; i < maxLines; i++) {
+        var left = i < art.length ? '<span class="t-blue t-bold">' + esc(art[i]) + '</span>' : '<span>                               </span>';
+        var right = i < info.length ? '   ' + info[i] : '';
+        printH('<span style="display:inline-block;min-width:240px">' + left + '</span>' + right);
+      }
+      printH('<br><span style="display:inline-block;min-width:240px"></span>' +
+        '<span style="background:#1c1917;color:#1c1917">\u2588\u2588\u2588</span>' +
+        '<span style="background:#c23838;color:#c23838">\u2588\u2588\u2588</span>' +
+        '<span style="background:#3fb950;color:#3fb950">\u2588\u2588\u2588</span>' +
+        '<span style="background:#d29922;color:#d29922">\u2588\u2588\u2588</span>' +
+        '<span style="background:#58a6ff;color:#58a6ff">\u2588\u2588\u2588</span>' +
+        '<span style="background:#a371f7;color:#a371f7">\u2588\u2588\u2588</span>' +
+        '<span style="background:#39d353;color:#39d353">\u2588\u2588\u2588</span>' +
+        '<span style="background:#c9d1d9;color:#c9d1d9">\u2588\u2588\u2588</span>');
+    }
+
+    function cmdCowsay(text) {
+      var len = Math.min(text.length, 40);
+      var wrapped = [];
+      for (var i = 0; i < text.length; i += len) wrapped.push(text.substring(i, i + len));
+      var border = '+' + Array(len + 3).join('-') + '+';
+      print(' ' + border);
+      wrapped.forEach(function(line) { var pad = line; while(pad.length<len) pad+=' '; print(' | ' + pad + ' |'); });
+      print(' ' + border);
+      print('        \\   ^__^');
+      print('         \\  (oo)\\_______');
+      print('            (__)\\       )\\/\\');
+      print('                ||----w |');
+      print('                ||     ||');
+    }
+
+    function cmdFortune() {
+      printH('<span class="t-yellow">' + esc(fortunes[Math.floor(Math.random() * fortunes.length)]) + '</span>');
+    }
+
+    function cmdHistory() {
+      history.forEach(function(cmd, i) {
+        print('  ' + ('    ' + (i+1)).slice(-4) + '  ' + cmd);
+      });
+    }
+
+    function cmdSandwich() {
+      printH('<span class="t-green t-bold">\ud83e\udd6a Okay.</span>');
+      print('');
+      print('  \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510');
+      print('  \u2502 \u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248 \u2502  bread');
+      print('  \u2502 \u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593 \u2502  avocado');
+      print('  \u2502 \u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591 \u2502  turkey');
+      print('  \u2502 \u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593 \u2502  cheese');
+      print('  \u2502 \u2234\u2234\u2234\u2234\u2234\u2234\u2234\u2234\u2234\u2234\u2234\u2234\u2234\u2234\u2234 \u2502  lettuce');
+      print('  \u2502 \u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248\u2248 \u2502  bread');
+      print('  \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518');
+    }
+
+    function cmdMagic() {
+      printDelayed([
+        '',
+        {h:'<span class="t-yellow t-bold">  \u2728 A V R A   K\' D A V R A \u2728</span>'},
+        '',
+        {h:'<span class="t-yellow">  "I create as I speak."</span>'},
+        '',
+        {h:'<span class="t-gray">  The words shimmer...</span>'},
+        {h:'<span class="t-gray">  A concept materializes...</span>'},
+        {h:'<span class="t-gray">  Firmware compiles itself...</span>'},
+        {h:'<span class="t-gray">  Hardware assembles from thin air...</span>'},
+        '',
+        {h:'<span class="t-green t-bold">  \u2713 Product created. Magic is just engineering</span>'},
+        {h:'<span class="t-green t-bold">    that hasn\'t been explained yet.</span>'}
+      ], 400);
+    }
+
+    function cmdRmRf() {
+      inputLine.style.display = 'none';
+      var count = 0;
+      var glitch = setInterval(function() {
+        termBody.style.transform = 'translate(' + (Math.random()*6-3) + 'px,' + (Math.random()*6-3) + 'px)';
+        termBody.style.opacity = '' + (Math.random()*0.5+0.5);
+        count++;
+        if (count > 15) {
+          clearInterval(glitch);
+          termBody.style.transform = 'none';
+          termBody.style.opacity = '1';
+          printH('<span class="t-red t-bold">rm: nice try. This is a read-only filesystem.</span>');
+          printH('<span class="t-red">Besides, you wouldn\'t delete something this beautiful.</span>');
+          print('');
+          inputLine.style.display = 'flex';
+          input.focus();
+        }
+      }, 80);
+    }
+
+    function cmdCurl() {
+      printH('<span class="t-gray">&lt;!DOCTYPE html&gt;</span>');
+      printH('<span class="t-gray">&lt;html&gt;&lt;head&gt;&lt;title&gt;Avrah&lt;/title&gt;&lt;/head&gt;</span>');
+      printH('<span class="t-gray">&lt;body&gt;</span>');
+      printH('<span class="t-green">  We build connected products.</span>');
+      printH('<span class="t-green">  You\'re already on the site. Scroll up.</span>');
+      printH('<span class="t-gray">&lt;/body&gt;&lt;/html&gt;</span>');
+    }
+
+    function cmdGit(args) {
+      var sub = (args[0] || '').toLowerCase();
+      if (sub === 'status') {
+        printH('<span class="t-green">On branch main</span>');
+        print('nothing to commit, working tree clean');
+        print('(products are shipping, all is well)');
+      } else if (sub === 'log') {
+        print('commit a1b2c3d (HEAD -> main)');
+        print('Author: avrah <build@avrah.studio>');
+        print('Date:   Today');
+        print('');
+        print('    ship: another product into the world');
+      } else if (sub === 'blame') {
+        printH('<span class="t-yellow">Not us. Definitely not us.</span>');
+      } else {
+        print("git: this isn't a repo. But we do love version control.");
+      }
+    }
+
+    function cmdSl() {
+      var lines = [
+        '      ====        ________',
+        '  _D _|  |_______/        \\__I_I_____===__|_',
+        '   |(_)---  |   H\\________/ |   |        =|_',
+        '   /     |  |   H  |  |     |   |         ||',
+        '  |      |  |   H  |__--------------------| |',
+        '  | ________|___H__/__|_____/[][]~\\_______|  |',
+        '  |/ |   |-----------I_____I [][] []  D   |=|'
+      ];
+      lines.forEach(function(f) { printH('<span class="t-gray">' + esc(f) + '</span>'); });
+      printH('<span class="t-yellow">You meant \'ls\', didn\'t you?</span>');
+    }
+
+    // ══════ SNAKE ══════
+    function cmdSnake() {
+      if (gameActive) return;
+      gameActive = true;
+
+      var COLS = 28, ROWS = 16, CELL = 16;
+
+      inputLine.style.display = 'none';
+      printH('<span class="t-green t-bold">\ud83d\udc0d SNAKE</span>  <span class="t-gray">Arrows/WASD to move. Q or ESC to quit.</span>');
+
+      var canvas = document.createElement('canvas');
+      canvas.id = 'snake-canvas';
+      canvas.width = COLS * CELL;
+      canvas.height = ROWS * CELL;
+      canvas.style.width = Math.min(COLS * CELL, termBody.clientWidth - 32) + 'px';
+      output.appendChild(canvas);
+
+      var scoreDiv = document.createElement('div');
+      scoreDiv.className = 't-green';
+      scoreDiv.textContent = 'Score: 0';
+      output.appendChild(scoreDiv);
+      termBody.scrollTop = termBody.scrollHeight;
+
+      var ctx = canvas.getContext('2d');
+      var snake = [{x:5,y:8},{x:4,y:8},{x:3,y:8}];
+      var dir = {x:1,y:0}, nextDir = {x:1,y:0};
+      var food = spawnFood();
+      var score = 0, over = false, speed = 150, lastT = 0, animId = null;
+
+      function spawnFood() {
+        var p;
+        do { p = {x:Math.floor(Math.random()*COLS),y:Math.floor(Math.random()*ROWS)}; }
+        while (snake.some(function(s) { return s.x===p.x && s.y===p.y; }));
+        return p;
+      }
+
+      function draw() {
+        ctx.fillStyle = '#0d1117';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Grid
+        ctx.fillStyle = '#161b22';
+        for (var x = 0; x < COLS; x++)
+          for (var y = 0; y < ROWS; y++)
+            ctx.fillRect(x*CELL + CELL/2, y*CELL + CELL/2, 1, 1);
+        // Food
+        ctx.fillStyle = '#f85149';
+        ctx.fillRect(food.x*CELL+2, food.y*CELL+2, CELL-4, CELL-4);
+        // Snake
+        snake.forEach(function(seg, i) {
+          ctx.fillStyle = i===0 ? '#3fb950' : '#238636';
+          ctx.fillRect(seg.x*CELL+1, seg.y*CELL+1, CELL-2, CELL-2);
+        });
+        if (over) {
+          ctx.fillStyle = 'rgba(13,17,23,0.75)';
+          ctx.fillRect(0,0,canvas.width,canvas.height);
+          ctx.fillStyle = '#f85149';
+          ctx.font = 'bold 20px monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText('GAME OVER', canvas.width/2, canvas.height/2-10);
+          ctx.fillStyle = '#c9d1d9';
+          ctx.font = '14px monospace';
+          ctx.fillText('Score: '+score+'  |  Q to exit', canvas.width/2, canvas.height/2+15);
+        }
+      }
+
+      function update(ts) {
+        if (!lastT) lastT = ts;
+        if (ts - lastT >= speed) {
+          lastT = ts;
+          if (!over) {
+            dir = {x:nextDir.x, y:nextDir.y};
+            var head = {x:snake[0].x+dir.x, y:snake[0].y+dir.y};
+            if (head.x<0||head.x>=COLS||head.y<0||head.y>=ROWS||snake.some(function(s){return s.x===head.x&&s.y===head.y;})) {
+              over = true;
+            } else {
+              snake.unshift(head);
+              if (head.x===food.x && head.y===food.y) {
+                score++;
+                food = spawnFood();
+                speed = Math.max(60, 150 - score * 5);
+                scoreDiv.textContent = 'Score: ' + score;
+              } else { snake.pop(); }
+            }
+          }
+        }
+        draw();
+        animId = requestAnimationFrame(update);
+      }
+
+      function onKey(e) {
+        var k = e.key.toLowerCase();
+        if (k === 'q' || k === 'escape') { endGame(); return; }
+        if (over) return;
+        if ((k==='arrowup'||k==='w') && dir.y!==1) { nextDir={x:0,y:-1}; e.preventDefault(); }
+        else if ((k==='arrowdown'||k==='s') && dir.y!==-1) { nextDir={x:0,y:1}; e.preventDefault(); }
+        else if ((k==='arrowleft'||k==='a') && dir.x!==1) { nextDir={x:-1,y:0}; e.preventDefault(); }
+        else if ((k==='arrowright'||k==='d') && dir.x!==-1) { nextDir={x:1,y:0}; e.preventDefault(); }
+      }
+
+      var tx0=0, ty0=0;
+      function onTS(e) { tx0=e.touches[0].clientX; ty0=e.touches[0].clientY; }
+      function onTE(e) {
+        if (over) { endGame(); return; }
+        var dx=e.changedTouches[0].clientX-tx0, dy=e.changedTouches[0].clientY-ty0;
+        if (Math.abs(dx)>Math.abs(dy)) {
+          if (dx>20&&dir.x!==-1) nextDir={x:1,y:0};
+          else if (dx<-20&&dir.x!==1) nextDir={x:-1,y:0};
+        } else {
+          if (dy>20&&dir.y!==-1) nextDir={x:0,y:1};
+          else if (dy<-20&&dir.y!==1) nextDir={x:0,y:-1};
+        }
+      }
+
+      function endGame() {
+        cancelAnimationFrame(animId);
+        document.removeEventListener('keydown', onKey);
+        canvas.removeEventListener('touchstart', onTS);
+        canvas.removeEventListener('touchend', onTE);
+        canvas.remove();
+        scoreDiv.remove();
+        printH('<span class="t-green">Final score: ' + score + '</span>');
+        print('');
+        inputLine.style.display = 'flex';
+        input.focus();
+        gameActive = false;
+      }
+
+      document.addEventListener('keydown', onKey);
+      canvas.addEventListener('touchstart', onTS, {passive:true});
+      canvas.addEventListener('touchend', onTE, {passive:true});
+      animId = requestAnimationFrame(update);
+    }
+
+    // ══════ MATRIX ══════
+    function cmdMatrix() {
+      if (gameActive) return;
+      gameActive = true;
+      inputLine.style.display = 'none';
+
+      var rect = termBody.getBoundingClientRect();
+      var canvas = document.createElement('canvas');
+      canvas.style.cssText = 'position:fixed;top:'+rect.top+'px;left:'+rect.left+'px;z-index:1000;pointer-events:none;';
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      canvas.style.width = rect.width+'px';
+      canvas.style.height = rect.height+'px';
+      document.body.appendChild(canvas);
+
+      var ctx = canvas.getContext('2d');
+      var cols = Math.floor(canvas.width / 14);
+      var drops = [];
+      for (var i = 0; i < cols; i++) drops[i] = 1;
+      var chars = '\u30a2\u30a4\u30a6\u30a8\u30aa\u30ab\u30ad\u30af\u30b1\u30b3\u30b5\u30b7\u30b9\u30bb\u30bd\u30bf\u30c1\u30c4\u30c6\u30c80123456789AVRAH';
+      var stopped = false;
+
+      var interval = setInterval(function() {
+        ctx.fillStyle = 'rgba(13,17,23,0.05)';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = '#3fb950';
+        ctx.font = '14px monospace';
+        for (var j = 0; j < drops.length; j++) {
+          ctx.fillText(chars[Math.floor(Math.random()*chars.length)], j*14, drops[j]*14);
+          if (drops[j]*14 > canvas.height && Math.random() > 0.975) drops[j] = 0;
+          drops[j]++;
+        }
+      }, 45);
+
+      function stop() {
+        if (stopped) return;
+        stopped = true;
+        clearInterval(interval);
+        canvas.remove();
+        document.removeEventListener('keydown', onKey);
+        printH('<span class="t-green">Wake up, Neo...</span>');
+        print('');
+        inputLine.style.display = 'flex';
+        input.focus();
+        gameActive = false;
+      }
+
+      function onKey(e) { if (e.key) stop(); }
+      document.addEventListener('keydown', onKey);
+      setTimeout(stop, 5000);
+    }
+
+    // Auto-focus when visible
+    var sect = document.getElementById('terminal-section');
+    if (sect && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting && !gameActive) input.focus();
+      }, {threshold:0.5}).observe(sect);
+    }
+  })();
+  </script>
+
+  <script>
+  // ══ Spread / Single-page toggle ══
+  window.toggleViewMode = function() {
+    document.body.classList.toggle('single-page');
+  };
+  </script>
+
+  <script>
+  // ══ Active Tab Tracking ══
+  (function() {
+    var links = Array.from(document.querySelectorAll('.nav-links a'));
+    var sections = [];
+    links.forEach(function(link) {
+      var id = link.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) sections.push({ el: el, link: link });
+    });
+
+    function update() {
+      var active = null;
+      sections.forEach(function(s) {
+        var rect = s.el.getBoundingClientRect();
+        if (rect.top <= 200) active = s.link;
+      });
+      links.forEach(function(a) { a.classList.remove('active-tab'); });
+      if (active) active.classList.add('active-tab');
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+  </script>
 
 </body>
 </html>
