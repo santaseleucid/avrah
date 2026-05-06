@@ -109,11 +109,21 @@
       max-width: var(--max-w);
       margin: 0 auto;
       padding: 0 24px;
+      position: relative;
     }
 
     section {
       padding: 72px 0;
       border-bottom: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+    }
+
+    section > .container {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
     }
 
     section:last-of-type { border-bottom: none; }
@@ -240,6 +250,7 @@
       border-bottom: none;
     }
 
+
     .title-block-inner {
       /* border removed — now uses taped-insert styling */
     }
@@ -249,6 +260,7 @@
       padding: 0;
       min-height: auto;
       align-items: stretch;
+      flex: 0 0 auto;
     }
 
     .title-block-body {
@@ -941,6 +953,8 @@
       border-radius: 6px;
       overflow: hidden;
       background: #0d1117;
+      display: flex;
+      flex-direction: column;
     }
 
     .term-chrome {
@@ -1044,20 +1058,26 @@
 
     /* ══ Taped Inserts ══ */
     .page-illustration {
-      display: block;
+      display: flex;
+      flex-direction: column;
       margin-bottom: 32px;
       padding: 12px 0;
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: hidden;
     }
 
     .taped-insert {
       position: relative;
       background: #faf8f3;
       padding: 28px 24px 16px;
-      min-height: 150px;
+      min-height: 0;
+      flex: 1 1 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      overflow: visible;
       box-shadow:
         0 1px 2px rgba(0,0,0,0.05),
         1px 3px 10px rgba(0,0,0,0.04);
@@ -1171,8 +1191,12 @@
 
     .insert-sketch {
       width: 100%;
-      max-width: 260px;
+      max-width: 100%;
       height: auto;
+      max-height: 100%;
+      object-fit: contain;
+      position: relative;
+      z-index: 1;
     }
 
     .insert-sketch line,
@@ -1346,11 +1370,13 @@
 
     /* ══ Single-Page Mode ══ */
     body.single-page .page {
-      max-width: 840px;
+      max-width: 1040px;
     }
 
     body.single-page .container {
       padding-left: 72px;
+      margin-left: 0;
+      margin-right: auto;
     }
 
     body.single-page .spread {
@@ -1358,7 +1384,9 @@
     }
 
     body.single-page .spread > section {
-      min-height: calc(100vh - 44px);
+      height: min(calc(100vh - 44px), 900px);
+      min-height: auto;
+      overflow: hidden;
       border-bottom: none;
       position: relative;
     }
@@ -1382,6 +1410,16 @@
       display: none;
     }
 
+    body.single-page .term-window {
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    body.single-page .term-body {
+      flex: 1 1 auto;
+      max-height: none;
+    }
+
     @media (min-width: 1400px) {
       body.single-page .spread {
         min-height: auto;
@@ -1400,7 +1438,7 @@
       body.single-page .spread > section .container {
         max-width: var(--max-w);
         padding: 0 24px 0 72px;
-        margin: 0 auto;
+        margin: 0;
       }
 
       body.single-page .page::after {
@@ -1551,7 +1589,15 @@
 
       /* Don't force page height on mobile — let content flow */
       body.single-page .spread > section {
+        height: auto;
         min-height: auto;
+        overflow: visible;
+      }
+
+      /* Restore terminal max-height on mobile (no fixed page height) */
+      body.single-page .term-body {
+        max-height: 440px;
+        flex: 0 0 auto;
       }
 
       /* Currently working on grid: stack on narrow screens */
@@ -1629,7 +1675,9 @@
       /* Spread */
       .spread {
         display: flex;
-        min-height: calc(100vh - 44px);
+        height: min(calc(100vh - 44px), 900px);
+        min-height: auto;
+        overflow: hidden;
         scroll-snap-align: start;
         position: relative;
         align-items: stretch;
@@ -1701,6 +1749,17 @@
       .spread > section .container {
         max-width: 100%;
         padding: 0 48px 0 72px;
+      }
+
+      /* Terminal + blog fill their page */
+      .spread .term-window {
+        flex: 1 1 auto;
+        min-height: 0;
+      }
+
+      .spread .term-body {
+        flex: 1 1 auto;
+        max-height: none;
       }
 
       /* Gutter shadows */
@@ -1812,8 +1871,8 @@
             <span class="meta-value">Winnipeg, MB</span>
           </div>
           <div class="meta-cell">
-            <span class="meta-label">Coordinates</span>
-            <span class="meta-value">49.89&deg;N 97.14&deg;W</span>
+            <span class="meta-label">Est.</span>
+            <span class="meta-value">2026</span>
           </div>
           <div class="meta-cell">
             <span class="meta-label">Rev</span>
@@ -1845,22 +1904,9 @@
           <p class="currently-desc">hardware rev B</p>
         </a>
         <a href="#openspot" class="currently-card">
-          <div class="currently-illus taped-insert tilt-4">
+          <div class="currently-illus taped-insert tilt-4" style="padding:0; overflow:hidden;">
             <span class="tape washi-sage" style="width:55px; top:-8px; right:12px; transform:rotate(3deg);"></span>
-            <svg class="insert-sketch" viewBox="0 0 240 120">
-              <line x1="30" y1="58" x2="210" y2="58"/>
-              <rect x="38" y="16" width="28" height="38"/>
-              <rect x="72" y="16" width="28" height="38"/>
-              <rect x="106" y="16" width="28" height="38"/>
-              <rect x="140" y="16" width="28" height="38"/>
-              <rect x="38" y="62" width="28" height="38"/>
-              <rect x="72" y="62" width="28" height="38"/>
-              <rect x="106" y="62" width="28" height="38"/>
-              <rect x="140" y="62" width="28" height="38"/>
-              <line x1="42" y1="20" x2="62" y2="50"/>
-              <line x1="62" y1="20" x2="42" y2="50"/>
-              <circle cx="121" cy="81" r="16" stroke-dasharray="4,3"/>
-            </svg>
+            <img src="open-spot/Screenshot%202026-05-05%20at%209.00.40%E2%80%AFAM.png" alt="OpenSpot — parking, made easy" style="width:100%; height:100%; object-fit:cover; display:block;">
           </div>
           <p class="currently-name">OpenSpot</p>
           <p class="currently-desc">pilot program</p>
@@ -2069,24 +2115,14 @@
         <div class="taped-insert graph-paper tilt-1">
           <span class="tape washi-gold" style="width:82px; top:-9px; left:18px; transform:rotate(-4deg);"></span>
           <span class="tape washi-sage" style="width:68px; top:-7px; right:24px; transform:rotate(3.5deg);"></span>
-          <svg class="insert-sketch" viewBox="0 0 240 120">
-            <rect x="45" y="8" width="150" height="88" rx="3"/>
-            <polyline points="60,62 82,48 104,56 126,38 148,50 170,35"/>
-            <circle class="sk-fill" cx="82" cy="48" r="2.5"/>
-            <circle class="sk-fill" cx="126" cy="38" r="2.5"/>
-            <circle class="sk-fill" cx="170" cy="35" r="2.5"/>
-            <line x1="60" y1="74" x2="108" y2="74"/>
-            <line x1="60" y1="82" x2="90" y2="82"/>
-            <line x1="120" y1="96" x2="120" y2="110"/>
-            <line x1="100" y1="110" x2="140" y2="110"/>
-          </svg>
-          <p class="sketch-caption">fig. 1 — dashboard overview</p>
+          <img class="insert-sketch" src="railview.png" alt="RailView system diagram — custom data intake, automated processing, interactive web app for technicians, engineers, and executives">
+          <p class="sketch-caption">fig. 1 — system overview</p>
         </div>
       </div>
 
       <div class="page-writeup">
         <h4>What</h4>
-        <p>Data management dashboard and <span style="color:var(--red-ink)">grinding-program visualization</span> for railway maintenance. Built under contract with <span style="background:var(--highlight);padding:0 4px">Global Rail Group</span>. Map-based views, trend analysis, and reporting for transit agencies across North America.</p>
+        <p>Data management dashboard and <span style="color:var(--red-ink)">grinding-program visualization</span> for railway maintenance. Built under contract with <span class="stamp" style="font-size:0.7em; letter-spacing:0.12em; padding:2px 8px; background:var(--ink); color:var(--canvas); transform:rotate(-2deg); display:inline-block;">REDACTED</span>. Map-based views, trend analysis, and reporting for transit agencies across North America.</p>
         <h4>Why</h4>
         <p>Rail networks generate enormous amounts of condition data. RailView gives maintenance teams the tools to actually use it &mdash; prioritize work, visualize grinding programs, and catch problems before they become failures.</p>
       </div>
@@ -2099,27 +2135,14 @@
       <p class="section-num">&sect;02.2</p>
       <h2 class="section-title">RailSense <span class="stamp stamp-project">project</span></h2>
       <div class="section-rule"></div>
-      <p class="section-desc"><em>&ldquo;Feel every vibration.&rdquo;</em></p>
+      <p class="section-desc"><em>Continuous rail defect monitoring from revenue service vehicles.</em></p>
 
       <div class="page-illustration">
         <div class="taped-insert tilt-2">
           <span class="tape washi-rose" style="width:76px; top:-8px; left:22px; transform:rotate(-2deg);"></span>
           <span class="tape washi-blue" style="width:72px; bottom:-8px; right:18px; transform:rotate(4deg);"></span>
-          <svg class="insert-sketch" viewBox="0 0 240 120">
-            <line x1="25" y1="82" x2="215" y2="82"/>
-            <line x1="25" y1="88" x2="215" y2="88"/>
-            <line x1="50" y1="88" x2="50" y2="97"/>
-            <line x1="90" y1="88" x2="90" y2="97"/>
-            <line x1="130" y1="88" x2="130" y2="97"/>
-            <line x1="170" y1="88" x2="170" y2="97"/>
-            <rect x="105" y="68" width="30" height="14" rx="2"/>
-            <path d="M108,62 Q120,52 132,62"/>
-            <path d="M100,54 Q120,40 140,54"/>
-            <path d="M92,46 Q120,28 148,46"/>
-            <line x1="178" y1="35" x2="148" y2="56" stroke-dasharray="4,3"/>
-            <circle class="sk-fill" cx="148" cy="56" r="2"/>
-          </svg>
-          <p class="sketch-caption">fig. 2 — undercar sensor, side view</p>
+          <img class="insert-sketch" src="rail-sense/Screenshot%20from%202021-04-14%2011-54-04%201.png" alt="RailSense system diagram — track defect detection, automated data collection, real-time alerts, and cloud backups">
+          <p class="sketch-caption">fig. 2 — system overview</p>
         </div>
       </div>
 
@@ -2147,27 +2170,8 @@
           <span class="tape washi-gold" style="width:88px; top:-10px; left:30px; transform:rotate(-6deg);"></span>
           <span class="tape washi-clay" style="width:64px; top:-7px; right:35px; transform:rotate(2.5deg);"></span>
           <span class="tape washi-sage" style="width:70px; bottom:-9px; right:22px; transform:rotate(-3deg);"></span>
-          <svg class="insert-sketch" viewBox="0 0 240 120">
-            <line x1="30" y1="58" x2="210" y2="58"/>
-            <rect x="38" y="16" width="28" height="38"/>
-            <rect x="72" y="16" width="28" height="38"/>
-            <rect x="106" y="16" width="28" height="38"/>
-            <rect x="140" y="16" width="28" height="38"/>
-            <rect x="174" y="16" width="28" height="38"/>
-            <rect x="38" y="62" width="28" height="38"/>
-            <rect x="72" y="62" width="28" height="38"/>
-            <rect x="106" y="62" width="28" height="38"/>
-            <rect x="140" y="62" width="28" height="38"/>
-            <rect x="174" y="62" width="28" height="38"/>
-            <line x1="42" y1="20" x2="62" y2="50"/>
-            <line x1="62" y1="20" x2="42" y2="50"/>
-            <line x1="110" y1="20" x2="130" y2="50"/>
-            <line x1="130" y1="20" x2="110" y2="50"/>
-            <line x1="178" y1="66" x2="198" y2="96"/>
-            <line x1="198" y1="66" x2="178" y2="96"/>
-            <circle cx="154" cy="81" r="18" stroke-dasharray="4,3"/>
-          </svg>
-          <p class="sketch-caption">fig. 3 — spot detection, bird's eye</p>
+          <img class="insert-sketch" src="open-spot/Screenshot%202026-05-05%20at%209.00.40%E2%80%AFAM.png" alt="OpenSpot — parking, made easy">
+          <p class="sketch-caption">fig. 3 — OpenSpot title card</p>
         </div>
       </div>
 
@@ -2406,7 +2410,7 @@
       <h2 class="section-title">Blog</h2>
       <div class="section-rule"></div>
 
-      <div style="display:flex;justify-content:center;align-items:center;min-height:200px;">
+      <div style="display:flex;justify-content:center;align-items:center;min-height:200px;flex:1;">
         <div class="taped-insert tilt-3" style="max-width:320px;padding:28px 32px;text-align:center;">
           <span class="tape washi-gold" style="width:85px;top:-9px;left:50%;margin-left:-42px;transform:rotate(-2deg);"></span>
           <p style="font-family:var(--font-hand);font-size:24px;color:var(--ink);margin-bottom:4px;">Blog + newsletter</p>
