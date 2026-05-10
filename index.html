@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -26,16 +26,16 @@
   <!-- Navigation -->
   <nav>
     <div class="container">
-      <a href="#" class="nav-logo">AVRAH</a>
+      <a href="index.html" class="nav-logo">AVRAH</a>
       <div class="nav-actions">
         <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
         <ul class="nav-links">
-          <li><a href="#about">about</a></li>
-          <li><a href="#railview">projects</a></li>
-          <li><a href="#cyberdeck">ideas</a></li>
-          <li><a href="#work-with-us">work with us</a></li>
-          <li><a href="#terminal-section">terminal</a></li>
-          <li><a href="#blog">blog</a></li>
+          <li><a href="index.html">about</a></li>
+          <li><a href="projects/index.html">projects</a></li>
+          <li><a href="ideas/index.html">ideas</a></li>
+          <li><a href="work-with-us/index.html">work with us</a></li>
+          <li><a href="terminal/index.html">terminal</a></li>
+          <li><a href="blog/index.html">blog</a></li>
         </ul>
       </div>
     </div>
@@ -53,8 +53,10 @@
             <span class="studio-name">Avrah</span>
             <span class="studio-type">Studio</span>
           </h1>
+          <div class="studio-rule" aria-hidden="true"></div>
           <p class="studio-desc">A community of people who love <a href="#about" style="background:var(--highlight);padding:0 4px;color:var(--ink)">bringing ideas to life</a>.</p>
-          <p class="studio-desc" style="margin-top:12px;margin-bottom:0;">Hardware, software, brand. If you have something worth building, <a href="#work-with-us" style="color:var(--blue-ink)">let&rsquo;s build it together</a>.</p>
+          <p class="studio-desc" style="margin-top:12px;margin-bottom:0;">The hardware, software, brand. If you have something worth building, let&rsquo;s build it together.</p>
+          <a href="work-with-us/index.html" class="hero-cta">Work with us</a>
         </div>
         <div class="title-block-meta">
           <div class="meta-cell">
@@ -76,151 +78,119 @@
         </div>
       </div>
 
-      <!-- Currently working on -->
-      <p class="currently-label">Highlighted projects</p>
-      <div class="currently-grid">
-        <a href="#railsense" class="currently-card">
-          <div class="currently-illus taped-insert tilt-1">
-            <span class="tape washi-gold" style="width:60px; top:-8px; left:10px; transform:rotate(-4deg);"></span>
-            <svg class="insert-sketch" viewBox="0 0 240 120">
-              <line x1="25" y1="82" x2="215" y2="82"/>
-              <line x1="25" y1="88" x2="215" y2="88"/>
-              <rect x="105" y="68" width="30" height="14" rx="2"/>
-              <path d="M108,62 Q120,52 132,62"/>
-              <path d="M100,54 Q120,40 140,54"/>
-              <path d="M92,46 Q120,28 148,46"/>
-            </svg>
+      <!-- Carousel -->
+      <div class="carousel-section">
+        <div class="carousel-header">
+          <p class="currently-label">Projects & Ideas</p>
+          <div class="carousel-nav">
+            <button class="carousel-btn carousel-prev" aria-label="Previous">&larr;</button>
+            <button class="carousel-btn carousel-next" aria-label="Next">&rarr;</button>
           </div>
-          <p class="currently-name">RailSense</p>
-          <p class="currently-desc">hardware rev B</p>
-        </a>
-        <a href="#openspot" class="currently-card">
-          <div class="currently-illus taped-insert tilt-4" style="padding:0; overflow:hidden;">
-            <span class="tape washi-sage" style="width:55px; top:-8px; right:12px; transform:rotate(3deg);"></span>
-            <img src="open-spot/Screenshot%202026-05-05%20at%209.00.40%E2%80%AFAM.png" alt="OpenSpot — parking, made easy" style="width:100%; height:100%; object-fit:cover; display:block;">
+        </div>
+        <div class="carousel-track-wrapper">
+          <div class="carousel-track">
+            <a href="projects/index.html#railview" class="currently-card">
+              <div class="currently-illus taped-insert tilt-3" style="padding:0; overflow:hidden;">
+                <span class="tape washi-sage" style="width:55px; top:-8px; right:12px; transform:rotate(3deg);"></span>
+                <img src="railview/app_screenshot.png" alt="RailView — map-based rail analytics dashboard" style="width:100%; height:100%; object-fit:cover; display:block;">
+              </div>
+              <p class="currently-name">RailView</p>
+              <p class="currently-desc">analytics dashboard</p>
+              <span class="carousel-tag project">project</span>
+            </a>
+            <a href="projects/index.html#openspot" class="currently-card">
+              <div class="currently-illus taped-insert tilt-4" style="padding:0; overflow:hidden;">
+                <span class="tape washi-sage" style="width:55px; top:-8px; right:12px; transform:rotate(3deg);"></span>
+                <img src="open-spot/Screenshot%202026-05-05%20at%209.00.40%E2%80%AFAM.png" alt="OpenSpot — parking, made easy" style="width:100%; height:100%; object-fit:cover; display:block;">
+              </div>
+              <p class="currently-name">OpenSpot</p>
+              <p class="currently-desc">pilot program</p>
+              <span class="carousel-tag project">project</span>
+            </a>
+            <a href="projects/index.html#connected-gateway" class="currently-card">
+              <div class="currently-illus taped-insert tilt-6">
+                <span class="tape washi-blue" style="width:58px; top:-8px; left:14px; transform:rotate(-3deg);"></span>
+                <svg class="insert-sketch" viewBox="0 0 240 120">
+                  <rect x="80" y="30" width="80" height="50" rx="5"/>
+                  <rect x="92" y="40" width="8" height="5" rx="1"/>
+                  <rect x="104" y="40" width="8" height="5" rx="1"/>
+                  <rect x="116" y="40" width="8" height="5" rx="1"/>
+                  <text x="95" y="65" style="font-size:8px;fill:#8a817a;font-family:monospace;">65k+</text>
+                  <path d="M75,45 Q65,35 75,25"/>
+                  <path d="M70,48 Q56,35 70,20"/>
+                  <line x1="165" y1="55" x2="200" y2="55"/>
+                  <path d="M195,50 L205,55 L195,60"/>
+                </svg>
+              </div>
+              <p class="currently-name">Connected Gateway</p>
+              <p class="currently-desc">65,000+ units deployed</p>
+              <span class="carousel-tag project">project</span>
+            </a>
+            <a href="projects/index.html#railsense" class="currently-card">
+              <div class="currently-illus taped-insert tilt-1" style="padding:0; overflow:hidden;">
+                <span class="tape washi-gold" style="width:60px; top:-8px; left:10px; transform:rotate(-4deg);"></span>
+                <img src="rail-sense/clipped.png" alt="RailSense — undercar sensor system" style="width:100%; height:100%; object-fit:contain; display:block;">
+              </div>
+              <p class="currently-name">RailSense</p>
+              <p class="currently-desc">hardware rev B</p>
+              <span class="carousel-tag project">project</span>
+            </a>
+            <a href="ideas/index.html#cyberdeck" class="currently-card">
+              <div class="currently-illus taped-insert tilt-2">
+                <span class="tape washi-clay" style="width:62px; top:-8px; left:12px; transform:rotate(-3deg);"></span>
+                <svg class="insert-sketch" viewBox="0 0 240 120">
+                  <rect x="40" y="40" width="160" height="50" rx="6"/>
+                  <rect x="50" y="48" width="80" height="35" rx="2"/>
+                  <rect x="140" y="52" width="8" height="6" rx="1"/>
+                  <rect x="152" y="52" width="8" height="6" rx="1"/>
+                  <rect x="140" y="62" width="8" height="6" rx="1"/>
+                  <rect x="152" y="62" width="8" height="6" rx="1"/>
+                  <rect x="164" y="52" width="8" height="6" rx="1"/>
+                  <rect x="164" y="62" width="8" height="6" rx="1"/>
+                </svg>
+              </div>
+              <p class="currently-name">Cyberdeck</p>
+              <p class="currently-desc">open hardware handheld</p>
+              <span class="carousel-tag idea">idea</span>
+            </a>
+            <a href="ideas/index.html#community-lora" class="currently-card">
+              <div class="currently-illus taped-insert tilt-5">
+                <span class="tape washi-rose" style="width:58px; top:-8px; right:14px; transform:rotate(4deg);"></span>
+                <svg class="insert-sketch" viewBox="0 0 240 120">
+                  <circle cx="120" cy="70" r="12"/>
+                  <path d="M100,70 Q100,45 120,45 Q140,45 140,70"/>
+                  <path d="M85,70 Q85,30 120,30 Q155,30 155,70"/>
+                  <circle cx="60" cy="90" r="6"/>
+                  <circle cx="180" cy="90" r="6"/>
+                  <line x1="66" y1="88" x2="108" y2="72"/>
+                  <line x1="174" y1="88" x2="132" y2="72"/>
+                </svg>
+              </div>
+              <p class="currently-name">Community LoRa</p>
+              <p class="currently-desc">off-grid mesh networking</p>
+              <span class="carousel-tag idea">idea</span>
+            </a>
+            <a href="ideas/index.html#findables" class="currently-card">
+              <div class="currently-illus taped-insert tilt-1">
+                <span class="tape washi-gold" style="width:55px; top:-8px; left:16px; transform:rotate(-2deg);"></span>
+                <svg class="insert-sketch" viewBox="0 0 240 120">
+                  <circle cx="120" cy="55" r="20"/>
+                  <circle cx="120" cy="55" r="6" class="sk-fill"/>
+                  <path d="M120,80 L120,100"/>
+                  <path d="M110,95 L120,100 L130,95"/>
+                  <circle cx="60" cy="70" r="4" class="sk-fill" style="opacity:0.4"/>
+                  <circle cx="180" cy="40" r="4" class="sk-fill" style="opacity:0.4"/>
+                  <circle cx="170" cy="85" r="4" class="sk-fill" style="opacity:0.4"/>
+                </svg>
+              </div>
+              <p class="currently-name">Findables</p>
+              <p class="currently-desc">BLE indoor tracking</p>
+              <span class="carousel-tag idea">idea</span>
+            </a>
           </div>
-          <p class="currently-name">OpenSpot</p>
-          <p class="currently-desc">pilot program</p>
-        </a>
-        <a href="#cyberdeck" class="currently-card">
-          <div class="currently-illus taped-insert tilt-6">
-            <span class="tape washi-blue" style="width:58px; top:-8px; left:14px; transform:rotate(-3deg);"></span>
-            <svg class="insert-sketch" viewBox="0 0 240 120">
-              <rect x="55" y="8" width="130" height="104" rx="6"/>
-              <rect x="66" y="16" width="108" height="50" rx="2"/>
-              <line x1="76" y1="33" x2="132" y2="33"/>
-              <line x1="76" y1="42" x2="118" y2="42"/>
-              <line x1="66" y1="72" x2="174" y2="72"/>
-              <rect x="73" y="78" width="10" height="7" rx="1"/>
-              <rect x="87" y="78" width="10" height="7" rx="1"/>
-              <rect x="101" y="78" width="10" height="7" rx="1"/>
-              <rect x="115" y="78" width="10" height="7" rx="1"/>
-              <rect x="129" y="78" width="10" height="7" rx="1"/>
-              <rect x="143" y="78" width="10" height="7" rx="1"/>
-              <rect x="157" y="78" width="10" height="7" rx="1"/>
-              <rect x="80" y="90" width="10" height="7" rx="1"/>
-              <rect x="94" y="90" width="10" height="7" rx="1"/>
-              <rect x="108" y="90" width="10" height="7" rx="1"/>
-              <rect x="122" y="90" width="10" height="7" rx="1"/>
-              <rect x="136" y="90" width="10" height="7" rx="1"/>
-              <rect x="150" y="90" width="10" height="7" rx="1"/>
-            </svg>
-          </div>
-          <p class="currently-name">Cyberdeck</p>
-          <p class="currently-desc">v0.1 prototype</p>
-        </a>
+        </div>
       </div>
 
-    </div>
-  </section>
-
-  <!-- Index (hidden for now) -->
-  <section class="toc-section" style="display:none;">
-    <div class="container">
-      <h2 class="toc-heading">Index</h2>
-      <div class="toc-rule"></div>
-      <p class="toc-key">
-        <span><span class="key-sym">&sect;</span> section</span>
-        <span><span class="key-sym">p.</span> page</span>
-      </p>
-      <nav class="toc-list" aria-label="Table of contents">
-        <div class="toc-group">
-          <p class="toc-group-label">About</p>
-          <a href="#about" class="toc-entry toc-sub">
-            <span class="toc-title">About Avrah</span>
-            <span class="toc-dots"></span>
-            <span class="toc-page">p.01</span>
-          </a>
-          <a href="#partner-model" class="toc-entry toc-sub">
-            <span class="toc-title">Co-Founder Model</span>
-            <span class="toc-dots"></span>
-            <span class="toc-page">p.03</span>
-          </a>
-          <a href="#contract-model" class="toc-entry toc-sub">
-            <span class="toc-title">Contract Model</span>
-            <span class="toc-dots"></span>
-            <span class="toc-page">p.04</span>
-          </a>
-          <a href="#capabilities" class="toc-entry toc-sub">
-            <span class="toc-title">Capabilities</span>
-            <span class="toc-dots"></span>
-            <span class="toc-page">p.02</span>
-          </a>
-        </div>
-        <div class="toc-group">
-          <p class="toc-group-label">Projects</p>
-          <a href="#railview" class="toc-entry toc-sub">
-            <span class="toc-title">RailView</span>
-            <span class="toc-dots"></span>
-            <span class="toc-page">p.05</span>
-          </a>
-          <a href="#railsense" class="toc-entry toc-sub">
-            <span class="toc-title">RailSense</span>
-            <span class="toc-dots"></span>
-            <span class="toc-page">p.06</span>
-          </a>
-          <a href="#openspot" class="toc-entry toc-sub">
-            <span class="toc-title">OpenSpot</span>
-            <span class="toc-dots"></span>
-            <span class="toc-page">p.07</span>
-          </a>
-        </div>
-        <div class="toc-group">
-          <p class="toc-group-label">Ideas</p>
-          <a href="#cyberdeck" class="toc-entry toc-sub">
-            <span class="toc-title">Cyberdeck</span>
-            <span class="toc-dots"></span>
-            <span class="toc-page">p.08</span>
-          </a>
-          <a href="#community-lora" class="toc-entry toc-sub">
-            <span class="toc-title">Community LoRa</span>
-            <span class="toc-dots"></span>
-            <span class="toc-page">p.09</span>
-          </a>
-          <a href="#findables" class="toc-entry toc-sub">
-            <span class="toc-title">Findables</span>
-            <span class="toc-dots"></span>
-            <span class="toc-page">p.10</span>
-          </a>
-        </div>
-        <div class="toc-group">
-          <a href="#work-with-us" class="toc-entry">
-            <span class="toc-title">Work With Us</span>
-            <span class="toc-dots"></span>
-            <span class="toc-page">p.11</span>
-          </a>
-          <a href="#terminal-section" class="toc-entry">
-            <span class="toc-title">Terminal</span>
-            <span class="toc-dots"></span>
-            <span class="toc-page">p.??</span>
-          </a>
-          <a href="#blog" class="toc-entry">
-            <span class="toc-title">Blog</span>
-            <span class="toc-dots"></span>
-            <span class="toc-page">p.12</span>
-          </a>
-        </div>
-      </nav>
     </div>
   </section>
 
@@ -241,14 +211,19 @@
         </div>
       </div>
 
-      <div style="margin-top:48px;">
-        <h3 class="section-title" style="font-size:clamp(16px,2vw,20px);margin-bottom:8px;">Team</h3>
-        <div class="section-rule"></div>
-        <p class="section-desc">Small on purpose.</p>
-        <div class="about-sub">
-          <p>A small core of people who make things. <span style="color:var(--red-ink)">Engineers, artists, builders.</span> When a project needs specialist depth, we bring in people we&rsquo;ve worked with before.</p>
-          <p><span style="color:var(--blue-ink)">No account managers, no layers between you and the work.</span></p>
-        </div>
+      <div class="cta-row">
+        <a href="work-with-us/index.html" class="cta-note">
+          <p class="cta-note-label">Co-founder</p>
+          <p class="cta-note-title">Have an idea worth building?</p>
+          <p class="cta-note-desc">Pitch at our monthly pitch nights. We validate, build, and launch together.</p>
+          <p class="cta-note-action">Pitch your idea</p>
+        </a>
+        <a href="work-with-us/index.html#contract" class="cta-note" style="background:#e0f2fe;">
+          <p class="cta-note-label">Contract</p>
+          <p class="cta-note-title">Need a product team?</p>
+          <p class="cta-note-desc">Hardware, firmware, software, cloud. Defined scope, clear milestones, clean handoff.</p>
+          <p class="cta-note-action">Tell us about your project</p>
+        </a>
       </div>
     </div>
   </section>
@@ -259,7 +234,7 @@
       <p class="section-num">&sect;01.1</p>
       <h2 class="section-title">Capabilities</h2>
       <div class="section-rule"></div>
-      <p class="section-desc">What we know how to do, and what we bring to <span style="color:var(--blue-ink)">contract work</span> and <span style="color:var(--red-ink)">our own projects</span>.</p>
+      <p class="section-desc">The people you need to go from idea to shipped product, under one roof.</p>
 
       <div class="cap-grid">
         <div class="cap-entry">
@@ -286,242 +261,9 @@
     </div>
   </section>
 
-  <!-- How We Work section removed — merged into Work With Us -->
-
-  <!-- RailView -->
-  <section id="railview" data-page="05">
-    <div class="container">
-      <p class="section-num">&sect;02.1</p>
-      <h2 class="section-title">RailView <span class="stamp stamp-project">project</span></h2>
-      <div class="section-rule"></div>
-      <p class="section-desc"><em>&ldquo;See your rail network clearly.&rdquo;</em></p>
-
-      <div class="page-illustration">
-        <div class="taped-insert graph-paper tilt-1">
-          <span class="tape washi-gold" style="width:82px; top:-9px; left:18px; transform:rotate(-4deg);"></span>
-          <span class="tape washi-sage" style="width:68px; top:-7px; right:24px; transform:rotate(3.5deg);"></span>
-          <img class="insert-sketch" src="railview.png" alt="RailView system diagram — custom data intake, automated processing, interactive web app for technicians, engineers, and executives">
-          <p class="sketch-caption">fig. 1 — system overview</p>
-        </div>
-      </div>
-
-      <div class="page-writeup">
-        <h4>What</h4>
-        <p>Data management dashboard and <span style="color:var(--red-ink)">grinding-program visualization</span> for railway maintenance. Built under contract with <span class="stamp" style="font-size:0.7em; letter-spacing:0.12em; padding:2px 8px; background:var(--ink); color:var(--canvas); transform:rotate(-2deg); display:inline-block;">REDACTED</span>. Map-based views, trend analysis, and reporting for transit agencies across North America.</p>
-        <h4>Why</h4>
-        <p>Rail networks generate enormous amounts of condition data. RailView gives maintenance teams the tools to actually use it &mdash; prioritize work, visualize grinding programs, and catch problems before they become failures.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- RailSense -->
-  <section id="railsense" data-page="06">
-    <div class="container">
-      <p class="section-num">&sect;02.2</p>
-      <h2 class="section-title">RailSense <span class="stamp stamp-project">project</span></h2>
-      <div class="section-rule"></div>
-      <p class="section-desc"><em>Continuous rail defect monitoring from revenue service vehicles.</em></p>
-
-      <div class="page-illustration">
-        <div class="taped-insert tilt-2">
-          <span class="tape washi-rose" style="width:76px; top:-8px; left:22px; transform:rotate(-2deg);"></span>
-          <span class="tape washi-blue" style="width:72px; bottom:-8px; right:18px; transform:rotate(4deg);"></span>
-          <img class="insert-sketch" src="rail-sense/Screenshot%20from%202021-04-14%2011-54-04%201.png" alt="RailSense system diagram — track defect detection, automated data collection, real-time alerts, and cloud backups">
-          <p class="sketch-caption">fig. 2 — system overview</p>
-        </div>
-      </div>
-
-      <div class="page-writeup">
-        <h4>What</h4>
-        <p>Undercar <span style="color:var(--red-ink)">noise and vibration sensors</span> for transit railways. Custom hardware, <span style="color:var(--blue-ink)">AI-assisted maintenance prioritization</span>. Every revenue service vehicle becomes a continuous track inspector.</p>
-        <h4>Why</h4>
-        <p>Dedicated inspection vehicles are expensive and run on schedules. RailSense monitors track condition during normal passenger service &mdash; continuous data, no operational disruption, problems caught earlier.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- OpenSpot -->
-  <section id="openspot" data-page="07">
-    <div class="container">
-      <p class="section-num">&sect;02.3</p>
-      <h2 class="section-title">OpenSpot <span class="stamp stamp-project">project</span></h2>
-      <div class="section-rule"></div>
-      <p class="section-desc"><em>&ldquo;Know what&rsquo;s available.&rdquo;</em></p>
-
-      <div class="page-illustration">
-        <div class="taped-insert graph-paper tilt-3">
-          <span class="tape washi-gold" style="width:88px; top:-10px; left:30px; transform:rotate(-6deg);"></span>
-          <span class="tape washi-clay" style="width:64px; top:-7px; right:35px; transform:rotate(2.5deg);"></span>
-          <span class="tape washi-sage" style="width:70px; bottom:-9px; right:22px; transform:rotate(-3deg);"></span>
-          <img class="insert-sketch" src="open-spot/Screenshot%202026-05-05%20at%209.00.40%E2%80%AFAM.png" alt="OpenSpot — parking, made easy">
-          <p class="sketch-caption">fig. 3 — OpenSpot title card</p>
-        </div>
-      </div>
-
-      <div class="page-writeup">
-        <h4>What</h4>
-        <p>Two-sided smart parking. <span style="color:var(--blue-ink)">Real-time occupancy</span> for lot operators, <span style="color:var(--blue-ink)">spot-finding and reservations</span> for drivers. Magnetometer or camera-based sensing, a dashboard for operators, and an app for everyone else.</p>
-        <h4>Why</h4>
-        <p>Parking is an infrastructure problem dressed up as a convenience problem. The wedge is <span style="background:var(--highlight);padding:0 4px">municipal, hospital, and private lots</span> &mdash; places where better data means real money saved and fewer cars circling blocks.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Cyberdeck -->
-  <section id="cyberdeck" data-page="08">
-    <div class="container">
-      <p class="section-num">&sect;03.1</p>
-      <h2 class="section-title">Cyberdeck <span class="stamp stamp-idea">idea</span></h2>
-      <div class="section-rule"></div>
-      <p class="section-desc"><em>&ldquo;A computer that feels like it belongs to you.&rdquo;</em></p>
-
-      <div class="page-writeup">
-        <h4>What</h4>
-        <p>A handheld computing device as <span style="color:var(--red-ink)">aesthetic statement</span>. Real keys, <span style="color:var(--blue-ink)">local AI</span>, off-grid friendly. <span style="background:var(--highlight);padding:0 4px">Open hardware</span>, retro-futurist design, beautiful and useful in equal measure. Something you want to pick up.</p>
-        <h4>Why</h4>
-        <p>Consumer electronics are disposable black rectangles. A cyberdeck is the opposite &mdash; <span style="color:var(--red-ink)">personal, repairable, opinionated</span>. It&rsquo;s a brand object that embodies everything Avrah believes about technology and craft.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Community LoRA -->
-  <section id="community-lora" data-page="09">
-    <div class="container">
-      <p class="section-num">&sect;03.2</p>
-      <h2 class="section-title">Community LoRa <span class="stamp stamp-idea">idea</span></h2>
-      <div class="section-rule"></div>
-      <p class="section-desc"><em>&ldquo;Off-grid, open, no subscription.&rdquo;</em></p>
-
-      <div class="page-writeup">
-        <h4>What</h4>
-        <p>Community-forward <span style="background:var(--highlight);padding:0 4px">open-source LoRa</span> and mesh networking. Small, useful devices &mdash; a <span style="color:var(--blue-ink)">dog tracker</span>, a <span style="color:var(--blue-ink)">weather station</span>, a <span style="color:var(--blue-ink)">backcountry beacon</span>. Built on Meshcore, designed to be shared and modified.</p>
-        <h4>Why</h4>
-        <p>Long-range radio is too useful to be locked behind subscriptions and proprietary ecosystems. Community LoRa puts mesh networking in people&rsquo;s hands with open firmware, open hardware, and <span style="color:var(--red-ink)">no monthly fee</span>.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Findables -->
-  <section id="findables" data-page="10">
-    <div class="container">
-      <p class="section-num">&sect;03.3</p>
-      <h2 class="section-title">Findables <span class="stamp stamp-idea">idea</span></h2>
-      <div class="section-rule"></div>
-      <p class="section-desc"><em>&ldquo;Where did I put that?&rdquo;</em></p>
-
-      <div class="page-writeup">
-        <h4>What</h4>
-        <p>Cheap BLE tags with <span style="color:var(--blue-ink)">room-level indoor localization</span> for your home and workshop. Open firmware, <span style="color:var(--blue-ink)">Home Assistant integration</span>, no subscription. A 10-tag starter kit for <span style="background:var(--highlight);padding:0 4px">under $130</span>.</p>
-        <h4>Why</h4>
-        <p>AirTags are great for keys. But <span style="color:var(--red-ink)">makers, hobbyists</span>, and anyone with a workshop full of tools need something different &mdash; cheap enough to tag everything, open enough to plug into the systems you already run.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Work With Us -->
-  <section id="work-with-us" data-page="11">
-    <div class="container">
-      <p class="section-num">&sect;04</p>
-      <h2 class="section-title">Work With Us</h2>
-      <div class="section-rule"></div>
-      <p class="section-desc" id="partner-model">Two ways in. Pick the one that fits.</p>
-
-      <div class="split-section" id="contract-model">
-        <div class="split-left">
-          <p class="split-heading">Co-Founder Model</p>
-          <div class="split-rule"></div>
-          <p style="font-family:var(--font-sans);color:var(--graphite);font-size:14px;line-height:24px;">Pitch an idea at our <span style="color:var(--red-ink)">monthly pitch nights</span>. We validate, sketch, and build it together. Shared ownership, shared risk.</p>
-        </div>
-        <div class="split-right">
-          <p class="split-heading">Contract Model</p>
-          <div class="split-rule"></div>
-          <p style="font-family:var(--font-sans);color:var(--graphite);font-size:14px;line-height:24px;">Defined scope, clear milestones, clean handoff. Typical engagements run <span style="background:var(--highlight);padding:0 4px">3&ndash;12 months</span>.</p>
-        </div>
-      </div>
-
-      <p style="margin-top:36px;"><a href="#contact" class="studio-cta" style="background:var(--highlight);padding:2px 6px;">Get in touch &rarr;</a></p>
-    </div>
-  </section>
-
-  <!-- Terminal / Scratchpad -->
-  <section id="terminal-section" data-page="??">
-    <div class="container">
-      <p class="section-num">//</p>
-      <h2 class="section-title">Scratchpad</h2>
-      <div class="section-rule"></div>
-      <p class="section-desc">A terminal. Poke around. Try <span style="color:var(--blue-ink)">help</span>.</p>
-
-      <div class="term-window">
-        <div class="term-chrome">
-          <span class="term-dot r"></span>
-          <span class="term-dot y"></span>
-          <span class="term-dot g"></span>
-          <span class="term-title">visitor@avrah ~</span>
-        </div>
-        <div class="term-body" id="terminal-body">
-          <div id="terminal-output"></div>
-          <div class="term-input-line" id="term-input-line">
-            <span class="term-prompt">visitor@avrah:~$&nbsp;</span>
-            <input type="text" id="terminal-input" class="term-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Command Reference -->
-  <section data-page="??">
-    <div class="container">
-      <p class="section-num">//</p>
-      <h2 class="section-title">Commands</h2>
-      <div class="section-rule"></div>
-
-      <div class="term-ref">
-        <h3>Quick Reference</h3>
-        <ul class="term-ref-list">
-          <li><span class="term-ref-cmd">help</span><span class="term-ref-desc">list all commands</span></li>
-          <li><span class="term-ref-cmd">ls</span><span class="term-ref-desc">list files</span></li>
-          <li><span class="term-ref-cmd">cat &lt;file&gt;</span><span class="term-ref-desc">read a file</span></li>
-          <li><span class="term-ref-cmd">neofetch</span><span class="term-ref-desc">system info</span></li>
-          <li><span class="term-ref-cmd">make</span><span class="term-ref-desc">build something</span></li>
-          <li><span class="term-ref-cmd">snake</span><span class="term-ref-desc">play a game</span></li>
-          <li><span class="term-ref-cmd">fortune</span><span class="term-ref-desc">words of wisdom</span></li>
-          <li><span class="term-ref-cmd">cowsay &lt;msg&gt;</span><span class="term-ref-desc">moo</span></li>
-          <li><span class="term-ref-cmd">matrix</span><span class="term-ref-desc">???</span></li>
-          <li><span class="term-ref-cmd">clear</span><span class="term-ref-desc">clear terminal</span></li>
-        </ul>
-
-        <h3 style="margin-top:32px">Snake Controls</h3>
-        <ul class="term-ref-list">
-          <li><span class="term-ref-cmd">Arrow keys</span><span class="term-ref-desc">move</span></li>
-          <li><span class="term-ref-cmd">WASD</span><span class="term-ref-desc">also move</span></li>
-          <li><span class="term-ref-cmd">q / ESC</span><span class="term-ref-desc">quit game</span></li>
-        </ul>
-
-        <p style="margin-top:32px; font-family:var(--font-mono); font-size:11px; color:var(--graphite); line-height:1.6;">There are more commands than listed here. Some are hidden. Explore.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Blog -->
-  <section id="blog" data-page="12">
-    <div class="container">
-      <p class="section-num">&sect;05</p>
-      <h2 class="section-title">Blog</h2>
-      <div class="section-rule"></div>
-
-      <div style="display:flex;justify-content:center;align-items:center;min-height:200px;flex:1;">
-        <div class="taped-insert tilt-3" style="max-width:320px;padding:28px 32px;text-align:center;">
-          <span class="tape washi-gold" style="width:85px;top:-9px;left:50%;margin-left:-42px;transform:rotate(-2deg);"></span>
-          <p style="font-family:var(--font-hand);font-size:24px;color:var(--ink);margin-bottom:4px;">Blog + newsletter</p>
-          <p style="font-family:var(--font-hand);font-size:22px;color:var(--graphite);">coming soon!</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Contact -->
-  <section id="contact" class="contact-section" data-page="13">
+  <section id="contact" class="contact-section" data-page="03">
     <div class="container">
       <p class="section-num">&sect;06</p>
       <h2 class="section-title">Contact</h2>
@@ -529,7 +271,7 @@
 
       <div class="contact-inner">
         <div class="contact-text">
-          <p>Tell us about your project. We&rsquo;ll be straight with you about whether we&rsquo;re the right fit.</p>
+          <p>Or just say hi. We&rsquo;ll be straight with you about whether we&rsquo;re the right fit.</p>
         </div>
         <div class="contact-links">
           <a href="mailto:hello@avrah.studio" class="contact-link">
@@ -551,8 +293,8 @@
 
   </main>
 
+  <script src="nav.js"></script>
   <script src="main.js"></script>
-
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "22912c698a2c40068f3bdbebdeb8ba72"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

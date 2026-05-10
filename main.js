@@ -608,26 +608,56 @@
   }
 })();
 
-// ══ Active Tab Tracking ══
+// ══ Carousel ══
 (function() {
-  var links = Array.from(document.querySelectorAll('.nav-links a'));
-  var sections = [];
-  links.forEach(function(link) {
-    var id = link.getAttribute('href').slice(1);
-    var el = document.getElementById(id);
-    if (el) sections.push({ el: el, link: link });
-  });
+  'use strict';
+  var track = document.querySelector('.carousel-track');
+  var prev = document.querySelector('.carousel-prev');
+  var next = document.querySelector('.carousel-next');
+  if (!track || !prev || !next) return;
 
-  function update() {
-    var active = null;
-    sections.forEach(function(s) {
-      var rect = s.el.getBoundingClientRect();
-      if (rect.top <= 200) active = s.link;
-    });
-    links.forEach(function(a) { a.classList.remove('active-tab'); });
-    if (active) active.classList.add('active-tab');
+  var offset = 0;
+
+  function getVisibleCount() {
+    if (window.innerWidth <= 480) return 1;
+    if (window.innerWidth <= 768) return 2;
+    return 3;
   }
 
-  window.addEventListener('scroll', update, { passive: true });
-  update();
+  function getCardWidth() {
+    var card = track.querySelector('.currently-card');
+    if (!card) return 0;
+    var style = window.getComputedStyle(track);
+    var gap = parseInt(style.gap) || 20;
+    return card.offsetWidth + gap;
+  }
+
+  function totalCards() {
+    return track.querySelectorAll('.currently-card').length;
+  }
+
+  function maxOffset() {
+    return Math.max(0, totalCards() - getVisibleCount());
+  }
+
+  function slide() {
+    var cardWidth = getCardWidth();
+    track.style.transform = 'translateX(-' + (offset * cardWidth) + 'px)';
+  }
+
+  prev.addEventListener('click', function() {
+    offset = Math.max(0, offset - 1);
+    slide();
+  });
+
+  next.addEventListener('click', function() {
+    offset = Math.min(maxOffset(), offset + 1);
+    slide();
+  });
+
+  window.addEventListener('resize', function() {
+    if (offset > maxOffset()) offset = maxOffset();
+    slide();
+  });
 })();
+

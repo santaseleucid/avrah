@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avrah — Work With Us</title>
+  <meta name="description" content="Two ways to work with Avrah Studio: co-founder model with shared ownership, or contract model with defined scope and clean handoff.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Registration Marks -->
+  <span class="reg-mark tl" aria-hidden="true"></span>
+  <span class="reg-mark tr" aria-hidden="true"></span>
+  <span class="reg-mark bl" aria-hidden="true"></span>
+  <span class="reg-mark br" aria-hidden="true"></span>
+
+  <main class="page">
+
+  <!-- Trim Line -->
+  <div class="trim-line" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <a href="../index.html" class="nav-logo">AVRAH</a>
+      <div class="nav-actions">
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
+        <ul class="nav-links">
+          <li><a href="../index.html">about</a></li>
+          <li><a href="../projects/index.html">projects</a></li>
+          <li><a href="../ideas/index.html">ideas</a></li>
+          <li><a href="../work-with-us/index.html">work with us</a></li>
+          <li><a href="../terminal/index.html">terminal</a></li>
+          <li><a href="../blog/index.html">blog</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Work With Us -->
+  <section id="work-with-us" data-page="11">
+    <div class="container">
+      <p class="section-num">&sect;04</p>
+      <h2 class="section-title">Work With Us</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc">Two ways in. Pick the one that fits.</p>
+
+      <div class="cta-row">
+        <a href="#contact" class="cta-note cta-note-pitch" onclick="setMode('pitch')">
+          <p class="cta-note-label"><span class="stamp stamp-idea" style="margin-left:0;font-size:9px;">shared equity</span></p>
+          <p class="cta-note-title">I have an idea</p>
+          <p class="cta-note-desc">Pitch at our <span style="color:var(--red-ink)">monthly pitch nights</span>. We validate, sketch, and build it together. Shared ownership, shared risk.</p>
+          <p class="cta-note-action">Pitch your idea &darr;</p>
+        </a>
+        <a href="#contact" class="cta-note cta-note-contract" onclick="setMode('contract')" style="background:#e0f2fe;">
+          <p class="cta-note-label"><span class="stamp stamp-project" style="margin-left:0;font-size:9px;">fixed scope</span></p>
+          <p class="cta-note-title">I have a project</p>
+          <p class="cta-note-desc">Defined scope, clear milestones, clean handoff. Typical engagements run <span style="background:var(--highlight);padding:0 4px">3&ndash;12 months</span>.</p>
+          <p class="cta-note-action">Tell us about it &darr;</p>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <section id="contact" class="form-section" data-page="12">
+    <div class="container">
+      <p class="section-num">&sect;06</p>
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc">Tell us about your project. We&rsquo;ll be straight with you about whether we&rsquo;re the right fit.</p>
+
+      <div class="form-wrapper taped-insert form-card">
+        <span class="tape washi-gold" style="width:100px; top:-10px; left:24px; transform:rotate(-3deg);"></span>
+        <span class="tape washi-sage" style="width:80px; top:-9px; right:32px; transform:rotate(4deg);"></span>
+        <span class="tape washi-rose" style="width:70px; bottom:-10px; right:48px; transform:rotate(-2.5deg);"></span>
+        <form id="contact-form" action="https://formspree.io/f/mwvywwdv" method="POST">
+
+          <!-- Pitch / Contract toggle -->
+          <div class="form-toggle">
+            <button type="button" class="form-toggle-btn active" data-mode="pitch">I want to pitch an idea</button>
+            <button type="button" class="form-toggle-btn" data-mode="contract">I have a contract project</button>
+          </div>
+          <input type="hidden" name="inquiry_type" id="inquiry-type" value="pitch">
+
+          <!-- Shared fields -->
+          <div class="form-field">
+            <label for="form-name">Name</label>
+            <input type="text" id="form-name" name="name" required placeholder="Your name">
+          </div>
+
+          <div class="form-field">
+            <label for="form-email">Email</label>
+            <input type="email" id="form-email" name="email" required placeholder="you@company.com">
+          </div>
+
+          <!-- Pitch-specific fields -->
+          <div class="form-conditional visible" id="pitch-fields">
+            <div class="form-field">
+              <label for="form-idea">Your idea in one line</label>
+              <input type="text" id="form-idea" name="idea" placeholder="e.g. An open-source dog tracker with no subscription">
+            </div>
+
+            <div class="form-field">
+              <label for="form-stage">Where are you at?</label>
+              <select id="form-stage" name="stage">
+                <option value="">Select one&hellip;</option>
+                <option value="napkin">Napkin sketch</option>
+                <option value="validated">Validated the problem</option>
+                <option value="prototype">Have a prototype</option>
+                <option value="revenue">Already have revenue</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Contract-specific fields -->
+          <div class="form-conditional" id="contract-fields">
+            <div class="form-field">
+              <label for="form-company">Company</label>
+              <input type="text" id="form-company" name="company" placeholder="Your company or organization">
+            </div>
+
+            <div class="form-field">
+              <label for="form-timeline">Timeline</label>
+              <select id="form-timeline" name="timeline">
+                <option value="">Select one&hellip;</option>
+                <option value="asap">ASAP</option>
+                <option value="1-3mo">1&ndash;3 months</option>
+                <option value="3-6mo">3&ndash;6 months</option>
+                <option value="6-12mo">6&ndash;12 months</option>
+                <option value="exploring">Just exploring</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="form-budget">Budget range</label>
+              <select id="form-budget" name="budget">
+                <option value="">Select one&hellip;</option>
+                <option value="<25k">Under $25k</option>
+                <option value="25-50k">$25k &ndash; $50k</option>
+                <option value="50-100k">$50k &ndash; $100k</option>
+                <option value="100k+">$100k+</option>
+                <option value="unsure">Not sure yet</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Shared message field -->
+          <div class="form-field">
+            <label for="form-message">Tell us more</label>
+            <textarea id="form-message" name="message" rows="4" placeholder="What problem are you solving? What have you tried?"></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Send</button>
+          <p class="form-hint">We reply within 48 hours. No auto-responders.</p>
+
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <span class="footer-left">&copy; 2026 AVRAH.STUDIO</span>
+      <span class="footer-right">49.8954&deg;N &ensp; 97.1385&deg;W</span>
+    </div>
+  </footer>
+
+  </main>
+
+  <script src="../nav.js"></script>
+  <script>
+  var btns = document.querySelectorAll('.form-toggle-btn');
+  var pitchFields = document.getElementById('pitch-fields');
+  var contractFields = document.getElementById('contract-fields');
+  var typeInput = document.getElementById('inquiry-type');
+
+  function setMode(mode) {
+    btns.forEach(function(b) { b.classList.remove('active'); });
+    document.querySelector('[data-mode="' + mode + '"]').classList.add('active');
+    typeInput.value = mode;
+    if (mode === 'pitch') {
+      pitchFields.classList.add('visible');
+      contractFields.classList.remove('visible');
+    } else {
+      pitchFields.classList.remove('visible');
+      contractFields.classList.add('visible');
+    }
+  }
+
+  // Toggle buttons in form
+  btns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setMode(btn.getAttribute('data-mode'));
+    });
+  });
+
+  // Check URL hash for pre-selection
+  if (location.hash === '#contract') {
+    setMode('contract');
+  }
+  </script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "22912c698a2c40068f3bdbebdeb8ba72"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

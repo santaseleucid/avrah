@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avrah — Blog</title>
+  <meta name="description" content="Avrah Studio blog and newsletter. Coming soon.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Registration Marks -->
+  <span class="reg-mark tl" aria-hidden="true"></span>
+  <span class="reg-mark tr" aria-hidden="true"></span>
+  <span class="reg-mark bl" aria-hidden="true"></span>
+  <span class="reg-mark br" aria-hidden="true"></span>
+
+  <main class="page">
+
+  <!-- Trim Line -->
+  <div class="trim-line" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <a href="../index.html" class="nav-logo">AVRAH</a>
+      <div class="nav-actions">
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
+        <ul class="nav-links">
+          <li><a href="../index.html">about</a></li>
+          <li><a href="../projects/index.html">projects</a></li>
+          <li><a href="../ideas/index.html">ideas</a></li>
+          <li><a href="../work-with-us/index.html">work with us</a></li>
+          <li><a href="../terminal/index.html">terminal</a></li>
+          <li><a href="../blog/index.html">blog</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Blog -->
+  <section id="blog" data-page="12">
+    <div class="container">
+      <p class="section-num">&sect;05</p>
+      <h2 class="section-title">Blog</h2>
+      <div class="section-rule"></div>
+
+      <p class="section-desc">Short dispatches every few weeks on what we&rsquo;re building, shipping, and learning.</p>
+
+      <div class="page-writeup" style="margin-bottom:40px;">
+        <h4>What you&rsquo;ll get</h4>
+        <p><span style="color:var(--red-ink)">Project updates</span> from the field &mdash; technical wins, shipping milestones, and lessons from real IoT delivery. <span style="color:var(--blue-ink)">Incubator dispatches</span> &mdash; what we&rsquo;re prototyping, who pitched at pitch night, and what&rsquo;s moving from idea to product. Occasional notes on partnerships, events, and opportunities to get involved.</p>
+        <h4>Who it&rsquo;s for</h4>
+        <p>People who build things, hire people who build things, or want to build things with us. Whether you&rsquo;re scoping a contract, thinking about pitching an idea, or just like watching hardware come together &mdash; this is your thread to pull.</p>
+      </div>
+
+      <div class="form-wrapper taped-insert form-card" style="max-width:440px;">
+        <span class="tape washi-gold" style="width:90px; top:-10px; left:20px; transform:rotate(-3deg);"></span>
+        <span class="tape washi-blue" style="width:72px; top:-9px; right:28px; transform:rotate(3.5deg);"></span>
+        <p style="font-family:var(--font-mono);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:20px;">Get notified when we publish</p>
+        <form action="https://formspree.io/f/xzdokyzw" method="POST">
+          <div class="form-field">
+            <label for="newsletter-email">Email</label>
+            <input type="email" id="newsletter-email" name="email" required placeholder="you@example.com">
+          </div>
+          <input type="hidden" name="_subject" value="New newsletter signup">
+          <button type="submit" class="form-submit">Subscribe</button>
+          <p class="form-hint">No spam. Unsubscribe anytime.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <span class="footer-left">&copy; 2026 AVRAH.STUDIO</span>
+      <span class="footer-right">49.8954&deg;N &ensp; 97.1385&deg;W</span>
+    </div>
+  </footer>
+
+  </main>
+
+  <script src="../nav.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "22912c698a2c40068f3bdbebdeb8ba72"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

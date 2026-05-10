@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avrah — Terminal</title>
+  <meta name="description" content="Avrah Studio interactive terminal. Poke around, try some commands, play snake.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Registration Marks -->
+  <span class="reg-mark tl" aria-hidden="true"></span>
+  <span class="reg-mark tr" aria-hidden="true"></span>
+  <span class="reg-mark bl" aria-hidden="true"></span>
+  <span class="reg-mark br" aria-hidden="true"></span>
+
+  <main class="page">
+
+  <!-- Trim Line -->
+  <div class="trim-line" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <a href="../index.html" class="nav-logo">AVRAH</a>
+      <div class="nav-actions">
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
+        <ul class="nav-links">
+          <li><a href="../index.html">about</a></li>
+          <li><a href="../projects/index.html">projects</a></li>
+          <li><a href="../ideas/index.html">ideas</a></li>
+          <li><a href="../work-with-us/index.html">work with us</a></li>
+          <li><a href="../terminal/index.html">terminal</a></li>
+          <li><a href="../blog/index.html">blog</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Terminal / Scratchpad -->
+  <section id="terminal-section" data-page="??">
+    <div class="container">
+      <p class="section-num">//</p>
+      <h2 class="section-title">Scratchpad</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc">A terminal. Poke around. Try <span style="color:var(--blue-ink)">help</span>.</p>
+
+      <div class="term-window">
+        <div class="term-chrome">
+          <span class="term-dot r"></span>
+          <span class="term-dot y"></span>
+          <span class="term-dot g"></span>
+          <span class="term-title">visitor@avrah ~</span>
+        </div>
+        <div class="term-body" id="terminal-body">
+          <div id="terminal-output"></div>
+          <div class="term-input-line" id="term-input-line">
+            <span class="term-prompt">visitor@avrah:~$&nbsp;</span>
+            <input type="text" id="terminal-input" class="term-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Command Reference -->
+  <section data-page="??">
+    <div class="container">
+      <p class="section-num">//</p>
+      <h2 class="section-title">Commands</h2>
+      <div class="section-rule"></div>
+
+      <div class="term-ref">
+        <h3>Quick Reference</h3>
+        <ul class="term-ref-list">
+          <li><span class="term-ref-cmd">help</span><span class="term-ref-desc">list all commands</span></li>
+          <li><span class="term-ref-cmd">ls</span><span class="term-ref-desc">list files</span></li>
+          <li><span class="term-ref-cmd">cat &lt;file&gt;</span><span class="term-ref-desc">read a file</span></li>
+          <li><span class="term-ref-cmd">neofetch</span><span class="term-ref-desc">system info</span></li>
+          <li><span class="term-ref-cmd">make</span><span class="term-ref-desc">build something</span></li>
+          <li><span class="term-ref-cmd">snake</span><span class="term-ref-desc">play a game</span></li>
+          <li><span class="term-ref-cmd">fortune</span><span class="term-ref-desc">words of wisdom</span></li>
+          <li><span class="term-ref-cmd">cowsay &lt;msg&gt;</span><span class="term-ref-desc">moo</span></li>
+          <li><span class="term-ref-cmd">matrix</span><span class="term-ref-desc">???</span></li>
+          <li><span class="term-ref-cmd">clear</span><span class="term-ref-desc">clear terminal</span></li>
+        </ul>
+
+        <h3 style="margin-top:32px">Snake Controls</h3>
+        <ul class="term-ref-list">
+          <li><span class="term-ref-cmd">Arrow keys</span><span class="term-ref-desc">move</span></li>
+          <li><span class="term-ref-cmd">WASD</span><span class="term-ref-desc">also move</span></li>
+          <li><span class="term-ref-cmd">q / ESC</span><span class="term-ref-desc">quit game</span></li>
+        </ul>
+
+        <p style="margin-top:32px; font-family:var(--font-mono); font-size:11px; color:var(--graphite); line-height:1.6;">There are more commands than listed here. Some are hidden. Explore.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <span class="footer-left">&copy; 2026 AVRAH.STUDIO</span>
+      <span class="footer-right">49.8954&deg;N &ensp; 97.1385&deg;W</span>
+    </div>
+  </footer>
+
+  </main>
+
+  <script src="../main.js"></script>
+  <script src="../nav.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "22912c698a2c40068f3bdbebdeb8ba72"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
