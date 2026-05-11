@@ -101,7 +101,7 @@ Content rules for slides:
 - **Headlines:** Short, active, specific. "Existing solutions don't survive the street" not "Market Challenges Overview"
 - **Body text:** 2-3 sentences max per paragraph. Never a wall of text.
 - **Bullet points:** 3-5 per list. Each under 15 words. Start with the impact, not the feature.
-- **Metrics:** Use the biggest, most specific numbers. "65,000 units deployed" not "Significant market traction"
+- **Metrics:** Use the biggest, most specific numbers. "deployed internationally" not "Significant market traction"
 - **Statements:** One idea per statement slide. If you need two sentences, it's too much.
 
 ### Step 5: Assemble the HTML
