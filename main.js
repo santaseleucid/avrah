@@ -17,7 +17,7 @@
     'contact.txt':
       'EMAIL    hello@avrah.studio\nGITHUB   github.com/santaseleucid\nLINKEDIN linkedin.com/in/sanjay-abraham\nWEB      avrah.studio',
     'projects.txt':
-      '01  Connected Healthcare Gateway    int'l deployment\n02  Rail Condition Analytics         10+ agencies\n03  RailSense IoT Hardware          Custom HW, live rail',
+      '01  Connected Healthcare Gateway    int\'l deployment\n02  Rail Condition Analytics         10+ agencies\n03  RailSense IoT Hardware          Custom HW, live rail',
     '.secret':
       '\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\n\u2588                                \u2588\n\u2588  You found the secret file.    \u2588\n\u2588                                \u2588\n\u2588  Try: sudo make me a sandwich  \u2588\n\u2588  Try: avra kadavra             \u2588\n\u2588  Try: rm -rf /                 \u2588\n\u2588                                \u2588\n\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588',
     '.bashrc':
