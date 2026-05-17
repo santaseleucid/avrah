@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RailView Case Study — Avrah Studio</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ══ Reset ══ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --canvas: #f7f5f0;
+      --ink: #1c1917;
+      --graphite: #635d58;
+      --red-ink: #c23838;
+      --blue-ink: #2b5ea7;
+      --sage: #4a6741;
+      --highlight: #fde68a;
+      --rule: #d6cfc3;
+      --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    @media print {
+      @page { size: letter; margin: 0.55in 0.65in 0.65in 0.65in; }
+      body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page { box-shadow: none; max-width: 100%; }
+      .trim-line { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+      /* Never split these across pages */
+      .capability,
+      .pull-quote,
+      .stat-row,
+      .arch-diagram,
+      .screenshot,
+      .industry-card,
+      .cover-meta,
+      .cta-section { page-break-inside: avoid; break-inside: avoid; }
+
+      /* Keep headers with content */
+      .section-num,
+      .cs-section h2,
+      .section-rule,
+      .capability h3 { page-break-after: avoid; break-after: avoid; }
+
+      /* Keep tables and grids whole */
+      .comparison-table,
+      .tech-table { page-break-inside: avoid; break-inside: avoid; }
+      .comparison-table tr,
+      .tech-table tr { page-break-inside: avoid; break-inside: avoid; }
+      .industry-grid { page-break-inside: avoid; break-inside: avoid; }
+      thead { display: table-header-group; }
+
+      /* CTA + footer stay together */
+      .cta-section { page-break-inside: avoid; }
+      .doc-footer { page-break-before: avoid; break-before: avoid; }
+
+      /* Tighten for print */
+      .doc-header { padding: 14px 56px; }
+      .cs-section { padding: 32px 0; }
+      .cover-section { padding: 32px 56px 28px; }
+      .cover-section h1 { font-size: 26px; margin-bottom: 14px; }
+      .cover-section .product-label { margin-bottom: 10px; }
+      .cover-section .subtitle { font-size: 13px; line-height: 1.55; margin-bottom: 20px; }
+      .screenshot { margin: 14px 0 14px; }
+      .screenshot img { max-height: 320px; object-fit: cover; object-position: center; }
+      .screenshot-caption { padding: 6px 16px; }
+      .cover-meta .meta-cell { padding: 10px 16px; }
+      .meta-value { font-size: 12px; }
+      .capability { margin: 12px 0; padding: 18px 22px 16px; }
+      .capability-with-img { grid-template-columns: 1fr 160px; gap: 16px; }
+      .capability-with-img .capability-img { max-height: 260px; overflow: hidden; }
+      .stat-row { margin: 16px 0; }
+      .stat-cell { padding: 14px 16px; }
+      .stat-value { font-size: 22px; }
+      .industry-card { padding: 14px; }
+      .pull-quote { margin: 16px 0; padding: 14px 22px; }
+      .arch-diagram { margin: 16px 0 10px; }
+      .section-rule { margin-bottom: 14px; }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: #44403c;
+      color: var(--ink);
+      line-height: 1.65;
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 850px;
+      margin: 0 auto;
+      background: #fff;
+      position: relative;
+    }
+
+    /* ══ Trim accent ══ */
+    .trim-line { height: 3px; background: var(--red-ink); }
+
+    /* ══ Header bar ══ */
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 56px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .doc-header .logo {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .doc-header .doc-type {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--graphite);
+    }
+
+    /* ══ Cover section ══ */
+    .cover-section {
+      padding: 72px 56px 56px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .cover-section .product-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue-ink);
+      margin-bottom: 16px;
+    }
+
+    .cover-section h1 {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 20px;
+      color: var(--ink);
+    }
+
+    .cover-section h1 span {
+      color: var(--blue-ink);
+    }
+
+    .cover-section .subtitle {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--graphite);
+      max-width: 640px;
+      margin-bottom: 40px;
+    }
+
+    .cover-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--rule);
+    }
+
+    .cover-meta .meta-cell {
+      padding: 16px 20px;
+      border-right: 1px solid var(--rule);
+    }
+
+    .cover-meta .meta-cell:last-child { border-right: none; }
+
+    .meta-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--graphite);
+      margin-bottom: 4px;
+    }
+
+    .meta-value {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* ══ Section styling ══ */
+    .cs-section {
+      padding: 48px 56px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .cs-section:last-of-type { border-bottom: none; }
+
+    .section-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--blue-ink);
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .cs-section h2 {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    .section-rule {
+      width: 100%;
+      height: 1.5px;
+      background: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    .cs-section h3 {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 32px;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+
+    .cs-section p {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink);
+      margin-bottom: 16px;
+      max-width: 680px;
+    }
+
+    .cs-section p.lead {
+      font-size: 15px;
+      color: var(--graphite);
+      max-width: 640px;
+    }
+
+    /* ══ Lists ══ */
+    .cs-section ul {
+      list-style: none;
+      margin: 0 0 20px 0;
+      padding: 0;
+    }
+
+    .cs-section ul li {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.65;
+      padding: 6px 0 6px 20px;
+      position: relative;
+      max-width: 680px;
+    }
+
+    .cs-section ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 14px;
+      width: 6px;
+      height: 1.5px;
+      background: var(--red-ink);
+    }
+
+    .cs-section ul li strong { font-weight: 600; }
+
+    .cs-section ul ul { margin: 4px 0 4px 8px; }
+    .cs-section ul ul li::before { width: 4px; background: var(--graphite); }
+
+    /* ══ Pull quote ══ */
+    .pull-quote {
+      border-left: 3px solid var(--red-ink);
+      padding: 20px 28px;
+      margin: 28px 0;
+      background: rgba(194, 56, 56, 0.03);
+    }
+
+    .pull-quote p {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--ink);
+      margin: 0;
+      max-width: 100%;
+    }
+
+    /* ══ Stat row ══ */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--rule);
+      margin: 28px 0;
+    }
+
+    .stat-cell {
+      padding: 24px 20px;
+      border-right: 1px solid var(--rule);
+      text-align: center;
+    }
+
+    .stat-cell:last-child { border-right: none; }
+
+    .stat-value {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--blue-ink);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--graphite);
+      line-height: 1.4;
+    }
+
+    /* ══ Screenshot ══ */
+    .screenshot {
+      margin: 28px 0 8px;
+      border: 1px solid var(--rule);
+      overflow: hidden;
+    }
+
+    .screenshot img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .screenshot-caption {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      color: var(--graphite);
+      padding: 10px 16px;
+      background: var(--canvas);
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ══ Architecture diagram ══ */
+    .arch-diagram {
+      margin: 28px 0 12px;
+      border: 1px solid var(--rule);
+      overflow: hidden;
+    }
+
+    .arch-diagram-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: var(--canvas);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .arch-diagram-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border: 1.5px solid var(--blue-ink);
+      color: var(--blue-ink);
+    }
+
+    .arch-diagram-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--graphite);
+      letter-spacing: 0.04em;
+    }
+
+    .arch-diagram img {
+      display: block;
+      width: 100%;
+      height: auto;
+      padding: 20px 24px;
+      background: #fff;
+    }
+
+    /* ══ Capability cards ══ */
+    .capability {
+      background: var(--canvas);
+      border: 1px solid var(--rule);
+      padding: 28px 28px 24px;
+      margin: 20px 0;
+    }
+
+    .capability-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--blue-ink);
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    .capability h3 {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      margin: 0 0 12px 0;
+      color: var(--ink);
+    }
+
+    .capability p {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--graphite);
+      margin-bottom: 12px;
+    }
+
+    .capability ul { margin-bottom: 0; }
+
+    .capability ul li {
+      font-size: 13px;
+      padding: 4px 0 4px 18px;
+    }
+
+    /* ══ Comparison table ══ */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 24px;
+      font-size: 13px;
+    }
+
+    .comparison-table thead th {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--ink);
+      color: var(--ink);
+    }
+
+    .comparison-table thead th:first-child { color: var(--graphite); }
+    .comparison-table thead th:last-child { color: var(--blue-ink); }
+
+    .comparison-table tbody td {
+      font-family: var(--font-sans);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .comparison-table tbody td:first-child { color: var(--graphite); }
+    .comparison-table tbody td:last-child { color: var(--ink); font-weight: 500; }
+
+    /* ══ Tech stack table ══ */
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 13px;
+    }
+
+    .tech-table thead th {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 10px 16px;
+      border-bottom: 2px solid var(--ink);
+      color: var(--graphite);
+    }
+
+    .tech-table tbody td {
+      font-family: var(--font-sans);
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--rule);
+      line-height: 1.4;
+    }
+
+    .tech-table tbody td:first-child {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--graphite);
+      white-space: nowrap;
+    }
+
+    /* ══ Callout ══ */
+    .callout {
+      border-left: 3px solid var(--blue-ink);
+      background: rgba(43, 94, 167, 0.04);
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+
+    .callout .callout-value {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--blue-ink);
+      margin-bottom: 4px;
+    }
+
+    .callout .callout-label {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--graphite);
+    }
+
+    /* ══ Industry cards ══ */
+    .industry-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .industry-card {
+      border: 1px solid var(--rule);
+      padding: 20px;
+    }
+
+    .industry-card h4 {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    .industry-card p {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--graphite);
+      margin: 0;
+    }
+
+    /* ══ CTA section ══ */
+    .cta-section {
+      background: var(--ink);
+      padding: 48px 56px;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-transform: none;
+      color: #fff;
+    }
+
+    .cta-section p {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      margin: 0 auto 28px;
+      max-width: 520px;
+      line-height: 1.65;
+    }
+
+    .cta-link {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: #fff;
+      padding: 14px 36px;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .cta-link:hover { background: var(--highlight); color: var(--ink); }
+
+    /* ══ Footer ══ */
+    .doc-footer {
+      padding: 24px 56px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .doc-footer .footer-brand {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--graphite);
+    }
+
+    .doc-footer .footer-note {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--graphite);
+      font-style: italic;
+    }
+
+    /* ══ Capability with screenshot ══ */
+    .capability-with-img {
+      display: grid;
+      grid-template-columns: 1fr 200px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .capability-with-img .capability-img {
+      border: 1px solid var(--rule);
+      overflow: hidden;
+      align-self: center;
+    }
+
+    .capability-with-img .capability-img img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    @media (max-width: 680px) {
+      .capability-with-img { grid-template-columns: 1fr; }
+    }
+
+    /* ══ Responsive ══ */
+    @media (max-width: 680px) {
+      .cs-section, .cover-section, .doc-header, .cta-section, .doc-footer { padding-left: 28px; padding-right: 28px; }
+      .cover-section h1 { font-size: 24px; }
+      .cover-meta, .stat-row { grid-template-columns: 1fr; }
+      .cover-meta .meta-cell, .stat-cell { border-right: none; border-bottom: 1px solid var(--rule); }
+      .cover-meta .meta-cell:last-child, .stat-cell:last-child { border-bottom: none; }
+      .industry-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ══ Email gate overlay ══ */
+    .gate-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.35s ease;
+    }
+
+    .gate-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .gate-box {
+      max-width: 440px;
+      width: 100%;
+      padding: 0 28px;
+      text-align: center;
+    }
+
+    .gate-box .gate-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue-ink);
+      margin-bottom: 16px;
+    }
+
+    .gate-box h2 {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .gate-box .gate-subtitle {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 32px;
+    }
+
+    .gate-form {
+      display: flex;
+      gap: 0;
+      margin-bottom: 16px;
+    }
+
+    .gate-form input[type="email"] {
+      flex: 1;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-right: none;
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .gate-form input[type="email"]::placeholder {
+      color: rgba(255,255,255,0.3);
+    }
+
+    .gate-form input[type="email"]:focus {
+      border-color: var(--blue-ink);
+    }
+
+    .gate-form button {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 14px 24px;
+      background: #fff;
+      color: var(--ink);
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+
+    .gate-form button:hover {
+      background: var(--highlight);
+    }
+
+    .gate-form button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .gate-error {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: var(--red-ink);
+      min-height: 18px;
+    }
+
+    .gate-footer {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      margin-top: 24px;
+    }
+
+    .gate-footer a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+    }
+
+    .gate-footer a:hover { text-decoration: underline; }
+
+    /* Hide page content when gated */
+    body.gated .page {
+      filter: blur(6px);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    @media (max-width: 480px) {
+      .gate-form { flex-direction: column; }
+      .gate-form input[type="email"] { border-right: 1px solid rgba(255,255,255,0.15); border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+<main class="page">
+
+  <div class="trim-line"></div>
+
+  <!-- Header -->
+  <header class="doc-header">
+    <span class="logo">AVRAH</span>
+    <span class="doc-type">Case Study</span>
+  </header>
+
+  <!-- Cover -->
+  <section class="cover-section">
+    <p class="product-label">RailView / Field Operations Platform</p>
+    <h1>A rail maintenance company ditched their spreadsheets and <span>never looked back.</span></h1>
+    <p class="subtitle">A rail grinding company serving 15+ North American transit systems (Sound Transit, BART, NYCT, SkyTrain) replaced their spreadsheet-and-email workflow with a single platform. It changed how they win and retain contracts.</p>
+
+    <div class="screenshot">
+      <img src="app_screenshot.png" alt="RailView map interface showing Sound Transit network with color-coded EastLink, NorthLink, and SouthLink lines">
+      <p class="screenshot-caption">RailView: live map showing completed work across the Sound Transit network</p>
+    </div>
+
+    <div class="cover-meta">
+      <div class="meta-cell">
+        <span class="meta-label">Deployed for</span>
+        <span class="meta-value">Rail Transit Maintenance</span>
+      </div>
+      <div class="meta-cell">
+        <span class="meta-label">Scale</span>
+        <span class="meta-value">15+ North American transit systems</span>
+      </div>
+      <div class="meta-cell">
+        <span class="meta-label">Integrations</span>
+        <span class="meta-value">Sound Transit, BART, NYCT, SkyTrain +</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sound Familiar -->
+  <section class="cs-section">
+    <p class="section-num">&sect;01</p>
+    <h2>Sound Familiar?</h2>
+    <div class="section-rule"></div>
+    <p>The work gets done. The reporting doesn't keep up.</p>
+    <ul>
+      <li><strong>Spreadsheets at 4 AM.</strong> Data arrives late, incomplete, or not at all. You can't bill for work you can't document.</li>
+      <li><strong>Reports vanish into inboxes.</strong> Client asks for last month's summary? That takes days to assemble.</li>
+      <li><strong>No coverage map.</strong> You can't show a client where you've been or where gaps remain.</li>
+      <li><strong>Delays are invisible.</strong> No way to identify patterns or push back on client-caused downtime with data.</li>
+      <li><strong>Every new client</strong> means another template, another email list, and hoping everyone follows the same conventions.</li>
+    </ul>
+
+    <div class="screenshot">
+      <img src="messy_flow.png" alt="Diagram showing the typical field reporting workflow: infrequent and inconsistent data collection, flat files with long turnaround, poor version control in email, and incomplete data reaching decisions">
+      <p class="screenshot-caption">The typical field reporting workflow: inconsistent collection, flat files, email chaos, incomplete decisions</p>
+    </div>
+
+    <div class="pull-quote">
+      <p>The real cost isn't inefficiency. It's the contracts you can't win because you can't demonstrate operational rigor.</p>
+    </div>
+  </section>
+
+  <!-- What Changes -->
+  <section class="cs-section">
+    <p class="section-num">&sect;02</p>
+    <h2>What Changes with RailView</h2>
+    <div class="section-rule"></div>
+    <p class="lead">One platform for every shift, every segment, every delay. When a client asks what you did last week, the answer is a link. Not a research project.</p>
+
+    <div class="arch-diagram">
+      <div class="arch-diagram-header">
+        <span class="arch-diagram-tag">System</span>
+        <span class="arch-diagram-label">How data flows from the field to every stakeholder</span>
+      </div>
+      <img src="../railview.png" alt="RailView architecture: field data intake, automated processing and storage, interactive web app serving technicians, engineers, and executives">
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-cell">
+        <span class="stat-value">100%</span>
+        <span class="stat-label">Shift data captured,<br>structured, and auditable</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-value">Instant</span>
+        <span class="stat-label">Client reports delivered<br>automatically on submission</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-value">Real-time</span>
+        <span class="stat-label">Coverage maps, analytics,<br>and delay tracking</span>
+      </div>
+    </div>
+
+    <!-- Capability 1 -->
+    <div class="capability">
+      <div class="capability-with-img">
+        <div>
+          <p class="capability-num">01</p>
+          <h3>Every Shift Documented. No Exceptions.</h3>
+          <ul>
+            <li><strong>Structured mobile forms</strong> with auto-populated fields and guided entry</li>
+            <li><strong>Validation</strong> catches missing data and impossible time sequences before submission</li>
+            <li><strong>Automatic client notifications</strong> the moment a crew submits</li>
+          </ul>
+        </div>
+        <div class="capability-img">
+          <img src="submit%20form.png" alt="RailView mobile reporting form showing guided step-by-step shift report entry">
+        </div>
+      </div>
+    </div>
+
+    <!-- Capability 2 -->
+    <div class="capability">
+      <p class="capability-num">02</p>
+      <h3>Show Clients Exactly Where You've Been</h3>
+      <p>Hand them a map, not a spreadsheet. Each transit system's network, segments, and reference system is already configured.</p>
+      <ul>
+        <li><strong>Coverage heat maps:</strong> heavily worked, barely touched, or overdue</li>
+        <li><strong>Work overlays</strong> by category and date range</li>
+        <li><strong>Mileposts and chainpoints</strong> mapped to your clients' reference systems</li>
+      </ul>
+    </div>
+
+    <!-- Capability 3 -->
+    <div class="capability">
+      <p class="capability-num">03</p>
+      <h3>Walk Into Client Meetings With Answers</h3>
+      <p>Real-time dashboards. No more scrambling to build a monthly summary.</p>
+      <ul>
+        <li><strong>Production:</strong> track covered, utilization rate, trend lines</li>
+        <li><strong>Time breakdown:</strong> travel, productive work, machine delays, client holds</li>
+        <li><strong>Delay analysis:</strong> root causes ranked by impact. Push back with data when delays aren't yours</li>
+        <li><strong>Trends:</strong> period-over-period comparison by line, crew, or work type</li>
+      </ul>
+    </div>
+
+    <div class="screenshot">
+      <img src="analytics.png" alt="RailView production analytics dashboard showing total track ground, utilization rate, time breakdown chart, and production trends">
+      <p class="screenshot-caption">Production analytics: KPIs, time breakdown by category, and trend tracking across 261,255 ft of track</p>
+    </div>
+
+    <!-- Capability 4 -->
+    <div class="capability">
+      <p class="capability-num">04</p>
+      <h3>Win a New Contract. Onboard in Hours.</h3>
+      <p>Already serving 15+ transit authorities from one deployment. Going from 15 to 16 is configuration, not development. The platform can be white-labeled with your brand, your domain, and your client-facing identity.</p>
+      <ul>
+        <li><strong>White-label ready:</strong> your logo, your colors, your domain</li>
+        <li><strong>Five-tier access control</strong> from admin to view-only stakeholder</li>
+        <li><strong>Client-scoped catalogs</strong> for equipment, personnel, and segments</li>
+        <li><strong>Complete audit trail</strong> for compliance reviews</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Before / After -->
+  <section class="cs-section">
+    <p class="section-num">&sect;03</p>
+    <h2>Before & After</h2>
+    <div class="section-rule"></div>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>The Old Way</th>
+          <th>With RailView</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Shift reports arrive late, incomplete, or not at all</td>
+          <td>Every shift documented, validated, and stored before the crew leaves the site</td>
+        </tr>
+        <tr>
+          <td>Client asks "what did you do last month?" Answer takes days</td>
+          <td>Real-time dashboards and exportable reports, always current</td>
+        </tr>
+        <tr>
+          <td>No way to show coverage. Work described in text</td>
+          <td>Interactive maps with heat maps, overlays, and gap analysis</td>
+        </tr>
+        <tr>
+          <td>Delays invisible. No way to identify patterns or push back</td>
+          <td>Categorized delay tracking with root-cause analysis and trend data</td>
+        </tr>
+        <tr>
+          <td>Reporting depends on individuals following conventions</td>
+          <td>Structured data capture with validation. Consistent by design</td>
+        </tr>
+        <tr>
+          <td>New contract = weeks of admin setup and hope</td>
+          <td>New client configured and live in hours</td>
+        </tr>
+        <tr>
+          <td>No audit trail. Compliance questions are a scramble</td>
+          <td>Full history with timestamps, attribution, and edit tracking</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Your Industry -->
+  <section class="cs-section">
+    <p class="section-num">&sect;04</p>
+    <h2>Built for Rail. Ready for Your Industry.</h2>
+    <div class="section-rule"></div>
+    <p>Built for rail. But the problem it solves, the gap between work done in the field and work that gets documented, exists in every field services company. The platform adapts to your data model in weeks.</p>
+
+    <div class="industry-grid">
+      <div class="industry-card">
+        <h4>Road & Highway</h4>
+        <p>Pothole repair, milling, striping, guardrail work. Coverage maps show what's maintained vs. neglected. Delay analysis surfaces equipment, weather, and permitting bottlenecks.</p>
+      </div>
+      <div class="industry-card">
+        <h4>Utilities</h4>
+        <p>Pipeline inspection, line clearing, meter replacement. Work along linear assets with reference systems. Compliance requires knowing exactly what was done, when, and by whom.</p>
+      </div>
+      <div class="industry-card">
+        <h4>Municipal Public Works</h4>
+        <p>Street sweeping, storm drains, sidewalk repair. Geographic coverage tracking and crew productivity metrics to justify budgets and respond to constituent complaints.</p>
+      </div>
+      <div class="industry-card">
+        <h4>Environmental Services</h4>
+        <p>Vegetation management, erosion control, corridor monitoring. Regulatory reporting demands structured data with audit trails, not folders of spreadsheets.</p>
+      </div>
+    </div>
+
+    <h3>Under the Hood</h3>
+    <p>Simple by design. One backend language, one database, serverless hosting. No DevOps team required.</p>
+
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th>Layer</th>
+          <th>Technology</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Backend</td><td>Python (Django), REST API</td></tr>
+        <tr><td>Frontend</td><td>React, TypeScript</td></tr>
+        <tr><td>Database</td><td>PostgreSQL + PostGIS (geospatial)</td></tr>
+        <tr><td>Mapping</td><td>Mapbox GL JS</td></tr>
+        <tr><td>Hosting</td><td>Google Cloud Run (serverless containers)</td></tr>
+        <tr><td>Auth</td><td>JWT with role-based access control</td></tr>
+        <tr><td>Background Tasks</td><td>PostgreSQL-backed queue (no Redis/RabbitMQ)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Your next client will ask how you track your work.</h2>
+    <p>Make sure the answer isn't "spreadsheets." RailView adapts to your industry, your data, and your clients. Typically in weeks, not months.</p>
+    <a href="mailto:hello@avrah.studio" class="cta-link">hello@avrah.studio</a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="doc-footer">
+    <span class="footer-brand">AVRAH STUDIO</span>
+    <span class="footer-note">Production system currently serving U.S. transit authorities.</span>
+  </footer>
+
+</main>
+
+<!-- Email gate overlay -->
+<div class="gate-overlay" id="gate-overlay">
+  <div class="gate-box">
+    <p class="gate-label">Case Study</p>
+    <h2>See how RailView replaced spreadsheets for 15+ transit systems.</h2>
+    <p class="gate-subtitle">Enter your email to read the full case study.</p>
+    <form class="gate-form" id="gate-form">
+      <input type="email" name="email" placeholder="you@company.com" required autocomplete="email">
+      <button type="submit">Read it</button>
+    </form>
+    <p class="gate-error" id="gate-error"></p>
+    <p class="gate-footer"><a href="https://avrah.studio">avrah.studio</a></p>
+  </div>
+</div>
+
+<script>
+(function() {
+  var COOKIE = 'rv_case_study';
+  var overlay = document.getElementById('gate-overlay');
+  var form = document.getElementById('gate-form');
+  var error = document.getElementById('gate-error');
+
+  function hasCookie() {
+    return document.cookie.split(';').some(function(c) {
+      return c.trim().startsWith(COOKIE + '=');
+    });
+  }
+
+  function setCookie() {
+    var d = new Date();
+    d.setTime(d.getTime() + 90 * 24 * 60 * 60 * 1000); // 90 days
+    document.cookie = COOKIE + '=1;expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
+  }
+
+  function unlock() {
+    window.scrollTo(0, 0);
+    overlay.classList.add('hidden');
+    document.body.classList.remove('gated');
+    setTimeout(function() { overlay.remove(); }, 400);
+  }
+
+  // Check cookie — skip gate if already submitted
+  if (hasCookie()) {
+    overlay.remove();
+  } else {
+    document.body.classList.add('gated');
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = form.querySelector('button');
+    var email = form.querySelector('input[name="email"]').value;
+    btn.disabled = true;
+    btn.textContent = '...';
+    error.textContent = '';
+
+    fetch('https://formspree.io/f/mgoqwdzw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ email: email })
+    })
+    .then(function(res) {
+      if (res.ok) {
+        setCookie();
+        unlock();
+      } else {
+        throw new Error();
+      }
+    })
+    .catch(function() {
+      error.textContent = 'Something went wrong. Try again.';
+      btn.disabled = false;
+      btn.textContent = 'Read it';
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
